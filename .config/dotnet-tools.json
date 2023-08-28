@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "Bogus.CLI": {
+      "version": "1.0.0",
+      "commands": ["generate"]
+    }
+  }
+}
