@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Pack>true</Pack>
+    <ToolCommandName>bogus</ToolCommandName>
+	<Version>1.0.0-beta</Version>
+	<Description>Minha ferramenta para gerar dados fake com o pacote Bogus.</Description>
+	<PackageTags>bogus, faker, fake, cli, data-generation</PackageTags>
+	<Authors>Tiago Aguiar Moreira</Authors>
+	<RepositoryUrl>https://github.com/tiago-aguiar-moreira/Bogus.CLI</RepositoryUrl>
+	<ProjectUrl></ProjectUrl>
+	<License>MIT</License>
+	<ReleaseNotes>
+		- Suporte para gerar múltiplos datasets.
+		- Adicionada flag `--locale`.
+		- Corrigido problema na formatação da saída.
+	</ReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bogus" Version="35.6.1" />
+    <PackageReference Include="Cocona" Version="2.2.0" />
+  </ItemGroup>
+
+</Project>
