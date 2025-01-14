@@ -4,7 +4,7 @@
       "commandName": "Project",
 
       // LIST
-      "commandLineArgs": "list"
+      //"commandLineArgs": "list"
       //"commandLineArgs": "list -g lorem"
       //"commandLineArgs": "list -g name"
       //"commandLineArgs": "list -g phone"
@@ -47,12 +47,12 @@
 
       // GENERATE NAME
       //"commandLineArgs": "generate name.firstName"
-      //"commandLineArgs": "generate name.firstname --gender male"
-      //"commandLineArgs": "generate name.firstname --gender female"
+      //"commandLineArgs": "generate name.firstname --parameters gender=male"
+      //"commandLineArgs": "generate name.firstname --parameters gender=female"
       //"commandLineArgs": "generate name.lastName"
       //"commandLineArgs": "generate name.fullName"
       //"commandLineArgs": "generate name.prefix"
-      //"commandLineArgs": "generate name.suffix"
+      "commandLineArgs": "generate name.suffix"
       //"commandLineArgs": "generate name.findName"
       //"commandLineArgs": "generate name.jobTitle"
       //"commandLineArgs": "generate name.jobDescriptor"

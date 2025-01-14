@@ -31,15 +31,11 @@ public static class GenerateCommand
             var row = new List<string>();
             foreach (var generator in generators)
             {
-                var parts = generator.Split('.');
-                if (parts.Length != 2)
+                if (TryGetCategoryAndProperty(generator, out var category, out var property))
                 {
                     Console.WriteLine($"Invalid format for generator: {generator}. Use <generator.sub-option>.");
                     return;
                 }
-
-                var category = parts[0].ToLower();
-                var property = parts[1].ToLower();
 
                 var value = GetFakeData(faker, category, property, parsedParams);
 
@@ -54,6 +50,21 @@ public static class GenerateCommand
 
         foreach (var row in results)
             Console.WriteLine(string.Join(" ", row));
+    }
+
+    private static bool TryGetCategoryAndProperty(string generator, out string category, out string property)
+    {
+        var parts = generator.Split('.');
+        if (parts.Length != 2)
+        {
+            category = string.Empty;
+            property = string.Empty;
+            return false;
+        }
+
+        category = parts[0].ToLower();
+        property = parts[1].ToLower();
+        return true;
     }
 
     private static Dictionary<string, object> ParseParameters(string? parameters)
