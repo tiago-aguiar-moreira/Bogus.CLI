@@ -7,7 +7,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1ADE8C6F-DAB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bogus.CLI.App", "src\Bogus.CLI.App\Bogus.CLI.App.csproj", "{8A09283F-C6A3-48F9-A30F-98B4F81C5BCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bogus.CLI.Tests", "tests\Bogus.CLI.Tests\Bogus.CLI.Tests.csproj", "{B64AA62F-83EE-4877-96D5-2C5A3372ADC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bogus.CLI.Tests", "tests\Bogus.CLI.Tests\Bogus.CLI.Tests.csproj", "{B64AA62F-83EE-4877-96D5-2C5A3372ADC3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{40A1C704-7AA7-4153-82EF-FC3301557B91}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		bogus-workflow.yml = bogus-workflow.yml
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
