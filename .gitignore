@@ -1,9 +1,10 @@
+nupkgs
+
 **/src/**/bin
 **/src/**/obj
 
 **/tests/**/bin
 **/tests/**/obj
-
 
 # Log files
 *.log
