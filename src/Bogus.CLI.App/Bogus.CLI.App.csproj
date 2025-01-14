@@ -7,6 +7,7 @@
     <Nullable>enable</Nullable>
     <Pack>true</Pack>
     <ToolCommandName>bogus</ToolCommandName>
+	<PackageId>Bogus.CLI</PackageId>
 	<Version>1.0.0-beta</Version>
 	<Description>Minha ferramenta para gerar dados fake com o pacote Bogus.</Description>
 	<PackageTags>bogus, faker, fake, cli, data-generation</PackageTags>
@@ -17,7 +18,6 @@
 	<ReleaseNotes>
 		- Suporte para gerar múltiplos datasets.
 		- Adicionada flag `--locale`.
-		- Corrigido problema na formatação da saída.
 	</ReleaseNotes>
   </PropertyGroup>
 
