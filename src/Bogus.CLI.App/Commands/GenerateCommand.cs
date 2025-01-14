@@ -31,7 +31,7 @@ public static class GenerateCommand
             var row = new List<string>();
             foreach (var generator in generators)
             {
-                if (TryGetCategoryAndProperty(generator, out var category, out var property))
+                if (!TryGetCategoryAndProperty(generator, out var category, out var property))
                 {
                     Console.WriteLine($"Invalid format for generator: {generator}. Use <generator.sub-option>.");
                     return;
