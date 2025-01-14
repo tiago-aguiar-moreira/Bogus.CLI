@@ -1,0 +1,37 @@
+name: Build and Publish NuGet Tool
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.yml'
+      - '**/*.gitignore'
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build the project
+      run: dotnet build --configuration Release
+
+    - name: Pack the project
+      run: dotnet pack --configuration Release --output ./nupkgs
+
+    - name: Publish to NuGet
+      run: |
+        FILE=$(find ./nupkgs -name "Bogus.CLI.*.nupkg" | head -n 1)
+        dotnet nuget push "$FILE" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
