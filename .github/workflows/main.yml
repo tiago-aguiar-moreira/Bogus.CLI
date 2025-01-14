@@ -1,6 +1,7 @@
 name: Build and Publish NuGet Tool
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
@@ -32,6 +33,4 @@ jobs:
       run: dotnet pack --configuration Release --output ./nupkgs
 
     - name: Publish to NuGet
-      run: |
-        FILE=$(find ./nupkgs -name "Bogus.CLI.*.nupkg" | head -n 1)
-        dotnet nuget push "$FILE" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push ./nupkgs/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
