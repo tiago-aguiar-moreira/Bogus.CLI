@@ -1,8 +1,22 @@
 ﻿using Bogus.CLI.App.Commands;
+using Bogus.CLI.App.Services;
+using Bogus.CLI.App.Services.Interface;
 using Cocona;
+using Microsoft.Extensions.DependencyInjection;
 
-var app = CoconaApp.CreateBuilder().Build();
+var builder = CoconaApp.CreateBuilder();
 
-app.AddGenerateCommand();
-app.AddListCommand();
+builder.Services.AddSingleton<IFakerService, FakerService>();
+builder.Services.AddScoped<IFakeDataLoremService, FakeDataLoremService>();
+builder.Services.AddScoped<IFakeDataNameService, FakeDataNameService>();
+builder.Services.AddScoped<IFakeDataPhoneService, FakeDataPhoneService>();
+builder.Services.AddScoped<IDatasetService, DatasetService>();
+builder.Services.AddScoped<IListDatasetService, ListDatasetService>();
+builder.Services.AddScoped<IListLocaleService, ListLocaleService>();
+
+var app = builder.Build();
+
+app.ConfigureDatasetCommand();
+app.ConfigureListDatasetCommand();
+app.ConfigureListLocaleCommand();
 app.Run();

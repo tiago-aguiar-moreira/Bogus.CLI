@@ -1,14 +1,13 @@
 ﻿using Bogus.CLI.App.Constants;
 using Bogus.CLI.App.Constants.Properties;
-using Cocona;
-using Cocona.Builder;
+using Bogus.CLI.App.Services.Interface;
 
-namespace Bogus.CLI.App.Commands;
-public static class ListCommand
+namespace Bogus.CLI.App.Services;
+public class ListDatasetService : IListDatasetService
 {
-    private static readonly SortedDictionary<string, List<string>> _categories = new()
+    private static readonly IDictionary<string, IList<string>> _categories = new Dictionary<string, IList<string>>()
     {
-        { 
+        {
             Categories.LOREM, new List<string>
             {
                 LoremProperty.WORD,
@@ -21,7 +20,7 @@ public static class ListCommand
                 LoremProperty.TEXT,
                 LoremProperty.LINES,
                 LoremProperty.SLUG
-} 
+}
         },
         {
             Categories.NAME, new List<string>
@@ -47,25 +46,20 @@ public static class ListCommand
         }
     };
 
-    public static CommandConventionBuilder AddListCommand(this ICoconaCommandsBuilder builder) => builder
-        .AddCommand("list", GetCommand)
-        .WithDescription("Lists all available categories.");
-
-    private static void GetCommand([Option('g', Description = "")] string? generatorName)
+    public IList<string> ExecuteCommand(string? datasetName)
     {
-        if (!string.IsNullOrEmpty(generatorName) &&
-            _categories.TryGetValue(generatorName.ToLower(), out var properties))
+        var datasets = new List<string>();
+
+        if (string.IsNullOrEmpty(datasetName))
         {
-            Console.WriteLine($"> {generatorName}");
-            Console.WriteLine();
-
-            foreach (var property in properties.Order())
-                Console.WriteLine($"- {property}");
-
-            return;
+            datasets.AddRange(_categories.Select(s => s.Key).Order());
+        }
+        else
+        {
+            if (_categories.TryGetValue(datasetName.ToLower(), out var properties))
+                datasets.AddRange(properties.Order());
         }
 
-        foreach (var category in _categories)
-            Console.WriteLine($"- {category.Key}");
+        return datasets;
     }
 }

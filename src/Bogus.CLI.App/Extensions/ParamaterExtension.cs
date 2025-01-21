@@ -1,5 +1,5 @@
 ﻿namespace Bogus.CLI.App.Extensions;
-public static class ParamatersExtension
+public static class ParamaterExtension
 {
     public static int ConvertToInt(this Dictionary<string, object> parameters, string key, int defaultValue)
         => !string.IsNullOrEmpty(key) && parameters.TryGetValue(key.ToLower(), out var value) && int.TryParse(value.ToString(), out var intValue)
@@ -17,17 +17,17 @@ public static class ParamatersExtension
             : defaultValue;
 
     public static char ConvertToChar(this Dictionary<string, object> parameters, string key, char defaultValue)
-        => !string.IsNullOrEmpty(key) && parameters.TryGetValue(key.ToLower(), out var value) && char.TryParse(value?.ToString(), out var result)
+        => !string.IsNullOrEmpty(key) && parameters.TryGetValue(key.ToLower(), out var value) && char.TryParse(value.ToString(), out var result)
             ? result
             : defaultValue;
 
     public static bool ConvertToBool(this Dictionary<string, object> parameters, string key, bool defaultValue)
-        => !string.IsNullOrEmpty(key) && parameters.TryGetValue(key.ToLower(), out var value) && bool.TryParse(value?.ToString(), out var result)
+        => !string.IsNullOrEmpty(key) && parameters.TryGetValue(key.ToLower(), out var value) && bool.TryParse(value.ToString(), out var result)
             ? result
             : defaultValue;
 
     public static bool? ConvertToBool(this Dictionary<string, object> parameters, string key, bool? defaultValue)
-        => !string.IsNullOrEmpty(key) && parameters.TryGetValue(key.ToLower(), out var value) && bool.TryParse(value?.ToString(), out var result)
+        => !string.IsNullOrEmpty(key) && parameters.TryGetValue(key.ToLower(), out var value) && bool.TryParse(value.ToString(), out var result)
             ? result
             : defaultValue;
 

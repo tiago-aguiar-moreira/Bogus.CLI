@@ -8,21 +8,21 @@
     <Pack>true</Pack>
     <ToolCommandName>bogus</ToolCommandName>
 	<PackageId>BogusCLI</PackageId>
-	<Version>1.0.0-beta</Version>
-	<Description>"Bogus.CLI is a command-line tool built on the powerful Bogus library by Brian Chavez. It simplifies fake data generation, allowing you to create flexible and efficient data directly from your terminal.</Description>
+	<Version>1.0.1</Version>
+	<Description>Bogus.CLI is a command-line tool built on the powerful Bogus library by Brian Chavez. It simplifies fake data generation, allowing you to create flexible and efficient data directly from your terminal.</Description>
 	<PackageTags>bogus, faker, fake, cli, data-generation</PackageTags>
 	<Authors>Tiago Aguiar Moreira</Authors>
 	<RepositoryUrl>https://github.com/tiago-aguiar-moreira/Bogus.CLI</RepositoryUrl>
 	<ProjectUrl></ProjectUrl>
 	<License>MIT</License>
-	<ReleaseNotes>
-		Supports generating fake data for Lorem, Name, and Phone.
-	</ReleaseNotes>
+	<ReleaseNotes>Supports generating fake data for Lorem, Name, and Phone.</ReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Bogus" Version="35.6.1" />
     <PackageReference Include="Cocona" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.1" />
   </ItemGroup>
 
 </Project>
