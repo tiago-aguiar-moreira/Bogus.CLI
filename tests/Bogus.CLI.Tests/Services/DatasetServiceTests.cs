@@ -9,26 +9,26 @@ namespace Bogus.CLI.Tests.Services;
 public class DatasetServiceTests
 {
     private readonly DatasetService _datasetService;
-    private readonly Mock<IDatasetHelper> _datasetHelper;
-    private readonly Mock<IFakerService> _fakerService;
-    private readonly Mock<IFakeDataLoremService> _fakeDataLoremService;
-    private readonly Mock<IFakeDataNameService> _fakeDataNameService;
-    private readonly Mock<IFakeDataPhoneService> _fakeDataPhoneService;
+    private readonly Mock<IDatasetHelper> _datasetHelperMock;
+    private readonly Mock<IFakerService> _fakerServiceMock;
+    private readonly Mock<IFakeDataLoremService> _fakeDataLoremServiceMock;
+    private readonly Mock<IFakeDataNameService> _fakeDataNameServiceMock;
+    private readonly Mock<IFakeDataPhoneService> _fakeDataPhoneServiceMock;
 
     public DatasetServiceTests()
     {
-        _fakerService = new Mock<IFakerService>();
-        _datasetHelper = new Mock<IDatasetHelper>();
-        _fakeDataLoremService = new Mock<IFakeDataLoremService>();
-        _fakeDataNameService = new Mock<IFakeDataNameService>();
-        _fakeDataPhoneService = new Mock<IFakeDataPhoneService>();
+        _fakerServiceMock = new Mock<IFakerService>();
+        _datasetHelperMock = new Mock<IDatasetHelper>();
+        _fakeDataLoremServiceMock = new Mock<IFakeDataLoremService>();
+        _fakeDataNameServiceMock = new Mock<IFakeDataNameService>();
+        _fakeDataPhoneServiceMock = new Mock<IFakeDataPhoneService>();
 
         _datasetService = new DatasetService(
-            _datasetHelper.Object,
-            _fakerService.Object,
-            _fakeDataLoremService.Object,
-            _fakeDataNameService.Object,
-            _fakeDataPhoneService.Object);
+            _datasetHelperMock.Object,
+            _fakerServiceMock.Object,
+            _fakeDataLoremServiceMock.Object,
+            _fakeDataNameServiceMock.Object,
+            _fakeDataPhoneServiceMock.Object);
     }
 
     #region Tests Should Be Fail
@@ -41,7 +41,7 @@ public class DatasetServiceTests
         var rowsCount = 10;
         var parsedParameters = new Dictionary<string, object>();
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.TryParseParameters(It.IsAny<string>(), out parsedParameters))
             .Returns(false);
 
@@ -53,25 +53,25 @@ public class DatasetServiceTests
         Assert.Empty(resultActual);
         Assert.NotEmpty(message);
 
-        _datasetHelper.Verify(v => v.TryParseParameters(
+        _datasetHelperMock.Verify(v => v.TryParseParameters(
             It.IsAny<string>(), out It.Ref<Dictionary<string, object>>.IsAny), Times.Once());
 
-        _datasetHelper.Verify(v => v.TryParseDatasetAndProperty(
+        _datasetHelperMock.Verify(v => v.TryParseDatasetAndProperty(
             It.IsAny<string>(), out It.Ref<string>.IsAny, out It.Ref<string>.IsAny), Times.Never());
 
-        _datasetHelper.Verify(v => v.DatasetExists(
+        _datasetHelperMock.Verify(v => v.DatasetExists(
             It.IsAny<string>()), Times.Never());
 
-        _datasetHelper.Verify(v => v.PropertyExists(
+        _datasetHelperMock.Verify(v => v.PropertyExists(
             It.IsAny<string>(), It.IsAny<string>()), Times.Never());
 
-        _fakeDataLoremService.Verify(v => v.Generate(
+        _fakeDataLoremServiceMock.Verify(v => v.Generate(
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
 
-        _fakeDataNameService.Verify(v => v.Generate(
+        _fakeDataNameServiceMock.Verify(v => v.Generate(
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
 
-        _fakeDataPhoneService.Verify(v => v.Generate(
+        _fakeDataPhoneServiceMock.Verify(v => v.Generate(
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
     }
 
@@ -85,7 +85,7 @@ public class DatasetServiceTests
         var datasets = new string[] { $"{Datasets.LOREM}.{LoremProperty.WORD}" };
         var parsedParameters = new Dictionary<string, object>();
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.TryParseParameters(It.IsAny<string>(), out parsedParameters))
             .Returns(true);
 
@@ -97,25 +97,25 @@ public class DatasetServiceTests
         Assert.Empty(resultActual);
         Assert.NotEmpty(message);
 
-        _datasetHelper.Verify(v => v.TryParseParameters(
+        _datasetHelperMock.Verify(v => v.TryParseParameters(
             It.IsAny<string>(), out It.Ref<Dictionary<string, object>>.IsAny), Times.Once());
 
-        _datasetHelper.Verify(v => v.TryParseDatasetAndProperty(
+        _datasetHelperMock.Verify(v => v.TryParseDatasetAndProperty(
             It.IsAny<string>(), out It.Ref<string>.IsAny, out It.Ref<string>.IsAny), Times.Never());
 
-        _datasetHelper.Verify(v => v.DatasetExists(
+        _datasetHelperMock.Verify(v => v.DatasetExists(
             It.IsAny<string>()), Times.Never());
 
-        _datasetHelper.Verify(v => v.PropertyExists(
+        _datasetHelperMock.Verify(v => v.PropertyExists(
             It.IsAny<string>(), It.IsAny<string>()), Times.Never());
 
-        _fakeDataLoremService.Verify(v => v.Generate(
+        _fakeDataLoremServiceMock.Verify(v => v.Generate(
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
 
-        _fakeDataNameService.Verify(v => v.Generate(
+        _fakeDataNameServiceMock.Verify(v => v.Generate(
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
 
-        _fakeDataPhoneService.Verify(v => v.Generate(
+        _fakeDataPhoneServiceMock.Verify(v => v.Generate(
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
     }
 
@@ -127,14 +127,14 @@ public class DatasetServiceTests
         var rowsCount = 10;
         var parsedParameters = new Dictionary<string, object>();
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.TryParseParameters(It.IsAny<string>(), out parsedParameters))
             .Returns(true);
 
         var datasetName = string.Empty;
         var propertyName = string.Empty;
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.TryParseDatasetAndProperty(It.IsAny<string>(), out datasetName, out propertyName))
             .Returns(false);
 
@@ -146,25 +146,25 @@ public class DatasetServiceTests
         Assert.Empty(resultActual);
         Assert.NotEmpty(message);
 
-        _datasetHelper.Verify(v => v.TryParseParameters(
+        _datasetHelperMock.Verify(v => v.TryParseParameters(
             It.IsAny<string>(), out It.Ref<Dictionary<string, object>>.IsAny), Times.Once());
 
-        _datasetHelper.Verify(v => v.TryParseDatasetAndProperty(
+        _datasetHelperMock.Verify(v => v.TryParseDatasetAndProperty(
             It.IsAny<string>(), out It.Ref<string>.IsAny, out It.Ref<string>.IsAny), Times.Once());
 
-        _datasetHelper.Verify(v => v.DatasetExists(
+        _datasetHelperMock.Verify(v => v.DatasetExists(
             It.IsAny<string>()), Times.Never());
 
-        _datasetHelper.Verify(v => v.PropertyExists(
+        _datasetHelperMock.Verify(v => v.PropertyExists(
             It.IsAny<string>(), It.IsAny<string>()), Times.Never());
 
-        _fakeDataLoremService.Verify(v => v.Generate(
+        _fakeDataLoremServiceMock.Verify(v => v.Generate(
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
 
-        _fakeDataNameService.Verify(v => v.Generate(
+        _fakeDataNameServiceMock.Verify(v => v.Generate(
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
 
-        _fakeDataPhoneService.Verify(v => v.Generate(
+        _fakeDataPhoneServiceMock.Verify(v => v.Generate(
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
     }
 
@@ -176,18 +176,18 @@ public class DatasetServiceTests
         var rowsCount = 10;
         var parsedParameters = new Dictionary<string, object>();
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.TryParseParameters(It.IsAny<string>(), out parsedParameters))
             .Returns(true);
 
         var datasetName = string.Empty;
         var propertyName = string.Empty;
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.TryParseDatasetAndProperty(It.IsAny<string>(), out datasetName, out propertyName))
             .Returns(true);
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.DatasetExists(It.IsAny<string>()))
             .Returns(false);
 
@@ -199,25 +199,25 @@ public class DatasetServiceTests
         Assert.Empty(resultActual);
         Assert.NotEmpty(message);
 
-        _datasetHelper.Verify(v => v.TryParseParameters(
+        _datasetHelperMock.Verify(v => v.TryParseParameters(
             It.IsAny<string>(), out It.Ref<Dictionary<string, object>>.IsAny), Times.Once());
 
-        _datasetHelper.Verify(v => v.TryParseDatasetAndProperty(
+        _datasetHelperMock.Verify(v => v.TryParseDatasetAndProperty(
             It.IsAny<string>(), out It.Ref<string>.IsAny, out It.Ref<string>.IsAny), Times.Once());
 
-        _datasetHelper.Verify(v => v.DatasetExists(
+        _datasetHelperMock.Verify(v => v.DatasetExists(
             It.IsAny<string>()), Times.Once());
 
-        _datasetHelper.Verify(v => v.PropertyExists(
+        _datasetHelperMock.Verify(v => v.PropertyExists(
             It.IsAny<string>(), It.IsAny<string>()), Times.Never());
 
-        _fakeDataLoremService.Verify(v => v.Generate(
+        _fakeDataLoremServiceMock.Verify(v => v.Generate(
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
 
-        _fakeDataNameService.Verify(v => v.Generate(
+        _fakeDataNameServiceMock.Verify(v => v.Generate(
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
 
-        _fakeDataPhoneService.Verify(v => v.Generate(
+        _fakeDataPhoneServiceMock.Verify(v => v.Generate(
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
     }
 
@@ -229,22 +229,22 @@ public class DatasetServiceTests
         var rowsCount = 10;
         var parsedParameters = new Dictionary<string, object>();
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.TryParseParameters(It.IsAny<string>(), out parsedParameters))
             .Returns(true);
 
         var datasetName = string.Empty;
         var propertyName = string.Empty;
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.TryParseDatasetAndProperty(It.IsAny<string>(), out datasetName, out propertyName))
             .Returns(true);
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.DatasetExists(It.IsAny<string>()))
             .Returns(true);
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.PropertyExists(It.IsAny<string>(), It.IsAny<string>()))
             .Returns(false);
 
@@ -256,25 +256,25 @@ public class DatasetServiceTests
         Assert.Empty(resultActual);
         Assert.NotEmpty(message);
 
-        _datasetHelper.Verify(v => v.TryParseParameters(
+        _datasetHelperMock.Verify(v => v.TryParseParameters(
             It.IsAny<string>(), out It.Ref<Dictionary<string, object>>.IsAny), Times.Once());
 
-        _datasetHelper.Verify(v => v.TryParseDatasetAndProperty(
+        _datasetHelperMock.Verify(v => v.TryParseDatasetAndProperty(
             It.IsAny<string>(), out It.Ref<string>.IsAny, out It.Ref<string>.IsAny), Times.Once());
 
-        _datasetHelper.Verify(v => v.DatasetExists(
+        _datasetHelperMock.Verify(v => v.DatasetExists(
             It.IsAny<string>()), Times.Once());
 
-        _datasetHelper.Verify(v => v.PropertyExists(
+        _datasetHelperMock.Verify(v => v.PropertyExists(
             It.IsAny<string>(), It.IsAny<string>()), Times.Once());
 
-        _fakeDataLoremService.Verify(v => v.Generate(
+        _fakeDataLoremServiceMock.Verify(v => v.Generate(
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
 
-        _fakeDataNameService.Verify(v => v.Generate(
+        _fakeDataNameServiceMock.Verify(v => v.Generate(
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
 
-        _fakeDataPhoneService.Verify(v => v.Generate(
+        _fakeDataPhoneServiceMock.Verify(v => v.Generate(
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
     }
 
@@ -286,22 +286,22 @@ public class DatasetServiceTests
         var rowsCount = 10;
         var parsedParameters = new Dictionary<string, object>();
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.TryParseParameters(It.IsAny<string>(), out parsedParameters))
             .Returns(true);
 
         var datasetName = string.Empty;
         var propertyName = string.Empty;
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.TryParseDatasetAndProperty(It.IsAny<string>(), out datasetName, out propertyName))
             .Returns(true);
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.DatasetExists(It.IsAny<string>()))
             .Returns(true);
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.PropertyExists(It.IsAny<string>(), It.IsAny<string>()))
             .Returns(true);
 
@@ -313,25 +313,25 @@ public class DatasetServiceTests
         Assert.Empty(resultActual);
         Assert.NotEmpty(message);
 
-        _datasetHelper.Verify(v => v.TryParseParameters(
+        _datasetHelperMock.Verify(v => v.TryParseParameters(
             It.IsAny<string>(), out It.Ref<Dictionary<string, object>>.IsAny), Times.Once());
 
-        _datasetHelper.Verify(v => v.TryParseDatasetAndProperty(
+        _datasetHelperMock.Verify(v => v.TryParseDatasetAndProperty(
             It.IsAny<string>(), out It.Ref<string>.IsAny, out It.Ref<string>.IsAny), Times.Once());
 
-        _datasetHelper.Verify(v => v.DatasetExists(
+        _datasetHelperMock.Verify(v => v.DatasetExists(
             It.IsAny<string>()), Times.Once());
 
-        _datasetHelper.Verify(v => v.PropertyExists(
+        _datasetHelperMock.Verify(v => v.PropertyExists(
             It.IsAny<string>(), It.IsAny<string>()), Times.Once());
 
-        _fakeDataLoremService.Verify(v => v.Generate(
+        _fakeDataLoremServiceMock.Verify(v => v.Generate(
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
 
-        _fakeDataNameService.Verify(v => v.Generate(
+        _fakeDataNameServiceMock.Verify(v => v.Generate(
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
 
-        _fakeDataPhoneService.Verify(v => v.Generate(
+        _fakeDataPhoneServiceMock.Verify(v => v.Generate(
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
     }
 
@@ -350,23 +350,23 @@ public class DatasetServiceTests
         var rowsCount = 10;
         var parsedParameters = new Dictionary<string, object>();
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.TryParseParameters(It.IsAny<string>(), out parsedParameters))
             .Returns(true);
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.TryParseDatasetAndProperty(It.IsAny<string>(), out datasetName, out propertyName))
             .Returns(true);
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.DatasetExists(It.IsAny<string>()))
             .Returns(true);
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.PropertyExists(It.IsAny<string>(), It.IsAny<string>()))
             .Returns(true);
 
-        _fakeDataLoremService
+        _fakeDataLoremServiceMock
             .Setup(s => s.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
             .Returns("abcde");
 
@@ -378,13 +378,13 @@ public class DatasetServiceTests
         Assert.NotEmpty(resultActual);
         Assert.Empty(message);
 
-        _fakeDataLoremService
+        _fakeDataLoremServiceMock
             .Verify(v => v.Generate(propertyName, new Dictionary<string, object>()), Times.Exactly(rowsCount));
 
-        _fakeDataNameService
+        _fakeDataNameServiceMock
             .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
 
-        _fakeDataPhoneService
+        _fakeDataPhoneServiceMock
             .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
     }
 
@@ -399,23 +399,23 @@ public class DatasetServiceTests
         var rowsCount = 10;
         var parsedParameters = new Dictionary<string, object>();
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.TryParseParameters(It.IsAny<string>(), out parsedParameters))
             .Returns(true);
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.TryParseDatasetAndProperty(It.IsAny<string>(), out datasetName, out propertyName))
             .Returns(true);
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.DatasetExists(It.IsAny<string>()))
             .Returns(true);
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.PropertyExists(It.IsAny<string>(), It.IsAny<string>()))
             .Returns(true);
 
-        _fakeDataNameService
+        _fakeDataNameServiceMock
             .Setup(s => s.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
             .Returns("abcde");
 
@@ -426,13 +426,13 @@ public class DatasetServiceTests
         // Assert
         Assert.Empty(message);
 
-        _fakeDataLoremService
+        _fakeDataLoremServiceMock
             .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
 
-        _fakeDataNameService
+        _fakeDataNameServiceMock
             .Verify(v => v.Generate(propertyName, new Dictionary<string, object>()), Times.Exactly(rowsCount));
 
-        _fakeDataPhoneService
+        _fakeDataPhoneServiceMock
             .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
     }
 
@@ -447,23 +447,23 @@ public class DatasetServiceTests
         var rowsCount = 10;
         var parsedParameters = new Dictionary<string, object>();
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.TryParseParameters(It.IsAny<string>(), out parsedParameters))
             .Returns(true);
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.TryParseDatasetAndProperty(It.IsAny<string>(), out datasetName, out propertyName))
             .Returns(true);
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.DatasetExists(It.IsAny<string>()))
             .Returns(true);
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(s => s.PropertyExists(It.IsAny<string>(), It.IsAny<string>()))
             .Returns(true);
 
-        _fakeDataPhoneService
+        _fakeDataPhoneServiceMock
             .Setup(s => s.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
             .Returns("abcde");
 
@@ -474,13 +474,13 @@ public class DatasetServiceTests
         // Assert
         Assert.Empty(message);
 
-        _fakeDataLoremService
+        _fakeDataLoremServiceMock
             .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
 
-        _fakeDataNameService
+        _fakeDataNameServiceMock
             .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
 
-        _fakeDataPhoneService
+        _fakeDataPhoneServiceMock
             .Verify(v => v.Generate(propertyName, new Dictionary<string, object>()), Times.Exactly(rowsCount));
     }
 

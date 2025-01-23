@@ -9,12 +9,12 @@ namespace Bogus.CLI.Tests.Services;
 public class ListDatasetServiceTests
 {
     private readonly IListDatasetService _listDatasetService;
-    private readonly Mock<IDatasetHelper> _datasetHelper;
+    private readonly Mock<IDatasetHelper> _datasetHelperMock;
 
     public ListDatasetServiceTests()
     {
-        _datasetHelper = new Mock<IDatasetHelper>();
-        _listDatasetService = new ListDatasetService(_datasetHelper.Object);
+        _datasetHelperMock = new Mock<IDatasetHelper>();
+        _listDatasetService = new ListDatasetService(_datasetHelperMock.Object);
     }
 
     [Fact]
@@ -30,7 +30,7 @@ public class ListDatasetServiceTests
             LoremProperty.SENTENCE
         };
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(x => x.ListPropertiesByDatasetName(It.IsAny<string>()))
             .Returns(expectedList);
 
@@ -40,8 +40,8 @@ public class ListDatasetServiceTests
 
         // Assert
         Assert.Equal(expectedList.Count, actualList.Count);
-        _datasetHelper.Verify(v => v.ListDataset(), Times.Never);
-        _datasetHelper.Verify(v => v.ListPropertiesByDatasetName(It.IsAny<string>()), Times.Once);
+        _datasetHelperMock.Verify(v => v.ListDataset(), Times.Never);
+        _datasetHelperMock.Verify(v => v.ListPropertiesByDatasetName(It.IsAny<string>()), Times.Once);
     }
 
     [Theory]
@@ -57,7 +57,7 @@ public class ListDatasetServiceTests
             Datasets.PHONE
         };
 
-        _datasetHelper
+        _datasetHelperMock
             .Setup(x => x.ListDataset())
             .Returns(expectedList);
 
@@ -67,7 +67,7 @@ public class ListDatasetServiceTests
 
         // Assert
         Assert.Equal(expectedList.Count, actualList.Count);
-        _datasetHelper.Verify(v => v.ListDataset(), Times.Once);
-        _datasetHelper.Verify(v => v.ListPropertiesByDatasetName(It.IsAny<string>()), Times.Never);
+        _datasetHelperMock.Verify(v => v.ListDataset(), Times.Once);
+        _datasetHelperMock.Verify(v => v.ListPropertiesByDatasetName(It.IsAny<string>()), Times.Never);
     }
 }
