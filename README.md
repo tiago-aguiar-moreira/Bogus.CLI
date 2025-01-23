@@ -8,7 +8,7 @@ If this tool helps you be more productive, please leave a star ⭐ on the reposi
 [Dotnet Tool Bogus.CLI](https://www.nuget.org/packages/BogusCLI)
 
 ```
-dotnet tool install --global Bogus.Cli
+dotnet tool install --global BogusCli
 ```
 Minimum requirements: .NET 8.0.
 
@@ -25,11 +25,11 @@ The command performs an action. For example, `bogus dataset` generates a mass of
 
 ## Arguments
 
-The arguments you pass on the command line are for the invoked command. For example, when you run bogus `dataset name.FullName --count 50`, the argument name.FullName indicates the type of data that will be generated.
+The arguments you pass on the command line are for the invoked command. For example, when you run bogus `dataset name.fullName --count 50`, the argument name.FullName indicates the type of data that will be generated.
 
 ## Options
 
-The options you pass on the command line are options for the invoked command. For example, when you run `bogus dataset name.FullName --count 50`, the option `count` indicates the number of records that will be generated.
+The options you pass on the command line are options for the invoked command. For example, when you run `bogus dataset name.fullName --count 50`, the option `count` indicates the number of records that will be generated.
 
 # Available commands
 
