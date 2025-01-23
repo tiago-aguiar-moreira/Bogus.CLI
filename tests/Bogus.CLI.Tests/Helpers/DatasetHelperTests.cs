@@ -174,4 +174,47 @@ public class DatasetHelperTest
 
     #endregion
 
+    #region PropertyExists
+
+    [Fact]
+    public void ListDataset_ReturnsNotEmptyList()
+    {
+        // Act
+        var datasets = _datasetHelper.ListDataset();
+
+        // Assert
+        Assert.NotEmpty(datasets);
+    }
+
+    #endregion
+
+    #region PropertyExists
+
+    [Theory]
+    [InlineData(Datasets.NAME)]
+    [InlineData(Datasets.LOREM)]
+    [InlineData(Datasets.PHONE)]
+    public void DatasetExists_ValidDataset_ReturnsTrue(string datasetName)
+    {
+        // Act
+        var datasetExists = _datasetHelper.DatasetExists(datasetName);
+
+        // Assert
+        Assert.True(datasetExists);
+    }
+
+    [Theory]
+    [InlineData("XPTO")]
+    [InlineData("ABC")]
+    [InlineData("123")]
+    public void DatasetExists_InvalidDataset_ReturnsFalse(string datasetName)
+    {
+        // Act
+        var datasetExists = _datasetHelper.DatasetExists(datasetName);
+
+        // Assert
+        Assert.False(datasetExists);
+    }
+
+    #endregion
 }
