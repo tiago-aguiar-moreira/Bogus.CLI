@@ -1,6 +1,9 @@
 ﻿using Bogus.CLI.App.Services.Interface;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Bogus.CLI.App.Services;
+
+[ExcludeFromCodeCoverage]
 public class FakerService : IFakerService
 {
     private string? _language = null;
