@@ -1,5 +1,5 @@
 ﻿namespace Bogus.CLI.App.Constants;
-public static class Categories
+public static class Datasets
 {
     public const string LOREM = "lorem";
     public const string PHONE = "phone";

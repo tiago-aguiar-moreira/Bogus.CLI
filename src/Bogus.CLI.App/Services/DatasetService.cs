@@ -1,14 +1,16 @@
 ﻿using Bogus.CLI.App.Constants;
+using Bogus.CLI.App.Helpers.Interface;
 using Bogus.CLI.App.Services.Interface;
-using System.Text.RegularExpressions;
 
 namespace Bogus.CLI.App.Services;
 public class DatasetService(
+    IDatasetHelper datasetHelper,
     IFakerService fakerService,
     IFakeDataLoremService fakeDataLoremService,
     IFakeDataNameService fakeDataNameService,
     IFakeDataPhoneService fakeDataPhoneService) : IDatasetService
 {
+    private readonly IDatasetHelper _datasetHelper = datasetHelper;
     private readonly IFakerService _fakerService = fakerService;
     private readonly IFakeDataLoremService _fakeDataLoremService = fakeDataLoremService;
     private readonly IFakeDataNameService _fakeDataNameService = fakeDataNameService;
@@ -22,9 +24,15 @@ public class DatasetService(
         _fakerService.SetLanguage(locale);
 
         var results = new List<List<string>>();
-        if (!TryParseParameters(parameters, out var parsedParams))
+        if (!_datasetHelper.TryParseParameters(parameters, out var parsedParams))
         {
             message = $"Sorry, but there is an issue with the parameters option. Please check.";
+            return results;
+        }
+
+        if (count <= 0)
+        {
+            message = $"The option --count must be greater than 1.";
             return results;
         }
 
@@ -33,23 +41,36 @@ public class DatasetService(
             var row = new List<string>();
             foreach (var dataset in datasets)
             {
-                if (!TryGetCategoryAndProperty(dataset, out var category, out var property))
+                if (!_datasetHelper.TryParseDatasetAndProperty(
+                    dataset, out var datasetName, out var propertyName))
                 {
                     message = $"Invalid format for dataset: {dataset}. Use <dataset.sub-option>.";
                     return results;
                 }
 
-                var value = category switch
+                if (!_datasetHelper.DatasetExists(datasetName))
                 {
-                    Categories.LOREM => _fakeDataLoremService.Generate(property, parsedParams),
-                    Categories.NAME => _fakeDataNameService.Generate(property, parsedParams),
-                    Categories.PHONE => _fakeDataPhoneService.Generate(property, parsedParams),
+                    message = $"Dataset '{datasetName}' not found.";
+                    return results;
+                }
+
+                if (!_datasetHelper.PropertyExists(datasetName, propertyName))
+                {
+                    message = $"The '{datasetName}' does not contain the property '{propertyName}'.";
+                    return results;
+                }
+
+                var value = datasetName switch
+                {
+                    Datasets.LOREM => _fakeDataLoremService.Generate(propertyName, parsedParams),
+                    Datasets.NAME => _fakeDataNameService.Generate(propertyName, parsedParams),
+                    Datasets.PHONE => _fakeDataPhoneService.Generate(propertyName, parsedParams),
                     _ => null
                 };
 
                 if (string.IsNullOrEmpty(value))
                 {
-                    message = $"Dataset or sub-option unknown: {dataset}";
+                    message = $"Dataset or property unknown: {datasetName}.{propertyName}";
                     return results;
                 }
 
@@ -63,42 +84,5 @@ public class DatasetService(
         return results;
     }
 
-    public static bool TryGetCategoryAndProperty(string dataset, out string category, out string property)
-    {
-        var parts = dataset.Split('.');
-        if (parts.Length != 2)
-        {
-            category = string.Empty;
-            property = string.Empty;
-            return false;
-        }
 
-        category = parts[0].ToLower();
-        property = parts[1].ToLower();
-        return true;
-    }
-
-    public static bool TryParseParameters(
-        string? parameters, out Dictionary<string, object> parsedParameters)
-    {
-        parsedParameters = [];
-
-        if (string.IsNullOrWhiteSpace(parameters))
-            return true;
-
-        var regex = new Regex(@"^[a-zA-Z]+=[\w\S]+$");
-        var splitParams = parameters.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
-        foreach (var param in splitParams)
-        {
-            if (!regex.IsMatch(param))
-                return false;
-
-            var keyValue = param.Split('=');
-            if (keyValue.Length == 2)
-                parsedParameters[keyValue[0].ToLower()] = keyValue[1];
-        }
-
-        return true;
-    }
 }
