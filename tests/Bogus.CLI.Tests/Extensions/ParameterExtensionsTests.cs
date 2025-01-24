@@ -250,4 +250,38 @@ public class ParamaterExtensionTests
     }
 
     #endregion
+
+    #region AddParameter
+
+    [Theory]
+    [InlineData("key", "Text")]
+    [InlineData("key", true)]
+    [InlineData("key", 54)]
+    public void AddParameter_ShouldAddValue_WhenKeyAndValueAreValid(string key, object value)
+    {
+        var expectedCount = 1;
+
+        // Act
+        _parameters.AddParameter(key, value);
+
+        // Assert
+        Assert.Equal(expectedCount, _parameters.Count);
+    }
+
+    [Theory]
+    [InlineData("", null)]
+    [InlineData(null, null)]
+    [InlineData(null, "")]
+    [InlineData("key", null)]
+    [InlineData("", "value")]
+    public void AddParameter_ShouldNotAddValue_WhenKeyOrValueAreInvalid(string key, object value)
+    {
+        // Act
+        _parameters.AddParameter(key, value);
+
+        // Assert
+        Assert.Empty(_parameters);
+    }
+
+    #endregion
 }
