@@ -4,19 +4,23 @@ namespace Bogus.CLI.Tests.Extensions;
 
 public class ParamaterExtensionTests
 {
+    private readonly IDictionary<string, object> _parameters;
+
+    public ParamaterExtensionTests()
+    {
+        _parameters = new Dictionary<string, object>();
+    }
+
     #region ConvertToInt (not nullable)
 
     [Fact]
     public void ConvertToIntNotNullable_ReturnsConvertedValue_WhenKeyExistsAndValueIsValid()
     {
         // Arrange
-        var parameters = new Dictionary<string, object>
-        {
-            { "key1", "123" }
-        };
-
+        _parameters.AddParameter("key1", "123");
+        
         // Act
-        var result = parameters.ConvertToInt("key1", 0);
+        var result = _parameters.ConvertToInt("key1", 0);
 
         // Assert
         Assert.Equal(123, result);
@@ -25,11 +29,8 @@ public class ParamaterExtensionTests
     [Fact]
     public void ConvertToIntNotNullable_ReturnsDefaultValue_WhenKeyDoesNotExist()
     {
-        // Arrange
-        var parameters = new Dictionary<string, object>();
-
         // Act
-        var result = parameters.ConvertToInt("key1", 0);
+        var result = _parameters.ConvertToInt("key1", 0);
 
         // Assert
         Assert.Equal(0, result);
@@ -39,13 +40,10 @@ public class ParamaterExtensionTests
     public void ConvertToIntNotNullable_ReturnsDefaultValue_WhenValueIsInvalid()
     {
         // Arrange
-        var parameters = new Dictionary<string, object>
-        {
-            { "key1", "abc" }
-        };
+        _parameters.AddParameter("key1", "abc");
 
         // Act
-        var result = parameters.ConvertToInt("key1", 0);
+        var result = _parameters.ConvertToInt("key1", 0);
 
         // Assert
         Assert.Equal(0, result);
@@ -59,13 +57,10 @@ public class ParamaterExtensionTests
     public void ConvertToIntNullable_ReturnsConvertedValue_WhenKeyExistsAndValueIsValid()
     {
         // Arrange
-        var parameters = new Dictionary<string, object>
-        {
-            { "key1", "123" }
-        };
-
+        _parameters.AddParameter("key1", "123");
+        
         // Act
-        var result = parameters.ConvertToInt("key1", null);
+        var result = _parameters.ConvertToInt("key1", null);
 
         // Assert
         Assert.Equal(123, result);
@@ -74,11 +69,8 @@ public class ParamaterExtensionTests
     [Fact]
     public void ConvertToIntNullable_ReturnsDefaultValue_WhenKeyDoesNotExist()
     {
-        // Arrange
-        var parameters = new Dictionary<string, object>();
-
         // Act
-        var result = parameters.ConvertToInt("key1", null);
+        var result = _parameters.ConvertToInt("key1", null);
 
         // Assert
         Assert.Null(result);
@@ -88,13 +80,10 @@ public class ParamaterExtensionTests
     public void ConvertToIntNullable_ReturnsDefaultValue_WhenValueIsInvalid()
     {
         // Arrange
-        var parameters = new Dictionary<string, object>
-        {
-            { "key1", "abc" }
-        };
+        _parameters.AddParameter("key1", "abc");
 
         // Act
-        var result = parameters.ConvertToInt("key1", null);
+        var result = _parameters.ConvertToInt("key1", null);
 
         // Assert
         Assert.Null(result);
@@ -108,13 +97,10 @@ public class ParamaterExtensionTests
     public void ConvertToString_ReturnsConvertedValue_WhenKeyExistsAndValueIsValid()
     {
         // Arrange
-        var parameters = new Dictionary<string, object>
-        {
-            { "key1", "value" }
-        };
+        _parameters.AddParameter("key1", "value");
 
         // Act
-        var result = parameters.ConvertToString("key1", "default");
+        var result = _parameters.ConvertToString("key1", "default");
 
         // Assert
         Assert.Equal("value", result);
@@ -123,11 +109,8 @@ public class ParamaterExtensionTests
     [Fact]
     public void ConvertToString_ReturnsDefaultValue_WhenKeyDoesNotExist()
     {
-        // Arrange
-        var parameters = new Dictionary<string, object>();
-
         // Act
-        var result = parameters.ConvertToString("key1", "default");
+        var result = _parameters.ConvertToString("key1", "default");
 
         // Assert
         Assert.Equal("default", result);
@@ -137,13 +120,10 @@ public class ParamaterExtensionTests
     public void ConvertToString_ReturnsDefaultValue_WhenValueIsInvalid()
     {
         // Arrange
-        var parameters = new Dictionary<string, object>
-        {
-            { "key1", null! }
-        };
+        _parameters.AddParameter("key1", null!);
 
         // Act
-        var result = parameters.ConvertToString("key1", "default");
+        var result = _parameters.ConvertToString("key1", "default");
 
         // Assert
         Assert.Equal("default", result);
@@ -157,13 +137,10 @@ public class ParamaterExtensionTests
     public void ConvertToChar_ReturnsConvertedValue_WhenKeyExistsAndValueIsValid()
     {
         // Arrange
-        var parameters = new Dictionary<string, object>
-        {
-            { "key1", "A" }
-        };
+        _parameters.AddParameter("key1", "A");
 
         // Act
-        var result = parameters.ConvertToChar("key1", 'B');
+        var result = _parameters.ConvertToChar("key1", 'B');
 
         // Assert
         Assert.Equal('A', result);
@@ -172,11 +149,8 @@ public class ParamaterExtensionTests
     [Fact]
     public void ConvertToChar_ReturnsDefaultValue_WhenKeyDoesNotExist()
     {
-        // Arrange
-        var parameters = new Dictionary<string, object>();
-
         // Act
-        var result = parameters.ConvertToChar("key1", 'B');
+        var result = _parameters.ConvertToChar("key1", 'B');
 
         // Assert
         Assert.Equal('B', result);
@@ -186,13 +160,10 @@ public class ParamaterExtensionTests
     public void ConvertToChar_ReturnsDefaultValue_WhenValueIsInvalid()
     {
         // Arrange
-        var parameters = new Dictionary<string, object>
-        {
-            { "key1", "abc" }
-        };
+        _parameters.AddParameter("key1", "abc");
 
         // Act
-        var result = parameters.ConvertToBool("key1", false);
+        var result = _parameters.ConvertToBool("key1", false);
 
         // Assert
         Assert.False(result);
@@ -206,13 +177,10 @@ public class ParamaterExtensionTests
     public void ConvertToBoolNotNullable_ReturnsConvertedValue_WhenKeyExistsAndValueIsValid()
     {
         // Arrange
-        var parameters = new Dictionary<string, object>
-        {
-            { "key1", "true" }
-        };
+        _parameters.AddParameter("key1", "true");
 
         // Act
-        var result = parameters.ConvertToBool("key1", false);
+        var result = _parameters.ConvertToBool("key1", false);
 
         // Assert
         Assert.True(result);
@@ -221,11 +189,8 @@ public class ParamaterExtensionTests
     [Fact]
     public void ConvertToBoolNotNullable_ReturnsDefaultValue_WhenKeyDoesNotExist()
     {
-        // Arrange
-        var parameters = new Dictionary<string, object>();
-
         // Act
-        var result = parameters.ConvertToBool("key1", false);
+        var result = _parameters.ConvertToBool("key1", false);
 
         // Assert
         Assert.False(result);
@@ -235,13 +200,10 @@ public class ParamaterExtensionTests
     public void ConvertToBoolNotNullable_ReturnsNullableBool_WhenKeyExistsAndValueIsValid()
     {
         // Arrange
-        var parameters = new Dictionary<string, object>
-        {
-            { "key1", "true" }
-        };
+        _parameters.AddParameter("key1", "true");
 
         // Act
-        var result = parameters.ConvertToBool("key1", null);
+        var result = _parameters.ConvertToBool("key1", null);
 
         // Assert
         Assert.True(result);
@@ -255,13 +217,10 @@ public class ParamaterExtensionTests
     public void ConvertToBoolNullable_ReturnsConvertedValue_WhenKeyExistsAndValueIsValid()
     {
         // Arrange
-        var parameters = new Dictionary<string, object>
-        {
-            { "key1", "true" }
-        };
+        _parameters.AddParameter("key1", "true");
 
         // Act
-        var result = parameters.ConvertToBool("key1", null);
+        var result = _parameters.ConvertToBool("key1", null);
 
         // Assert
         Assert.True(result);
@@ -270,11 +229,8 @@ public class ParamaterExtensionTests
     [Fact]
     public void ConvertToBoolNullable_ReturnsDefaultValue_WhenKeyDoesNotExist()
     {
-        // Arrange
-        var parameters = new Dictionary<string, object>();
-
         // Act
-        var result = parameters.ConvertToBool("key1", null);
+        var result = _parameters.ConvertToBool("key1", null);
 
         // Assert
         Assert.Null(result);
@@ -284,13 +240,10 @@ public class ParamaterExtensionTests
     public void ConvertToBoolNullable_ReturnsNullableBool_WhenKeyExistsAndValueIsValid()
     {
         // Arrange
-        var parameters = new Dictionary<string, object>
-        {
-            { "key1", "abc" }
-        };
+        _parameters.AddParameter("key1", "abc");
 
         // Act
-        var result = parameters.ConvertToBool("key1", null);
+        var result = _parameters.ConvertToBool("key1", null);
 
         // Assert
         Assert.Null(result);
