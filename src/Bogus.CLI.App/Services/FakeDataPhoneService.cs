@@ -7,26 +7,28 @@ namespace Bogus.CLI.App.Services;
 public class FakeDataPhoneService(IPhoneDataset phoneDataset) : IFakeDataPhoneService
 {
     public const string PARAM_FORMAT = "format";
+    public const string PARAM_PHONE_FORMATS_ARRAY_INDEX = "formatIndex";
 
     private readonly IPhoneDataset _phoneDataset = phoneDataset;
 
-    public string? Generate(string property, Dictionary<string, object> parameters) => property switch
+    public string? Generate(string property, IDictionary<string, object> parameters) => property switch
     {
         PhoneProperty.NUMBER => GeneratePhoneNumber(parameters),
-        PhoneProperty.FORMAT => GeneratePhoneNumberFormat(),
+        PhoneProperty.FORMAT => GeneratePhoneNumberFormat(parameters),
         _ => null
     };
 
-    private string GeneratePhoneNumber(Dictionary<string, object> parameters)
+    private string GeneratePhoneNumber(IDictionary<string, object> parameters)
     {
-        var format = parameters.ConvertToString(PARAM_FORMAT, string.Empty);
+        var format = parameters.ConvertToString(PARAM_FORMAT, null!);
         
-        if(!string.IsNullOrEmpty(format))
-            return _phoneDataset.PhoneNumber(format);
-
-        return _phoneDataset.PhoneNumber();
+        return _phoneDataset.PhoneNumber(format);
     }
 
-    private string GeneratePhoneNumberFormat()
-        => _phoneDataset.PhoneNumberFormat();
+    private string GeneratePhoneNumberFormat(IDictionary<string, object> parameters)
+    {
+        var phoneFormatsArrayIndex = parameters.ConvertToInt(PARAM_PHONE_FORMATS_ARRAY_INDEX, 0);
+
+        return _phoneDataset.PhoneNumberFormat(phoneFormatsArrayIndex);
+    }
 }
