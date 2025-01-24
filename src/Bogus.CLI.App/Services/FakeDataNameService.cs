@@ -1,9 +1,11 @@
 ﻿using Bogus.CLI.App.Constants.Properties;
+using Bogus.CLI.App.Datasets.Interfaces;
 using Bogus.CLI.App.Extensions;
 using Bogus.CLI.App.Services.Interface;
+using static Bogus.DataSets.Name;
 
 namespace Bogus.CLI.App.Services;
-public class FakeDataNameService(IFakerService fakerService) : IFakeDataNameService
+public class FakeDataNameService(INameDataset nameDataset) : IFakeDataNameService
 {
     private const string PARAM_GENDER = "gender";
     private const string PARAM_GENDER_MALE = "male";
@@ -13,7 +15,7 @@ public class FakeDataNameService(IFakerService fakerService) : IFakeDataNameServ
     private const string PARAM_WITH_PREFIX = "withPrefix";
     private const string PARAM_WITH_SUFIX = "withSuffix";
     
-    private readonly IFakerService _fakerService = fakerService;
+    private readonly INameDataset _nameDataset = nameDataset;
 
     public string? Generate(string property, Dictionary<string, object> parameters) => property switch
     {
@@ -21,12 +23,12 @@ public class FakeDataNameService(IFakerService fakerService) : IFakeDataNameServ
         NameProperty.LAST_NAME => GenerateLastName(parameters),
         NameProperty.FULL_NAME => GenerateFullName( parameters),
         NameProperty.PREFIX => GeneratePrefix(parameters),
-        NameProperty.SUFFIX => _fakerService.Name.Suffix(),
+        NameProperty.SUFFIX => _nameDataset.Suffix(),
         NameProperty.FIND_NAME => GenerateFindName(parameters),
-        NameProperty.JOB_TITLE => _fakerService.Name.JobTitle(),
-        NameProperty.JOB_DESCRIPTOR => _fakerService.Name.JobDescriptor(),
-        NameProperty.JOB_AREA => _fakerService.Name.JobArea(),
-        NameProperty.JOB_TYPE => _fakerService.Name.JobType(),
+        NameProperty.JOB_TITLE => _nameDataset.JobTitle(),
+        NameProperty.JOB_DESCRIPTOR => _nameDataset.JobDescriptor(),
+        NameProperty.JOB_AREA => _nameDataset.JobArea(),
+        NameProperty.JOB_TYPE => _nameDataset.JobType(),
         _ => null
     };
 
@@ -34,9 +36,9 @@ public class FakeDataNameService(IFakerService fakerService) : IFakeDataNameServ
     {
         return parameters.ConvertToString(PARAM_GENDER, string.Empty) switch
         {
-            PARAM_GENDER_MALE => _fakerService.Name.FirstName(DataSets.Name.Gender.Male),
-            PARAM_GENDER_FEMALE => _fakerService.Name.FirstName(DataSets.Name.Gender.Female),
-            _ => _fakerService.Name.FirstName(),
+            PARAM_GENDER_MALE => _nameDataset.FirstName(Gender.Male),
+            PARAM_GENDER_FEMALE => _nameDataset.FirstName(Gender.Female),
+            _ => _nameDataset.FirstName(),
         };
     }
 
@@ -44,9 +46,9 @@ public class FakeDataNameService(IFakerService fakerService) : IFakeDataNameServ
     {
         return parameters.ConvertToString(PARAM_GENDER, string.Empty) switch
         {
-            PARAM_GENDER_MALE => _fakerService.Name.LastName(DataSets.Name.Gender.Male),
-            PARAM_GENDER_FEMALE => _fakerService.Name.LastName(DataSets.Name.Gender.Female),
-            _ => _fakerService.Name.LastName(),
+            PARAM_GENDER_MALE => _nameDataset.LastName(Gender.Male),
+            PARAM_GENDER_FEMALE => _nameDataset.LastName(Gender.Female),
+            _ => _nameDataset.LastName(),
         };
     }
 
@@ -54,9 +56,9 @@ public class FakeDataNameService(IFakerService fakerService) : IFakeDataNameServ
     {
         return parameters.ConvertToString(PARAM_GENDER, string.Empty) switch
         {
-            PARAM_GENDER_MALE => _fakerService.Name.FullName(DataSets.Name.Gender.Male),
-            PARAM_GENDER_FEMALE => _fakerService.Name.FullName(DataSets.Name.Gender.Female),
-            _ => _fakerService.Name.FullName(),
+            PARAM_GENDER_MALE => _nameDataset.FullName(Gender.Male),
+            PARAM_GENDER_FEMALE => _nameDataset.FullName(Gender.Female),
+            _ => _nameDataset.FullName(),
         };
     }
 
@@ -64,9 +66,9 @@ public class FakeDataNameService(IFakerService fakerService) : IFakeDataNameServ
     {
         return parameters.ConvertToString(PARAM_GENDER, string.Empty) switch
         {
-            PARAM_GENDER_MALE => _fakerService.Name.Prefix(DataSets.Name.Gender.Male),
-            PARAM_GENDER_FEMALE => _fakerService.Name.Prefix(DataSets.Name.Gender.Female),
-            _ => _fakerService.Name.Prefix(),
+            PARAM_GENDER_MALE => _nameDataset.Prefix(Gender.Male),
+            PARAM_GENDER_FEMALE => _nameDataset.Prefix(Gender.Female),
+            _ => _nameDataset.Prefix(),
         };
     }
 
@@ -79,11 +81,11 @@ public class FakeDataNameService(IFakerService fakerService) : IFakeDataNameServ
 
         return parameters.ConvertToString(PARAM_GENDER, string.Empty) switch
         {
-            PARAM_GENDER_MALE => _fakerService.Name.FindName(
-                firstName, lastName, withPrefix, withSuffix, DataSets.Name.Gender.Male),
-            PARAM_GENDER_FEMALE => _fakerService.Name.FindName(
-                firstName, lastName, withPrefix, withSuffix, DataSets.Name.Gender.Female),
-            _ => _fakerService.Name.FindName(
+            PARAM_GENDER_MALE => _nameDataset.FindName(
+                firstName, lastName, withPrefix, withSuffix, Gender.Male),
+            PARAM_GENDER_FEMALE => _nameDataset.FindName(
+                firstName, lastName, withPrefix, withSuffix, Gender.Female),
+            _ => _nameDataset.FindName(
                 firstName, lastName, withPrefix, withSuffix),
         };
     }

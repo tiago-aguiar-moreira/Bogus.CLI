@@ -1,4 +1,4 @@
-﻿using Bogus.CLI.App.Constants;
+﻿using CONST = Bogus.CLI.App.Constants;
 using Bogus.CLI.App.Constants.Properties;
 using Bogus.CLI.App.Helpers.Interface;
 using System.Text.RegularExpressions;
@@ -9,7 +9,7 @@ public class DatasetHelper : IDatasetHelper
     private readonly IDictionary<string, IList<string>> _datasets = new Dictionary<string, IList<string>>()
     {
         {
-            Datasets.LOREM, new List<string>
+            CONST.Datasets.LOREM, new List<string>
             {
                 LoremProperty.WORD,
                 LoremProperty.WORDS,
@@ -24,7 +24,7 @@ public class DatasetHelper : IDatasetHelper
             }
         },
         {
-            Datasets.NAME, new List<string>
+            CONST.Datasets.NAME, new List<string>
             {
                 NameProperty.FIRST_NAME,
                 NameProperty.LAST_NAME,
@@ -39,7 +39,7 @@ public class DatasetHelper : IDatasetHelper
             }
         },
         {
-            Datasets.PHONE, new List<string>
+            CONST.Datasets.PHONE, new List<string>
             {
                 PhoneProperty.NUMBER,
                 PhoneProperty.FORMAT

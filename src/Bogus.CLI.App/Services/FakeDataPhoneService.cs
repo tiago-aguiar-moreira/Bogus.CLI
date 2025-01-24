@@ -1,13 +1,14 @@
 ﻿using Bogus.CLI.App.Constants.Properties;
+using Bogus.CLI.App.Datasets.Interfaces;
 using Bogus.CLI.App.Extensions;
 using Bogus.CLI.App.Services.Interface;
 
 namespace Bogus.CLI.App.Services;
-public class FakeDataPhoneService(IFakerService fakerService) : IFakeDataPhoneService
+public class FakeDataPhoneService(IPhoneDataset phoneDataset) : IFakeDataPhoneService
 {
-    private const string PARAM_FORMAT = "format";
+    public const string PARAM_FORMAT = "format";
 
-    private readonly IFakerService _fakerService = fakerService;
+    private readonly IPhoneDataset _phoneDataset = phoneDataset;
 
     public string? Generate(string property, Dictionary<string, object> parameters) => property switch
     {
@@ -21,11 +22,11 @@ public class FakeDataPhoneService(IFakerService fakerService) : IFakeDataPhoneSe
         var format = parameters.ConvertToString(PARAM_FORMAT, string.Empty);
         
         if(!string.IsNullOrEmpty(format))
-            return _fakerService.Phone.PhoneNumber(format);
+            return _phoneDataset.PhoneNumber(format);
 
-        return _fakerService.Phone.PhoneNumber();
+        return _phoneDataset.PhoneNumber();
     }
 
     private string GeneratePhoneNumberFormat()
-        => _fakerService.Phone.PhoneNumberFormat();
+        => _phoneDataset.PhoneNumberFormat();
 }
