@@ -18,7 +18,7 @@ public class FakeDataLoremService(ILoremDataset loremDataset) : IFakeDataLoremSe
     
     private readonly ILoremDataset _loremDataset = loremDataset;
 
-    public string? Generate(string property, Dictionary<string, object> parameters) => property switch
+    public string? Generate(string property, IDictionary<string, object> parameters) => property switch
     {
         LoremProperty.WORD => _loremDataset.Word(),
         LoremProperty.WORDS => GenerateWords(parameters),
@@ -33,40 +33,40 @@ public class FakeDataLoremService(ILoremDataset loremDataset) : IFakeDataLoremSe
         _ => null
     };
 
-    private string GenerateWords(Dictionary<string, object> parameters)
+    private string GenerateWords(IDictionary<string, object> parameters)
     {
         var num = parameters.ConvertToInt(PARAM_NUM, 3);
         var separator = parameters.ConvertToChar(PARAM_SEPARATOR, ' ');
         return string.Join(separator, _loremDataset.Words(num));
     }
 
-    private string GenerateLetter(Dictionary<string, object> parameters)
+    private string GenerateLetter(IDictionary<string, object> parameters)
     {
         var num = parameters.ConvertToInt(PARAM_NUM, 1);
         return _loremDataset.Letter(num);
     }
 
-    private string GenerateSentence(Dictionary<string, object> parameters)
+    private string GenerateSentence(IDictionary<string, object> parameters)
     {
         var wordCount = parameters.ConvertToInt(PARAM_WORDCOUNT, null);
         var range = parameters.ConvertToInt(PARAM_RANGE, 0);
         return _loremDataset.Sentence(wordCount, range);
     }
 
-    private string GenerateSentences(Dictionary<string, object> parameters)
+    private string GenerateSentences(IDictionary<string, object> parameters)
     {
         var sentenceCount = parameters.ConvertToInt(PARAM_SENTENCECOUNT, null);
         var separator = parameters.ConvertToString(PARAM_SEPARATOR, "\n");
         return _loremDataset.Sentences(sentenceCount, separator);
     }
 
-    private string GenerateParagraph(Dictionary<string, object> parameters)
+    private string GenerateParagraph(IDictionary<string, object> parameters)
     {
         var min = parameters.ConvertToInt(PARAM_MIN, 3);
         return _loremDataset.Paragraph(min);
     }
 
-    private string GenerateParagraphs(Dictionary<string, object> parameters)
+    private string GenerateParagraphs(IDictionary<string, object> parameters)
     {
         var separator = parameters.ConvertToString(PARAM_SEPARATOR, "\n\n");
 
@@ -85,14 +85,14 @@ public class FakeDataLoremService(ILoremDataset loremDataset) : IFakeDataLoremSe
         }
     }
 
-    private string GenerateLines(Dictionary<string, object> parameters)
+    private string GenerateLines(IDictionary<string, object> parameters)
     {
         var lineCount = parameters.ConvertToInt(PARAM_LINECOUNT, 3);
         var separator = parameters.ConvertToString(PARAM_SEPARATOR, "\n");
         return _loremDataset.Lines(lineCount, separator);
     }
 
-    private string GenerateSlug(Dictionary<string, object> parameters)
+    private string GenerateSlug(IDictionary<string, object> parameters)
     {
         var wordCount = parameters.ConvertToInt(PARAM_WORDCOUNT, 3);
         return _loremDataset.Slug(wordCount);

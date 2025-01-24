@@ -17,7 +17,7 @@ public class FakeDataNameService(INameDataset nameDataset) : IFakeDataNameServic
     
     private readonly INameDataset _nameDataset = nameDataset;
 
-    public string? Generate(string property, Dictionary<string, object> parameters) => property switch
+    public string? Generate(string property, IDictionary<string, object> parameters) => property switch
     {
         NameProperty.FIRST_NAME => GenerateFirstName(parameters),
         NameProperty.LAST_NAME => GenerateLastName(parameters),
@@ -32,7 +32,7 @@ public class FakeDataNameService(INameDataset nameDataset) : IFakeDataNameServic
         _ => null
     };
 
-    private string GenerateFirstName(Dictionary<string, object> parameters)
+    private string GenerateFirstName(IDictionary<string, object> parameters)
     {
         return parameters.ConvertToString(PARAM_GENDER, string.Empty) switch
         {
@@ -42,7 +42,7 @@ public class FakeDataNameService(INameDataset nameDataset) : IFakeDataNameServic
         };
     }
 
-    private string GenerateLastName(Dictionary<string, object> parameters)
+    private string GenerateLastName(IDictionary<string, object> parameters)
     {
         return parameters.ConvertToString(PARAM_GENDER, string.Empty) switch
         {
@@ -52,7 +52,7 @@ public class FakeDataNameService(INameDataset nameDataset) : IFakeDataNameServic
         };
     }
 
-    private string GenerateFullName(Dictionary<string, object> parameters)
+    private string GenerateFullName(IDictionary<string, object> parameters)
     {
         return parameters.ConvertToString(PARAM_GENDER, string.Empty) switch
         {
@@ -62,7 +62,7 @@ public class FakeDataNameService(INameDataset nameDataset) : IFakeDataNameServic
         };
     }
 
-    private string GeneratePrefix(Dictionary<string, object> parameters)
+    private string GeneratePrefix(IDictionary<string, object> parameters)
     {
         return parameters.ConvertToString(PARAM_GENDER, string.Empty) switch
         {
@@ -72,7 +72,7 @@ public class FakeDataNameService(INameDataset nameDataset) : IFakeDataNameServic
         };
     }
 
-    private string GenerateFindName(Dictionary<string, object> parameters)
+    private string GenerateFindName(IDictionary<string, object> parameters)
     {
         var firstName = parameters.ConvertToString(PARAM_FIRST_NAME, string.Empty);
         var lastName = parameters.ConvertToString(PARAM_LAST_NAME, string.Empty);
