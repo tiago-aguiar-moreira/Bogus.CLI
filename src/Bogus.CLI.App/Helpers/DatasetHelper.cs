@@ -2,6 +2,7 @@
 using Bogus.CLI.App.Constants.Properties;
 using Bogus.CLI.App.Helpers.Interface;
 using System.Text.RegularExpressions;
+using Bogus.CLI.App.Extensions;
 
 namespace Bogus.CLI.App.Helpers;
 public class DatasetHelper : IDatasetHelper
@@ -84,7 +85,7 @@ public class DatasetHelper : IDatasetHelper
 
             var keyValue = param.Split('=');
             if (keyValue.Length == 2)
-                parsedParameters[keyValue[0].ToLower()] = keyValue[1];
+                parsedParameters.AddParameter(keyValue[0], keyValue[1]);
         }
 
         return true;

@@ -31,4 +31,9 @@ public static class ParamaterExtension
             ? result
             : defaultValue;
 
+    public static void AddParameter(this IDictionary<string, object> parameters, string key, object values)
+    {
+        if (!string.IsNullOrEmpty(key) && values != null)
+            parameters.Add(key.ToLower(), values);
+    }
 }
