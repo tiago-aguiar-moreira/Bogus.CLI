@@ -26,55 +26,66 @@ public class DatasetService(
         var results = new List<List<string>>();
         if (!_datasetHelper.TryParseParameters(parameters, out var parsedParams))
         {
-            message = $"Sorry, but there is an issue with the parameters option. Please check.";
+            message = "Sorry, but there is an issue with the parameters option. Please check.";
             return results;
         }
 
         if (count <= 0)
         {
-            message = $"The option --count must be greater than 1.";
+            message = "The option --count must be greater than 1.";
             return results;
         }
 
+        // Pré-processamento: validação e extração de informações dos datasets
+        var datasetInfos = new List<(
+            string DatasetName, string PropertyName, Func<string, IDictionary<string, object>, string?> Generator)>();
+
+        foreach (var dataset in datasets)
+        {
+            if (!_datasetHelper.TryParseDatasetAndProperty(dataset, out string datasetName, out string propertyName))
+            {
+                message = $"Invalid format for dataset: {dataset}. Use <dataset.sub-option>.";
+                return results;
+            }
+
+            if (!_datasetHelper.DatasetExists(datasetName))
+            {
+                message = $"Dataset '{datasetName}' not found.";
+                return results;
+            }
+
+            if (!_datasetHelper.PropertyExists(datasetName, propertyName))
+            {
+                message = $"The '{datasetName}' does not contain the property '{propertyName}'.";
+                return results;
+            }
+
+            // Define a função geradora para o dataset atual
+            Func<string, IDictionary<string, object>, string?> generator = datasetName switch
+            {
+                CONST.Datasets.LOREM => _fakeDataLoremService.Generate,
+                CONST.Datasets.NAME => _fakeDataNameService.Generate,
+                CONST.Datasets.PHONE => _fakeDataPhoneService.Generate,
+                _ => (_, _) => null
+            };
+
+            if (generator == null)
+            {
+                message = $"Dataset or property unknown: {datasetName}.{propertyName}";
+                return results;
+            }
+
+            datasetInfos.Add((datasetName, propertyName, generator));
+        }
+
+        // Processamento principal
         for (int i = 0; i < count; i++)
         {
             var row = new List<string>();
-            foreach (var dataset in datasets)
+            foreach (var (_, propertyName, generator) in datasetInfos)
             {
-                if (!_datasetHelper.TryParseDatasetAndProperty(
-                    dataset, out var datasetName, out var propertyName))
-                {
-                    message = $"Invalid format for dataset: {dataset}. Use <dataset.sub-option>.";
-                    return results;
-                }
-
-                if (!_datasetHelper.DatasetExists(datasetName))
-                {
-                    message = $"Dataset '{datasetName}' not found.";
-                    return results;
-                }
-
-                if (!_datasetHelper.PropertyExists(datasetName, propertyName))
-                {
-                    message = $"The '{datasetName}' does not contain the property '{propertyName}'.";
-                    return results;
-                }
-
-                var value = datasetName switch
-                {
-                    CONST.Datasets.LOREM => _fakeDataLoremService.Generate(propertyName, parsedParams),
-                    CONST.Datasets.NAME => _fakeDataNameService.Generate(propertyName, parsedParams),
-                    CONST.Datasets.PHONE => _fakeDataPhoneService.Generate(propertyName, parsedParams),
-                    _ => null
-                };
-
-                if (string.IsNullOrEmpty(value))
-                {
-                    message = $"Dataset or property unknown: {datasetName}.{propertyName}";
-                    return results;
-                }
-
-                row.Add(value);
+                var value = generator(propertyName, parsedParams);
+                row.Add(value ?? string.Empty);
             }
 
             results.Add(row);
@@ -83,6 +94,4 @@ public class DatasetService(
         message = string.Empty;
         return results;
     }
-
-
 }
