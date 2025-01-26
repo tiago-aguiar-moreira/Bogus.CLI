@@ -10,7 +10,7 @@
       //"commandLineArgs": "list-datasets -d phone"
 
       // LIST LOCALE CODES
-      "commandLineArgs": "list-locales"
+      //"commandLineArgs": "list-locales"
 
       // HELP
       //"commandLineArgs": "-h"
@@ -45,7 +45,9 @@
 
       // GENERATE PHONE
       //"commandLineArgs": "dataset phone.number"
-      //"commandLineArgs": "dataset phone.number --parameters format=XXX-XXX-XXXX"
+      //"commandLineArgs": "dataset phone.number --parameters format=####-####"
+      "commandLineArgs": "dataset phone.number --parameters format=(##)####-####"
+      //"commandLineArgs": "dataset phone.number --parameters \"format=(##) ####-####\"" // TODO: review
       //"commandLineArgs": "dataset phone.format"
 
       // GENERATE NAME
