@@ -8,35 +8,37 @@ namespace Bogus.CLI.App.Datasets;
 [ExcludeFromCodeCoverage]
 public class LoremDataset(IFakerService fakerService) : ILoremDataset
 {
-    private readonly Lorem _lorem = fakerService.GetFaker().Lorem;
+    private readonly IFakerService _fakerService = fakerService;
 
-    public string Word() => _lorem.Word();
+    private Lorem GetFaker() => _fakerService.GetFaker().Lorem;
+
+    public string Word() => GetFaker().Word();
     
-    public string[] Words(int num = 3) => _lorem.Words(num);
+    public string[] Words(int num = 3) => GetFaker().Words(num);
 
     public string Letter(int num = 1)
-        => _lorem.Letter(num);
+        => GetFaker().Letter(num);
 
     public string Sentence(int? wordCount = null, int? range = 0)
-        => _lorem.Sentence(wordCount, range);
+        => GetFaker().Sentence(wordCount, range);
 
     public string Sentences(int? sentenceCount = null, string separator = "\n")
-        => _lorem.Sentences(sentenceCount, separator);
+        => GetFaker().Sentences(sentenceCount, separator);
 
     public string Paragraph(int min = 3)
-        => _lorem.Paragraph(min);
+        => GetFaker().Paragraph(min);
 
     public string Paragraphs(int count = 3, string separator = "\n\n")
-        => _lorem.Paragraphs(count, separator);
+        => GetFaker().Paragraphs(count, separator);
 
     public string Paragraphs(int min, int max, string separator = "\n\n")
-        => _lorem.Paragraphs(min, max, separator);
+        => GetFaker().Paragraphs(min, max, separator);
     
-    public string Text() => _lorem.Text();
+    public string Text() => GetFaker().Text();
 
     public string Lines(int? lineCount = null, string separator = "\n")
-        => _lorem.Lines(lineCount, separator);
+        => GetFaker().Lines(lineCount, separator);
 
     public string Slug(int wordcount = 3)
-        => _lorem.Slug(wordcount);
+        => GetFaker().Slug(wordcount);
 }

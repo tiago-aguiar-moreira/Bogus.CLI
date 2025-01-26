@@ -9,30 +9,32 @@ namespace Bogus.CLI.App.Datasets;
 [ExcludeFromCodeCoverage]
 public class NameDataset(IFakerService fakerService) : INameDataset
 {
-    private readonly Name _name = fakerService.GetFaker().Name;
+    private readonly IFakerService _fakerService = fakerService;
+
+    private Name GetFaker() => _fakerService.GetFaker().Name;
 
     public string FirstName(Gender? gender = null)
-        => _name.FirstName(gender);
+        => GetFaker().FirstName(gender);
 
     public string LastName(Gender? gender = null)
-        => _name.LastName(gender);
+        => GetFaker().LastName(gender);
 
     public string FullName(Gender? gender = null)
-        => _name.FullName(gender);
+        => GetFaker().FullName(gender);
     
     public string Prefix(Gender? gender = null)
-        => _name.Prefix(gender);
+        => GetFaker().Prefix(gender);
     
-    public string Suffix() => _name.Suffix();
+    public string Suffix() => GetFaker().Suffix();
     
     public string FindName(string firstName = "", string lastName = "", bool? withPrefix = null, bool? withSuffix = null, Gender? gender = null)
-        => _name.FindName(firstName, lastName, withPrefix, withSuffix, gender);
+        => GetFaker().FindName(firstName, lastName, withPrefix, withSuffix, gender);
     
-    public string JobTitle() => _name.JobTitle();
+    public string JobTitle() => GetFaker().JobTitle();
     
-    public string JobDescriptor() => _name.JobDescriptor();
+    public string JobDescriptor() => GetFaker().JobDescriptor();
     
-    public string JobArea() => _name.JobArea();
+    public string JobArea() => GetFaker().JobArea();
     
-    public string JobType() => _name.JobType();
+    public string JobType() => GetFaker().JobType();
 }

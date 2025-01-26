@@ -8,11 +8,13 @@ namespace Bogus.CLI.App.Datasets;
 [ExcludeFromCodeCoverage]
 public class PhoneDataset(IFakerService fakerService) : IPhoneDataset
 {
-    private readonly PhoneNumbers _phone = fakerService.GetFaker().Phone;
+    private readonly IFakerService _fakerService = fakerService;
+
+    private PhoneNumbers GetFaker() => _fakerService.GetFaker().Phone;
 
     public string PhoneNumber(string? format = null)
-        => _phone.PhoneNumber(format);
+        => GetFaker().PhoneNumber(format);
 
     public string PhoneNumberFormat(int phoneFormatsArrayIndex = 0)
-        => _phone.PhoneNumberFormat(phoneFormatsArrayIndex);
+        => GetFaker().PhoneNumberFormat(phoneFormatsArrayIndex);
 }
