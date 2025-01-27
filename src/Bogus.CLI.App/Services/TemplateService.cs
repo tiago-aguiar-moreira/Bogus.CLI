@@ -11,8 +11,8 @@ public class TemplateService : ITemplateService
 
     private bool IsValid(string template, out string errorMessage)
     {
-        int openCount = 0;
-        bool hasBraces = false;
+        var openCount = 0;
+        var hasBraces = false;
 
         for (int i = 0; i < template.Length - 1; i++)
         {
