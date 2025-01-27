@@ -11,7 +11,7 @@ public class FakeDataPhoneService(IPhoneDataset phoneDataset) : IFakeDataPhoneSe
 
     private readonly IPhoneDataset _phoneDataset = phoneDataset;
 
-    public string? Generate(string property, IDictionary<string, object> parameters) => property switch
+    public string? Generate(string property, IDictionary<string, object> parameters) => property.ToLower() switch
     {
         PhoneProperty.NUMBER => GeneratePhoneNumber(parameters),
         PhoneProperty.FORMAT => GeneratePhoneNumberFormat(parameters),

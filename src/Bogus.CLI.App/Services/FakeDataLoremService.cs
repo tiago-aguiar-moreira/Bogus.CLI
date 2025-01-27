@@ -18,7 +18,7 @@ public class FakeDataLoremService(ILoremDataset loremDataset) : IFakeDataLoremSe
     
     private readonly ILoremDataset _loremDataset = loremDataset;
 
-    public string? Generate(string property, IDictionary<string, object> parameters) => property switch
+    public string? Generate(string property, IDictionary<string, object> parameters) => property.ToLower() switch
     {
         LoremProperty.WORD => _loremDataset.Word(),
         LoremProperty.WORDS => GenerateWords(parameters),

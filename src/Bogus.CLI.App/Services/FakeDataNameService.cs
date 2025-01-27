@@ -17,7 +17,7 @@ public class FakeDataNameService(INameDataset nameDataset) : IFakeDataNameServic
     
     private readonly INameDataset _nameDataset = nameDataset;
 
-    public string? Generate(string property, IDictionary<string, object> parameters) => property switch
+    public string? Generate(string property, IDictionary<string, object> parameters) => property.ToLower() switch
     {
         NameProperty.FIRST_NAME => GenerateFirstName(parameters),
         NameProperty.LAST_NAME => GenerateLastName(parameters),
