@@ -8,28 +8,33 @@ public class DatasetHelperTest
 {
     private readonly DatasetHelper _datasetHelper = new();
 
-    #region TryParseDatasetAndProperty
+    #region TryParseDataset
 
     [Theory]
-    [InlineData(Datasets.LOREM, LoremProperty.SLUG)]
-    [InlineData(Datasets.LOREM, LoremProperty.WORD)]
-    [InlineData(Datasets.NAME, NameProperty.FULL_NAME)]
-    [InlineData(Datasets.NAME, NameProperty.SUFFIX)]
-    [InlineData(Datasets.PHONE, PhoneProperty.NUMBER)]
-    [InlineData(Datasets.PHONE, PhoneProperty.FORMAT)]
-    public void TryParseDatasetAndPropertyName_ValidFormat_ShouldBeOk(string expectedDatasetName, string expectedPropertyName)
+    [InlineData(Datasets.LOREM, LoremProperty.SLUG, "")]
+    [InlineData(Datasets.NAME, NameProperty.LAST_NAME, "surname")]
+    [InlineData(Datasets.NAME, NameProperty.FULL_NAME, "name")]
+    [InlineData(Datasets.NAME, NameProperty.SUFFIX, "")]
+    [InlineData(Datasets.PHONE, PhoneProperty.NUMBER, "")]
+    [InlineData(Datasets.PHONE, PhoneProperty.FORMAT, "formatNumber")]
+    public void TryParseDatasetAndPropertyName_ValidFormat_ShouldBeOk(
+        string expectedDatasetName, string expectedPropertyName, string expectedAlias)
     {
         // Arrange
         var dataset = $"{expectedDatasetName}.{expectedPropertyName}";
+        
+        if(!string.IsNullOrEmpty(expectedAlias))
+            dataset += $"={expectedAlias}";
 
         // Act
-        var actualResult = _datasetHelper.TryParseDatasetAndProperty(
-            dataset, out var actualDatasetName, out var actualPropertyNameActual);
+        var actualResult = _datasetHelper.TryParseDataset(
+            dataset, out var actualDatasetName, out var actualPropertyNameActual, out var actualAlias);
 
         // Assert
         Assert.True(actualResult);
         Assert.Equal(expectedDatasetName, actualDatasetName);
         Assert.Equal(expectedPropertyName, actualPropertyNameActual);
+        Assert.Equal(expectedAlias, actualAlias);
     }
 
     [Theory]
@@ -50,16 +55,18 @@ public class DatasetHelperTest
     [InlineData("123456.dataset.dataset")]
     [InlineData("dataset.123456.dataset")]
     [InlineData("dataset.dataset.123456")]
+    [InlineData("dataset.property=")]
     public void TryParseDatasetAndPropertyName_InvalidFormat_ShouldBeFail(string dataset)
     {
         // Act
-        var actualResult = _datasetHelper.TryParseDatasetAndProperty(
-            dataset, out var actualDatasetName, out var actualPropertyNameActual);
+        var actualResult = _datasetHelper.TryParseDataset(
+            dataset, out var actualDatasetName, out var actualPropertyName, out var actualAlias);
 
         // Assert
         Assert.False(actualResult);
         Assert.Empty(actualDatasetName);
-        Assert.Empty(actualPropertyNameActual);
+        Assert.Empty(actualPropertyName);
+        Assert.Empty(actualAlias);
     }
 
     #endregion

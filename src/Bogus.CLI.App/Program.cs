@@ -27,6 +27,7 @@ builder.Services.AddScoped<IDatasetService, DatasetService>();
 
 builder.Services.AddScoped<IListDatasetService, ListDatasetService>();
 builder.Services.AddScoped<IListLocaleService, ListLocaleService>();
+builder.Services.AddScoped<ITemplateService, TemplateService>();
 
 var app = builder.Build();
 

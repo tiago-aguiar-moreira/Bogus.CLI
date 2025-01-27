@@ -3,6 +3,12 @@
     "Bogus.CLI.App": {
       "commandName": "Project",
 
+      // TEMPLATE
+      //"commandLineArgs": "dataset name.firstName=name phone.number=phone name.jobTitle=job -t \"Name: {{name}} Phone: {{phone}} Job: {{job}}\" -l pt_BR"
+      //"commandLineArgs": "dataset name.firstName phone.number name.jobTitle -t \"Phone: {{1}} Name: {{0}}  Job: {{2}}\" -l pt_BR"
+      //"commandLineArgs": "dataset name.firstName=name phone.number=phone name.jobTitle=job -t \"Name: {{name}} Phone: {{1}} Job: {{job}} \" -l pt_BR"
+      "commandLineArgs": "dataset name.firstName=name phone.number=phone name.jobTitle=job -t \"Name: {{name}} Phone: {{1}} Job: {{job}} -- {{1}} \" -l pt_BR"
+
       // LIST DATASETS
       //"commandLineArgs": "list-datasets"
       //"commandLineArgs": "list-datasets -d lorem"
@@ -46,7 +52,7 @@
       // GENERATE PHONE
       //"commandLineArgs": "dataset phone.number"
       //"commandLineArgs": "dataset phone.number --parameters format=####-####"
-      "commandLineArgs": "dataset phone.number --parameters format=(##)####-####"
+      //"commandLineArgs": "dataset phone.number --parameters format=(##)####-####"
       //"commandLineArgs": "dataset phone.number --parameters \"format=(##) ####-####\"" // TODO: review
       //"commandLineArgs": "dataset phone.format"
 
@@ -58,6 +64,7 @@
       //"commandLineArgs": "dataset name.lastName --parameters gender=male"
       //"commandLineArgs": "dataset name.lastName --parameters gender=female"
       //"commandLineArgs": "dataset name.fullName"
+      //"commandLineArgs": "dataset name.fullName --locale pt_BR"
       //"commandLineArgs": "dataset name.fullName --parameters gender=male"
       //"commandLineArgs": "dataset name.fullName --parameters gender=male --locale pt_BR"
       //"commandLineArgs": "dataset name.fullName --parameters gender=female"

@@ -48,21 +48,53 @@ public class DatasetHelper : IDatasetHelper
         }
     };
 
-    public bool TryParseDatasetAndProperty(
-        string dataset, out string datasetName, out string propertyName)
+    public bool TryParseDataset(string dataset, out string datasetName, out string propertyName, out string alias)
     {
-        var parts = dataset.Split('.');
-        if (parts.Length == 2 &&
-            parts.All(a => !string.IsNullOrEmpty(a.Trim()) && a.All(char.IsLetter)))
-        {
-            datasetName = parts[0].ToLower().Trim();
-            propertyName = parts[1].ToLower().Trim();
-            return true;
-        }
-
         datasetName = string.Empty;
         propertyName = string.Empty;
-        return false;
+        alias = string.Empty;
+
+        // Validate if the string contains the dot (.) and equal sign (=)
+        var dotIndex = dataset.IndexOf('.');
+        var equalsIndex = dataset.IndexOf('=');
+
+        // Check if the dot and equal sign are present in the correct order
+        if (dotIndex == -1 || dataset.CountCharacter('.') > 1 || (equalsIndex != -1 && equalsIndex < dotIndex))
+            return false;
+
+        // Extract datasetName and propertyName
+        datasetName = dataset[..dotIndex];
+        datasetName = datasetName.Trim();
+
+        if (string.IsNullOrEmpty(datasetName) || datasetName.Any(char.IsNumber))
+        {
+            datasetName = string.Empty;
+            return false;
+        }
+
+        propertyName = dataset[(dotIndex + 1)..(equalsIndex == -1 ? dataset.Length : equalsIndex)];
+        propertyName = propertyName.Trim();
+
+        if(string.IsNullOrEmpty(propertyName) || propertyName.Any(char.IsNumber))
+        {
+            datasetName = string.Empty;
+            propertyName = string.Empty;
+            return false;
+        }
+
+        // Check if there is an alias, which should come after the equal sign
+        if (equalsIndex != -1)
+        {
+            alias = dataset[(equalsIndex + 1)..];
+            if (string.IsNullOrEmpty(alias))
+            {
+                datasetName = string.Empty;
+                propertyName = string.Empty;
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public bool TryParseParameters(
