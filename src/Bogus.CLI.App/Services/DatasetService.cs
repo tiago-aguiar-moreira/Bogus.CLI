@@ -37,8 +37,7 @@ public class DatasetService(
             string DatasetName,
             string PropertyName,
             string Alias,
-            IDictionary<string, object> Parameters,
-            Func<string, IDictionary<string, object>, string?> Generator)>();
+            IDictionary<string, object> Parameters)>();
 
         foreach (var dataset in datasets)
         {
@@ -61,25 +60,16 @@ public class DatasetService(
                 return results;
             }
 
-            //TODO: remover da lista e encapsular num método
-            Func<string, IDictionary<string, object>, string?> generator = datasetName switch
-            {
-                CONST.Datasets.LOREM => _fakeDataLoremService.Generate,
-                CONST.Datasets.NAME => _fakeDataNameService.Generate,
-                CONST.Datasets.PHONE => _fakeDataPhoneService.Generate,
-                _ => (_, _) => null
-            };
-
-            datasetInfos.Add((datasetName, propertyName, alias, parameters, generator));
+            datasetInfos.Add((datasetName, propertyName, alias, parameters));
         }
 
         // Main processing
         for (int i = 0; i < count; i++)
         {
             var row = new List<(string Value, string Alias)>();
-            foreach (var (datasetName, propertyName, alias, parameters, generator) in datasetInfos)
+            foreach (var (datasetName, propertyName, alias, parameters) in datasetInfos)
             {
-                var value = generator(propertyName, parameters);
+                var value = Generate(datasetName, propertyName, parameters);
 
                 if (string.IsNullOrEmpty(value))
                 {
@@ -96,4 +86,13 @@ public class DatasetService(
         message = string.Empty;
         return results;
     }
+
+    private string? Generate(
+        string datasetName, string propertyName, IDictionary<string, object> parameters) => datasetName switch
+    {
+        CONST.Datasets.LOREM => _fakeDataLoremService.Generate(propertyName, parameters),
+        CONST.Datasets.NAME => _fakeDataNameService.Generate(propertyName, parameters),
+        CONST.Datasets.PHONE => _fakeDataPhoneService.Generate(propertyName, parameters),
+        _ => null
+    };
 }
