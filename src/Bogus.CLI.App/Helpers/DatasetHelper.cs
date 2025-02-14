@@ -75,7 +75,9 @@ public class DatasetHelper : IDatasetHelper
 
             foreach (var parameter in paramsSplited)
             {
-                var keyValue = parameter.Split('=');
+                var keyValue = parameter
+                    .Split('=', StringSplitOptions.RemoveEmptyEntries);
+
                 if (keyValue.Length != 2)
                     return false;
 
@@ -83,7 +85,10 @@ public class DatasetHelper : IDatasetHelper
                 var value = keyValue[1].Trim();
 
                 if (string.IsNullOrEmpty(key) || parameters.ContainsKey(key))
+                {
+                    parameters.Clear();
                     return false;
+                }
 
                 parameters[key] = value;
             }
