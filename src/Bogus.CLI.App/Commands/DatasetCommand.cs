@@ -38,7 +38,7 @@ public static class DatasetCommand
         if (string.IsNullOrEmpty(template))
         {
             foreach (var row in fakeData)
-                Console.WriteLine(string.Join(" ", row));
+                Console.WriteLine(string.Join(" ", row.Select(s => s.Value)));
 
             return;
         }
