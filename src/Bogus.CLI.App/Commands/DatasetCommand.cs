@@ -24,11 +24,10 @@ public static class DatasetCommand
         [Argument(Description = DESCRIPTION_DATASET)] string[] datasets,
         [Option('c', Description = DESCRIPTION_COUNT)] int count = 10,
         [Option('l', Description = DESCRIPTION_LOCALE)] string? locale = null,
-        [Option('t', Description = DESCRIPTION_TEMPLATE)] string? template = null,
-        [Option('p', Description = DESCRIPTION_PARAMETERS)] string? parameters = null)
+        [Option('t', Description = DESCRIPTION_TEMPLATE)] string? template = null)
     {
         var fakeData = datasetService.ExecuteCommand(
-            datasets, count, locale, parameters, out var message);
+            datasets, count, locale, out var message);
 
         if (!string.IsNullOrEmpty(message))
         {

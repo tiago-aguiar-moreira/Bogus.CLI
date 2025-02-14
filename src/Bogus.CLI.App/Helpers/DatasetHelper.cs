@@ -1,8 +1,6 @@
-﻿using CONST = Bogus.CLI.App.Constants;
-using Bogus.CLI.App.Constants.Properties;
+﻿using Bogus.CLI.App.Constants.Properties;
 using Bogus.CLI.App.Helpers.Interface;
-using System.Text.RegularExpressions;
-using Bogus.CLI.App.Extensions;
+using CONST = Bogus.CLI.App.Constants;
 
 namespace Bogus.CLI.App.Helpers;
 public class DatasetHelper : IDatasetHelper
@@ -48,79 +46,77 @@ public class DatasetHelper : IDatasetHelper
         }
     };
 
-    public bool TryParseDataset(string dataset, out string datasetName, out string propertyName, out string alias)
+    public bool TryParseDataset(string dataset, out string datasetName, out string propertyName, out string alias, out IDictionary<string, object> parameters)
     {
         datasetName = string.Empty;
         propertyName = string.Empty;
         alias = string.Empty;
+        parameters = new Dictionary<string, object>();
 
-        // Validate if the string contains the dot (.) and equal sign (=)
-        var dotIndex = dataset.IndexOf('.');
-        var equalsIndex = dataset.IndexOf('=');
-
-        // Check if the dot and equal sign are present in the correct order
-        if (dotIndex == -1 || dataset.CountCharacter('.') > 1 || (equalsIndex != -1 && equalsIndex < dotIndex))
+        if (string.IsNullOrWhiteSpace(dataset))
             return false;
 
-        // Extract datasetName and propertyName
-        datasetName = dataset[..dotIndex];
-        datasetName = datasetName.Trim();
+        var openParenIndex = dataset.IndexOf('(');
+        var closeParenIndex = dataset.IndexOf(')');
+        var hasParams = openParenIndex > 0 || closeParenIndex > 0;
 
-        if (string.IsNullOrEmpty(datasetName) || datasetName.Any(char.IsNumber))
+        // Params
+        if (hasParams)
         {
-            datasetName = string.Empty;
-            return false;
-        }
-
-        propertyName = dataset[(dotIndex + 1)..(equalsIndex == -1 ? dataset.Length : equalsIndex)];
-        propertyName = propertyName.Trim();
-
-        if(string.IsNullOrEmpty(propertyName) || propertyName.Any(char.IsNumber))
-        {
-            datasetName = string.Empty;
-            propertyName = string.Empty;
-            return false;
-        }
-
-        // Check if there is an alias, which should come after the equal sign
-        if (equalsIndex != -1)
-        {
-            alias = dataset[(equalsIndex + 1)..];
-            if (string.IsNullOrEmpty(alias))
-            {
-                datasetName = string.Empty;
-                propertyName = string.Empty;
+            if ((openParenIndex == -1 && closeParenIndex > 0) || (openParenIndex > 0 && closeParenIndex == -1))
                 return false;
+
+            var paramsSplited = dataset[(openParenIndex + 1)..closeParenIndex]
+                .Trim()
+                .Split(',', StringSplitOptions.RemoveEmptyEntries);
+
+            if (!paramsSplited.All(a => a.Contains('=')))
+                return false;
+
+            foreach (var parameter in paramsSplited)
+            {
+                var keyValue = parameter.Split('=');
+                if (keyValue.Length != 2)
+                    return false;
+
+                var key = keyValue[0].Trim();
+                var value = keyValue[1].Trim();
+
+                if (string.IsNullOrEmpty(key) || parameters.ContainsKey(key))
+                    return false;
+
+                parameters[key] = value;
             }
         }
 
-        return true;
-    }
+        // Alias
+        var aliasIndex = hasParams ? dataset.IndexOf('=', closeParenIndex + 1) : dataset.IndexOf('=');
+        var hasAlias = aliasIndex > 0;
 
-    public bool TryParseParameters(
-        string? parameters, out Dictionary<string, object> parsedParameters)
-    {
-        parsedParameters = [];
+        if (hasAlias)
+            alias = dataset[(aliasIndex + 1)..];
 
-        if (string.IsNullOrWhiteSpace(parameters))
-            return true;
+        // Dataset
+        var dotIndex = dataset.IndexOf('.');
 
-        parameters = parameters.Trim();
+        datasetName = dataset[..dotIndex];
 
-        var regex = new Regex(@"^[a-zA-Z]+=[^=]+$");
-        var splitParams = parameters.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
-        foreach (var param in splitParams)
+        // Property Name
+        if (hasParams)
         {
-            if (!regex.IsMatch(param))
-                return false;
-
-            var keyValue = param.Split('=');
-            if (keyValue.Length == 2)
-                parsedParameters.AddParameter(keyValue[0], keyValue[1]);
+            propertyName = dataset[(dotIndex + 1)..openParenIndex];
+        }
+        else if (hasAlias)
+        {
+            propertyName = dataset[(dotIndex + 1)..aliasIndex];
+        }
+        else
+        {
+            propertyName = dataset[(dotIndex + 1)..];
         }
 
-        return true;
+        return !string.IsNullOrEmpty(datasetName) || !datasetName.All(char.IsDigit) 
+            || !string.IsNullOrEmpty(propertyName) || !propertyName.All(char.IsDigit);
     }
 
     public IEnumerable<string> ListPropertiesByDatasetName(string datasetName)

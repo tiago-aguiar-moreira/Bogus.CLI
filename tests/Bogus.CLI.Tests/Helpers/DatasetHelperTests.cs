@@ -1,6 +1,7 @@
 using Bogus.CLI.App.Constants;
 using Bogus.CLI.App.Constants.Properties;
 using Bogus.CLI.App.Helpers;
+using Bogus.CLI.Tests.Helpers.TestData;
 
 namespace Bogus.CLI.Tests.Helpers;
 
@@ -11,117 +12,50 @@ public class DatasetHelperTest
     #region TryParseDataset
 
     [Theory]
-    [InlineData(Datasets.LOREM, LoremProperty.SLUG, "")]
-    [InlineData(Datasets.NAME, NameProperty.LAST_NAME, "surname")]
-    [InlineData(Datasets.NAME, NameProperty.FULL_NAME, "name")]
-    [InlineData(Datasets.NAME, NameProperty.SUFFIX, "")]
-    [InlineData(Datasets.PHONE, PhoneProperty.NUMBER, "")]
-    [InlineData(Datasets.PHONE, PhoneProperty.FORMAT, "formatNumber")]
-    public void TryParseDatasetAndPropertyName_ValidFormat_ShouldBeOk(
-        string expectedDatasetName, string expectedPropertyName, string expectedAlias)
+    [MemberData(nameof(DatasetHelperTestDataProvider.ValidFormat), MemberType = typeof(DatasetHelperTestDataProvider))]
+    public void TryParseDataset_ValidFormat_ShouldBeOk(
+        string dataset,
+        string expectedDatasetName,
+        string expectedPropertyName,
+        string expectedAlias,
+        Dictionary<string, object> expectedParameters)
     {
-        // Arrange
-        var dataset = $"{expectedDatasetName}.{expectedPropertyName}";
-        
-        if(!string.IsNullOrEmpty(expectedAlias))
-            dataset += $"={expectedAlias}";
-
         // Act
         var actualResult = _datasetHelper.TryParseDataset(
-            dataset, out var actualDatasetName, out var actualPropertyNameActual, out var actualAlias);
+            dataset,
+            out var actualDatasetName,
+            out var actualPropertyNameActual,
+            out var actualAlias,
+            out var actualParameters);
 
         // Assert
         Assert.True(actualResult);
         Assert.Equal(expectedDatasetName, actualDatasetName);
         Assert.Equal(expectedPropertyName, actualPropertyNameActual);
         Assert.Equal(expectedAlias, actualAlias);
+        Assert.Equal(expectedParameters, actualParameters);
     }
 
     [Theory]
-    [InlineData("")]
-    [InlineData(".")]
-    [InlineData(" .")]
-    [InlineData(" . ")]
-    [InlineData(". ")]
-    [InlineData("dataset")]
-    [InlineData("dataset.")]
-    [InlineData("dataset.123456")]
-    [InlineData(".dataset")]
-    [InlineData("123456.dataset")]
-    [InlineData("abc123456.123456")]
-    [InlineData("123456.123456")]
-    [InlineData("123456.abc123456")]
-    [InlineData("dataset.dataset.dataset")]
-    [InlineData("123456.dataset.dataset")]
-    [InlineData("dataset.123456.dataset")]
-    [InlineData("dataset.dataset.123456")]
-    [InlineData("dataset.property=")]
-    public void TryParseDatasetAndPropertyName_InvalidFormat_ShouldBeFail(string dataset)
+    [InlineData("lorem.words(num=8")]
+    [InlineData("lorem.wordsnum=8)")]
+    [InlineData("lorem.words(num8)")]
+    public void TryParseDataset_InvalidParam_ShouldBeFail(string dataset)
     {
         // Act
         var actualResult = _datasetHelper.TryParseDataset(
-            dataset, out var actualDatasetName, out var actualPropertyName, out var actualAlias);
+            dataset,
+            out var actualDatasetName,
+            out var actualPropertyName,
+            out var actualAlias,
+            out var actualParameters);
 
         // Assert
         Assert.False(actualResult);
         Assert.Empty(actualDatasetName);
         Assert.Empty(actualPropertyName);
         Assert.Empty(actualAlias);
-    }
-
-    #endregion
-
-    #region TryParseParameters
-
-    [Theory]
-    [InlineData("num=8", 1)]
-    [InlineData("num=8 separator=;", 2)]
-    [InlineData("num=8 separator=,", 2)]
-    [InlineData("num=8 separator=-", 2)]
-    [InlineData("num=8 separator=_", 2)]
-    [InlineData("num=8  separator=_", 2)]
-    [InlineData("num=8   separator=_", 2)]
-    [InlineData(" num=8   separator=_", 2)]
-    [InlineData(" num=8   separator=_ ", 2)]
-    [InlineData("num=8   separator=_ ", 2)]
-    [InlineData("", 0)]
-    [InlineData(" ", 0)]
-    public void TryParseParameters_ValidInputs_ShouldBeOk(string parameters, int expectedParamsCount)
-    {
-        // Act
-        var actualResult = _datasetHelper.TryParseParameters(parameters, out var parsedParameters);
-
-        // Assert
-        Assert.True(actualResult);
-        Assert.Equal(expectedParamsCount, parsedParameters.Count);
-    }
-
-    [Theory]
-    [InlineData("num=")]
-    [InlineData(" num=")]
-    [InlineData(" num= ")]
-    [InlineData("num= ")]
-    [InlineData("num = ")]
-    [InlineData(" num = ")]
-    [InlineData(" num =")]
-    [InlineData("=8")]
-    [InlineData("= 8")]
-    [InlineData("= 8 ")]
-    [InlineData(" = 8 ")]
-    [InlineData(" = 8")]
-    [InlineData("=")]
-    [InlineData("= ")]
-    [InlineData(" = ")]
-    [InlineData(" =")]
-    [InlineData("num=8;separator=;")]
-    public void TryParseParameters_InvalidInputs_ShouldBeFail(string parameters)
-    {
-        // Act
-        var actualResult = _datasetHelper.TryParseParameters(parameters, out var parsedParameters);
-
-        // Assert
-        Assert.False(actualResult);
-        Assert.Empty(parsedParameters);
+        Assert.Empty(actualParameters);
     }
 
     #endregion

@@ -39,25 +39,21 @@ public class DatasetServiceTests
         // Arrange
         var datasets = new string[] { $"{Datasets.LOREM}.{LoremProperty.WORD}" };
         var rowsCount = 10;
-        var parsedParameters = new Dictionary<string, object>();
-
-        _datasetHelperMock
-            .Setup(s => s.TryParseParameters(It.IsAny<string>(), out parsedParameters))
-            .Returns(false);
 
         // Act
         var resultActual = _datasetService
-            .ExecuteCommand(datasets, rowsCount, null, null, out var message);
+            .ExecuteCommand(datasets, rowsCount, null, out var message);
 
         // Assert
         Assert.Empty(resultActual);
         Assert.NotEmpty(message);
 
-        _datasetHelperMock.Verify(v => v.TryParseParameters(
-            It.IsAny<string>(), out It.Ref<Dictionary<string, object>>.IsAny), Times.Once());
-
         _datasetHelperMock.Verify(v => v.TryParseDataset(
-            It.IsAny<string>(), out It.Ref<string>.IsAny, out It.Ref<string>.IsAny, out It.Ref<string>.IsAny), Times.Never());
+            It.IsAny<string>(),
+            out It.Ref<string>.IsAny,
+            out It.Ref<string>.IsAny,
+            out It.Ref<string>.IsAny,
+            out It.Ref<IDictionary<string, object>>.IsAny), Times.Once());
 
         _datasetHelperMock.Verify(v => v.DatasetExists(
             It.IsAny<string>()), Times.Never());
@@ -83,25 +79,21 @@ public class DatasetServiceTests
     {
         // Arrange
         var datasets = new string[] { $"{Datasets.LOREM}.{LoremProperty.WORD}" };
-        var parsedParameters = new Dictionary<string, object>();
-
-        _datasetHelperMock
-            .Setup(s => s.TryParseParameters(It.IsAny<string>(), out parsedParameters))
-            .Returns(true);
 
         // Act
         var resultActual = _datasetService
-            .ExecuteCommand(datasets, rowsCount, null, null, out var message);
+            .ExecuteCommand(datasets, rowsCount, null, out var message);
 
         // Assert
         Assert.Empty(resultActual);
         Assert.NotEmpty(message);
 
-        _datasetHelperMock.Verify(v => v.TryParseParameters(
-            It.IsAny<string>(), out It.Ref<Dictionary<string, object>>.IsAny), Times.Once());
-
         _datasetHelperMock.Verify(v => v.TryParseDataset(
-            It.IsAny<string>(), out It.Ref<string>.IsAny, out It.Ref<string>.IsAny, out It.Ref<string>.IsAny), Times.Never());
+            It.IsAny<string>(),
+            out It.Ref<string>.IsAny,
+            out It.Ref<string>.IsAny,
+            out It.Ref<string>.IsAny,
+            out It.Ref<IDictionary<string, object>>.IsAny), Times.Never());
 
         _datasetHelperMock.Verify(v => v.DatasetExists(
             It.IsAny<string>()), Times.Never());
@@ -125,33 +117,30 @@ public class DatasetServiceTests
         // Arrange
         var datasets = new string[] { "123.456" };
         var rowsCount = 10;
-        var parsedParameters = new Dictionary<string, object>();
-
-        _datasetHelperMock
-            .Setup(s => s.TryParseParameters(It.IsAny<string>(), out parsedParameters))
-            .Returns(true);
 
         var datasetName = string.Empty;
         var propertyName = string.Empty;
         var alias = string.Empty;
+        IDictionary<string, object> parameters = new Dictionary<string, object>();
 
         _datasetHelperMock
-            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias))
+            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias, out parameters))
             .Returns(false);
 
         // Act
         var resultActual = _datasetService
-            .ExecuteCommand(datasets, rowsCount, null, null, out var message);
+            .ExecuteCommand(datasets, rowsCount, null, out var message);
 
         // Assert
         Assert.Empty(resultActual);
         Assert.NotEmpty(message);
 
-        _datasetHelperMock.Verify(v => v.TryParseParameters(
-            It.IsAny<string>(), out It.Ref<Dictionary<string, object>>.IsAny), Times.Once());
-
         _datasetHelperMock.Verify(v => v.TryParseDataset(
-            It.IsAny<string>(), out It.Ref<string>.IsAny, out It.Ref<string>.IsAny, out It.Ref<string>.IsAny), Times.Once());
+            It.IsAny<string>(),
+            out It.Ref<string>.IsAny,
+            out It.Ref<string>.IsAny,
+            out It.Ref<string>.IsAny,
+            out It.Ref<IDictionary<string, object>>.IsAny), Times.Once());
 
         _datasetHelperMock.Verify(v => v.DatasetExists(
             It.IsAny<string>()), Times.Never());
@@ -175,18 +164,14 @@ public class DatasetServiceTests
         // Arrange
         var datasets = new string[] { "XPTO.XPTO" };
         var rowsCount = 10;
-        var parsedParameters = new Dictionary<string, object>();
-
-        _datasetHelperMock
-            .Setup(s => s.TryParseParameters(It.IsAny<string>(), out parsedParameters))
-            .Returns(true);
 
         var datasetName = string.Empty;
         var propertyName = string.Empty;
         var alias = string.Empty;
+        IDictionary<string, object> parameters = new Dictionary<string, object>();
 
         _datasetHelperMock
-            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias))
+            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias, out parameters))
             .Returns(true);
 
         _datasetHelperMock
@@ -195,17 +180,18 @@ public class DatasetServiceTests
 
         // Act
         var resultActual = _datasetService
-            .ExecuteCommand(datasets, rowsCount, null, null, out var message);
+            .ExecuteCommand(datasets, rowsCount, null, out var message);
 
         // Assert
         Assert.Empty(resultActual);
         Assert.NotEmpty(message);
 
-        _datasetHelperMock.Verify(v => v.TryParseParameters(
-            It.IsAny<string>(), out It.Ref<Dictionary<string, object>>.IsAny), Times.Once());
-
         _datasetHelperMock.Verify(v => v.TryParseDataset(
-            It.IsAny<string>(), out It.Ref<string>.IsAny, out It.Ref<string>.IsAny, out It.Ref<string>.IsAny), Times.Once());
+            It.IsAny<string>(),
+            out It.Ref<string>.IsAny,
+            out It.Ref<string>.IsAny,
+            out It.Ref<string>.IsAny,
+            out It.Ref<IDictionary<string, object>>.IsAny), Times.Once());
 
         _datasetHelperMock.Verify(v => v.DatasetExists(
             It.IsAny<string>()), Times.Once());
@@ -229,18 +215,14 @@ public class DatasetServiceTests
         // Arrange
         var datasets = new string[] { $"{Datasets.LOREM}.XPTO" };
         var rowsCount = 10;
-        var parsedParameters = new Dictionary<string, object>();
-
-        _datasetHelperMock
-            .Setup(s => s.TryParseParameters(It.IsAny<string>(), out parsedParameters))
-            .Returns(true);
 
         var datasetName = string.Empty;
         var propertyName = string.Empty;
         var alias = string.Empty;
+        IDictionary<string, object> parameters = new Dictionary<string, object>();
 
         _datasetHelperMock
-            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias))
+            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias, out parameters))
             .Returns(true);
 
         _datasetHelperMock
@@ -253,17 +235,18 @@ public class DatasetServiceTests
 
         // Act
         var resultActual = _datasetService
-            .ExecuteCommand(datasets, rowsCount, null, null, out var message);
+            .ExecuteCommand(datasets, rowsCount, null, out var message);
 
         // Assert
         Assert.Empty(resultActual);
         Assert.NotEmpty(message);
 
-        _datasetHelperMock.Verify(v => v.TryParseParameters(
-            It.IsAny<string>(), out It.Ref<Dictionary<string, object>>.IsAny), Times.Once());
-
         _datasetHelperMock.Verify(v => v.TryParseDataset(
-            It.IsAny<string>(), out It.Ref<string>.IsAny, out It.Ref<string>.IsAny, out It.Ref<string>.IsAny), Times.Once());
+            It.IsAny<string>(),
+            out It.Ref<string>.IsAny,
+            out It.Ref<string>.IsAny,
+            out It.Ref<string>.IsAny,
+            out It.Ref<IDictionary<string, object>>.IsAny), Times.Once());
 
         _datasetHelperMock.Verify(v => v.DatasetExists(
             It.IsAny<string>()), Times.Once());
@@ -290,14 +273,10 @@ public class DatasetServiceTests
         var datasets = new string[] { $"{datasetName}.{propertyName}" };
         var alias = string.Empty;
         var rowsCount = 10;
-        var parsedParameters = new Dictionary<string, object>();
+        IDictionary<string, object> parameters = new Dictionary<string, object>();
 
         _datasetHelperMock
-            .Setup(s => s.TryParseParameters(It.IsAny<string>(), out parsedParameters))
-            .Returns(true);
-
-        _datasetHelperMock
-            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias))
+            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias, out parameters))
             .Returns(true);
 
         _datasetHelperMock
@@ -310,17 +289,18 @@ public class DatasetServiceTests
 
         // Act
         var resultActual = _datasetService
-            .ExecuteCommand(datasets, rowsCount, null, null, out var message);
+            .ExecuteCommand(datasets, rowsCount, null, out var message);
 
         // Assert
         Assert.Empty(resultActual);
         Assert.NotEmpty(message);
 
-        _datasetHelperMock.Verify(v => v.TryParseParameters(
-            It.IsAny<string>(), out It.Ref<Dictionary<string, object>>.IsAny), Times.Once());
-
         _datasetHelperMock.Verify(v => v.TryParseDataset(
-            It.IsAny<string>(), out It.Ref<string>.IsAny, out It.Ref<string>.IsAny, out It.Ref<string>.IsAny), Times.Once());
+            It.IsAny<string>(),
+            out It.Ref<string>.IsAny,
+            out It.Ref<string>.IsAny,
+            out It.Ref<string>.IsAny,
+            out It.Ref<IDictionary<string, object>>.IsAny), Times.Once());
 
         _datasetHelperMock.Verify(v => v.DatasetExists(
             It.IsAny<string>()), Times.Once());
@@ -351,14 +331,10 @@ public class DatasetServiceTests
         var datasetName = Datasets.LOREM;
         var datasets = new string[] { $"{datasetName}.{propertyName}={alias}" };
         var rowsCount = 10;
-        var parsedParameters = new Dictionary<string, object>();
+        IDictionary<string, object> parameters = new Dictionary<string, object>();
 
         _datasetHelperMock
-            .Setup(s => s.TryParseParameters(It.IsAny<string>(), out parsedParameters))
-            .Returns(true);
-
-        _datasetHelperMock
-            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias))
+            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias, out parameters))
             .Returns(true);
 
         _datasetHelperMock
@@ -375,7 +351,7 @@ public class DatasetServiceTests
 
         // Act
         var resultActual = _datasetService
-            .ExecuteCommand(datasets, rowsCount, null, null, out var message);
+            .ExecuteCommand(datasets, rowsCount, null, out var message);
 
         // Assert
         Assert.NotEmpty(resultActual);
@@ -400,14 +376,10 @@ public class DatasetServiceTests
         var datasetName = Datasets.NAME;
         var datasets = new string[] { $"{datasetName}.{propertyName}" };
         var rowsCount = 10;
-        var parsedParameters = new Dictionary<string, object>();
+        IDictionary<string, object> parameters = new Dictionary<string, object>();
 
         _datasetHelperMock
-            .Setup(s => s.TryParseParameters(It.IsAny<string>(), out parsedParameters))
-            .Returns(true);
-
-        _datasetHelperMock
-            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName,out alias))
+            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias, out parameters))
             .Returns(true);
 
         _datasetHelperMock
@@ -424,7 +396,7 @@ public class DatasetServiceTests
 
         // Act
         var resultActual = _datasetService
-            .ExecuteCommand(datasets, rowsCount, null, null, out var message);
+            .ExecuteCommand(datasets, rowsCount, null, out var message);
 
         // Assert
         Assert.Empty(message);
@@ -448,14 +420,10 @@ public class DatasetServiceTests
         var datasetName = Datasets.PHONE;
         var datasets = new string[] { $"{datasetName}.{propertyName}" };
         var rowsCount = 10;
-        var parsedParameters = new Dictionary<string, object>();
+        IDictionary<string, object> parameters = new Dictionary<string, object>();
 
         _datasetHelperMock
-            .Setup(s => s.TryParseParameters(It.IsAny<string>(), out parsedParameters))
-            .Returns(true);
-
-        _datasetHelperMock
-            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias))
+            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias, out parameters))
             .Returns(true);
 
         _datasetHelperMock
@@ -472,7 +440,7 @@ public class DatasetServiceTests
 
         // Act
         var resultActual = _datasetService
-            .ExecuteCommand(datasets, rowsCount, null, null, out var message);
+            .ExecuteCommand(datasets, rowsCount, null, out var message);
 
         // Assert
         Assert.Empty(message);
