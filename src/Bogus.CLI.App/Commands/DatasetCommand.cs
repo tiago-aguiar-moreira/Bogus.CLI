@@ -12,7 +12,6 @@ public static class DatasetCommand
     private const string DESCRIPTION_COUNT = "Specifies the number of records to generate. Default is 10.";
     private const string DESCRIPTION_LOCALE = "Defines the locale to use for generating data. Default is 'en'.";
     private const string DESCRIPTION_TEMPLATE = "The template parameter defines a dynamic text model with placeholders to be replaced by specific values. Example syntax: {{name}} or {{0}}.";
-    private const string DESCRIPTION_PARAMETERS = "Provides additional parameters for the selected dataset(s), formatted as key-value pairs (e.g., key1=value1;key2=value2).";
 
     public static CommandConventionBuilder ConfigureDatasetCommand(this ICoconaCommandsBuilder builder) => builder
         .AddCommand("dataset", GetCommand)
