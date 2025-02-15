@@ -44,7 +44,7 @@ The following commands are available:
 
 - list-locales
 - list-datasets
-- generate <DATASET_NAME>, <DATASET_NAME>, <DATASET_NAME>, ...
+- dataset <DATASET_NAME>, <DATASET_NAME>, <DATASET_NAME>, ...
 
 # Contributors
 
