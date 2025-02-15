@@ -53,7 +53,11 @@ public class DatasetHelper : IDatasetHelper
         alias = string.Empty;
         parameters = new Dictionary<string, object>();
 
-        if (string.IsNullOrWhiteSpace(dataset))
+        dataset = dataset.Trim();
+
+        var dotIndex = dataset.IndexOf('.');
+
+        if (dotIndex == -1 || dataset.Length <= 1)
             return false;
 
         var openParenIndex = dataset.IndexOf('(');
@@ -102,8 +106,6 @@ public class DatasetHelper : IDatasetHelper
             alias = dataset[(aliasIndex + 1)..];
 
         // Dataset
-        var dotIndex = dataset.IndexOf('.');
-
         datasetName = dataset[..dotIndex];
 
         // Property Name
@@ -119,10 +121,14 @@ public class DatasetHelper : IDatasetHelper
         {
             propertyName = dataset[(dotIndex + 1)..];
         }
-
-        return !string.IsNullOrEmpty(datasetName) || !datasetName.All(char.IsDigit) 
-            || !string.IsNullOrEmpty(propertyName) || !propertyName.All(char.IsDigit);
+        
+        return IsValidName(datasetName) && IsValidName(propertyName);
     }
+
+    private bool IsValidName(string name) 
+        => !string.IsNullOrEmpty(name)
+        && !name.All(char.IsDigit)
+        && !name.Any(char.IsPunctuation);
 
     public IEnumerable<string> ListPropertiesByDatasetName(string datasetName)
         => _datasets.TryGetValue(datasetName.ToLower(), out var properties)

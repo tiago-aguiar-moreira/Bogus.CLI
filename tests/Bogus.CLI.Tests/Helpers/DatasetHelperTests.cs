@@ -38,24 +38,46 @@ public class DatasetHelperTest
 
     [Theory]
     [InlineData("lorem.words(num=8")]
+    [InlineData("lorem.words(num=)")]
+    [InlineData("lorem.words(=8)")]
     [InlineData("lorem.wordsnum=8)")]
     [InlineData("lorem.words(num8)")]
+    [InlineData("lorem.words(num=8,num=8)")]
     public void TryParseDataset_InvalidParam_ShouldBeFail(string dataset)
     {
         // Act
         var actualResult = _datasetHelper.TryParseDataset(
-            dataset,
-            out var actualDatasetName,
-            out var actualPropertyName,
-            out var actualAlias,
-            out var actualParameters);
+            dataset, out _, out _, out _, out _);
 
         // Assert
         Assert.False(actualResult);
-        Assert.Empty(actualDatasetName);
-        Assert.Empty(actualPropertyName);
-        Assert.Empty(actualAlias);
-        Assert.Empty(actualParameters);
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData(".")]
+    [InlineData(" .")]
+    [InlineData(" . ")]
+    [InlineData(". ")]
+    [InlineData("lorem.")]
+    [InlineData("lorem.123")]
+    [InlineData("55987.123")]
+    [InlineData("loremwords")]
+    [InlineData(".words")]
+    [InlineData("1232.words")]
+    [InlineData("lorem.words.letter")]
+    [InlineData("dataset.dataset.dataset")]
+    [InlineData("123456.dataset.dataset")]
+    [InlineData("dataset.123456.dataset")]
+    [InlineData("dataset.dataset.123456")]
+    public void TryParseDataset_InvalidDataset_ShouldBeFail(string dataset)
+    {
+        // Act
+        var actualResult = _datasetHelper.TryParseDataset(
+            dataset, out _, out _, out _, out _);
+
+        // Assert
+        Assert.False(actualResult);
     }
 
     #endregion
@@ -115,7 +137,7 @@ public class DatasetHelperTest
 
     #endregion
 
-    #region PropertyExists
+    #region ListDataset
 
     [Fact]
     public void ListDataset_ReturnsNotEmptyList()
@@ -129,7 +151,7 @@ public class DatasetHelperTest
 
     #endregion
 
-    #region PropertyExists
+    #region DatasetExists
 
     [Theory]
     [InlineData(Datasets.NAME)]
