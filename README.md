@@ -42,9 +42,9 @@ The options you pass on the command line are options for the invoked command. Fo
 
 The following commands are available:
 
-- dataset <NAME>
-- list-datasets
 - list-locales
+- list-datasets
+- generate <DATASET_NAME>, <DATASET_NAME>, <DATASET_NAME>, ...
 
 # Contributors
 
