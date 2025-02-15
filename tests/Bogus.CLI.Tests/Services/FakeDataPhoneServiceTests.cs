@@ -77,4 +77,24 @@ public class FakeDataPhoneServiceTests
         // Assert
         _phoneDatasetMock.Verify(v => v.PhoneNumberFormat(phoneFormatsArrayIndex), Times.Once());
     }
+
+    [Theory]
+    [InlineData("test")]
+    [InlineData("xpto")]
+    public void GeneratePhoneNumber_InvalidProperty_ReturnsNull(string propertyname)
+    {
+        // Arrange
+        _phoneDatasetMock
+            .Setup(s => s.PhoneNumber(It.IsAny<string?>()))
+            .Returns(string.Empty);
+
+        // Act
+        var actualValue = _fakeDataPhoneService
+            .Generate(propertyname, _parameters);
+
+        // Assert
+        Assert.Null(actualValue);
+
+        _phoneDatasetMock.Verify(v => v.PhoneNumber(null), Times.Never());
+    }
 }
