@@ -1,0 +1,41 @@
+name: Coveralls Coverage
+
+on:
+  workflow_dispatch:
+  push:
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.yml'
+      - '**/*.gitignore'
+      - '**/*.json'
+  pull_request:
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.yml'
+      - '**/*.gitignore'
+      - '**/*.json'
+
+jobs:
+  publish-nuget:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Run tests
+      run: dotnet test --collect:"XPlat Code Coverage"
+
+    - name: Send Coverage Data to Coveralls
+      uses: coverallsapp/github-action@v2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: TestResults/**/coverage.cobertura.xml
