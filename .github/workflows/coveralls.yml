@@ -38,4 +38,4 @@ jobs:
       uses: coverallsapp/github-action@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: TestResults/**/coverage.cobertura.xml
+        path-to-lcov: tests/Bogus.CLI.Tests/TestResults/**/coverage.cobertura.xml
