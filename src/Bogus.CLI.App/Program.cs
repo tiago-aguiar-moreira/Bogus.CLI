@@ -1,10 +1,10 @@
 ﻿using Bogus.CLI.App.Commands;
-using Bogus.CLI.App.Datasets;
-using Bogus.CLI.App.Datasets.Interfaces;
-using Bogus.CLI.App.Helpers;
-using Bogus.CLI.App.Helpers.Interface;
-using Bogus.CLI.App.Services;
-using Bogus.CLI.App.Services.Interface;
+using Bogus.CLI.Core.Datasets;
+using Bogus.CLI.Core.Datasets.Interfaces;
+using Bogus.CLI.Core.Helpers;
+using Bogus.CLI.Core.Helpers.Interface;
+using Bogus.CLI.Core.Services;
+using Bogus.CLI.Core.Services.Interface;
 using Cocona;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -1,4 +1,4 @@
-﻿using Bogus.CLI.App.Extensions;
+﻿using Bogus.CLI.Core.Extensions;
 
 namespace Bogus.CLI.Tests.Extensions;
 public class StringExtensionTests

@@ -1,4 +1,4 @@
-﻿using Bogus.CLI.App.Services.Interface;
+﻿using Bogus.CLI.Core.Services.Interface;
 using Cocona;
 using Cocona.Builder;
 using System.Diagnostics.CodeAnalysis;

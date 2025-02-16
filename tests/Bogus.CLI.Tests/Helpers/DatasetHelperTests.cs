@@ -1,6 +1,6 @@
-using Bogus.CLI.App.Constants;
-using Bogus.CLI.App.Constants.Properties;
-using Bogus.CLI.App.Helpers;
+using Bogus.CLI.Core.Constants;
+using Bogus.CLI.Core.Constants.Properties;
+using Bogus.CLI.Core.Helpers;
 using Bogus.CLI.Tests.Helpers.TestData;
 
 namespace Bogus.CLI.Tests.Helpers;

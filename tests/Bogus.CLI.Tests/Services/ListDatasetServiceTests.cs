@@ -1,8 +1,8 @@
-﻿using Bogus.CLI.App.Constants;
-using Bogus.CLI.App.Constants.Properties;
-using Bogus.CLI.App.Helpers.Interface;
-using Bogus.CLI.App.Services;
-using Bogus.CLI.App.Services.Interface;
+﻿using Bogus.CLI.Core.Constants;
+using Bogus.CLI.Core.Constants.Properties;
+using Bogus.CLI.Core.Helpers.Interface;
+using Bogus.CLI.Core.Services;
+using Bogus.CLI.Core.Services.Interface;
 using Moq;
 
 namespace Bogus.CLI.Tests.Services;
