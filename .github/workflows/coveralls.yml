@@ -3,6 +3,8 @@ name: Coveralls Coverage
 on:
   workflow_dispatch:
   push:
+    branches-ignore:
+      - main
     paths-ignore:
       - '**/*.md'
       - '**/*.yml'
