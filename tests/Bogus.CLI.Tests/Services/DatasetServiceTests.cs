@@ -4,6 +4,7 @@ using Bogus.CLI.Core.Helpers.Interface;
 using Bogus.CLI.Core.Services;
 using Bogus.CLI.Core.Services.Interface;
 using Moq;
+using System.Collections.Generic;
 
 namespace Bogus.CLI.Tests.Services;
 public class DatasetServiceTests
@@ -11,17 +12,18 @@ public class DatasetServiceTests
     private readonly DatasetService _datasetService;
     private readonly Mock<IDatasetHelper> _datasetHelperMock;
     private readonly Mock<IFakerService> _fakerServiceMock;
-    private readonly Mock<IFakeDataLoremService> _fakeDataLoremServiceMock;
-    private readonly Mock<IFakeDataNameService> _fakeDataNameServiceMock;
-    private readonly Mock<IFakeDataPhoneService> _fakeDataPhoneServiceMock;
+    private readonly Mock<IParserDatasetLoremService> _fakeDataLoremServiceMock;
+    private readonly Mock<IParserDatasetNameService> _fakeDataNameServiceMock;
+    private readonly Mock<IParserDatasetPhoneService> _fakeDataPhoneServiceMock;
+    private readonly Mock<Action<List<(string Value, string Alias)>>> _onInsertMock;
 
     public DatasetServiceTests()
     {
         _fakerServiceMock = new Mock<IFakerService>();
         _datasetHelperMock = new Mock<IDatasetHelper>();
-        _fakeDataLoremServiceMock = new Mock<IFakeDataLoremService>();
-        _fakeDataNameServiceMock = new Mock<IFakeDataNameService>();
-        _fakeDataPhoneServiceMock = new Mock<IFakeDataPhoneService>();
+        _fakeDataLoremServiceMock = new Mock<IParserDatasetLoremService>();
+        _fakeDataNameServiceMock = new Mock<IParserDatasetNameService>();
+        _fakeDataPhoneServiceMock = new Mock<IParserDatasetPhoneService>();
 
         _datasetService = new DatasetService(
             _datasetHelperMock.Object,
@@ -29,6 +31,8 @@ public class DatasetServiceTests
             _fakeDataLoremServiceMock.Object,
             _fakeDataNameServiceMock.Object,
             _fakeDataPhoneServiceMock.Object);
+
+        _onInsertMock = new Mock<Action<List<(string Value, string Alias)>>>();
     }
 
     #region Tests Should Be Fail
@@ -41,12 +45,10 @@ public class DatasetServiceTests
         var rowsCount = 10;
 
         // Act
-        var resultActual = _datasetService
-            .ExecuteCommand(datasets, rowsCount, null, out var message);
+        Assert.Throws<Exception>(() => _datasetService.ExecuteCommand(datasets, rowsCount, null, _onInsertMock.Object));
 
         // Assert
-        Assert.Empty(resultActual);
-        Assert.NotEmpty(message);
+        _onInsertMock.Verify(v => v.Invoke(It.IsAny<List<(string Value, string Alias)>>()), Times.Never);
 
         _datasetHelperMock.Verify(v => v.TryParseDataset(
             It.IsAny<string>(),
@@ -81,12 +83,10 @@ public class DatasetServiceTests
         var datasets = new string[] { $"{Datasets.LOREM}.{LoremProperty.WORD}" };
 
         // Act
-        var resultActual = _datasetService
-            .ExecuteCommand(datasets, rowsCount, null, out var message);
+        Assert.Throws<Exception>(() => _datasetService.ExecuteCommand(datasets, rowsCount, null, _onInsertMock.Object));
 
         // Assert
-        Assert.Empty(resultActual);
-        Assert.NotEmpty(message);
+        _onInsertMock.Verify(v => v.Invoke(It.IsAny<List<(string Value, string Alias)>>()), Times.Never);
 
         _datasetHelperMock.Verify(v => v.TryParseDataset(
             It.IsAny<string>(),
@@ -128,12 +128,10 @@ public class DatasetServiceTests
             .Returns(false);
 
         // Act
-        var resultActual = _datasetService
-            .ExecuteCommand(datasets, rowsCount, null, out var message);
+        Assert.Throws<Exception>(() => _datasetService.ExecuteCommand(datasets, rowsCount, null, _onInsertMock.Object));
 
         // Assert
-        Assert.Empty(resultActual);
-        Assert.NotEmpty(message);
+        _onInsertMock.Verify(v => v.Invoke(It.IsAny<List<(string Value, string Alias)>>()), Times.Never);
 
         _datasetHelperMock.Verify(v => v.TryParseDataset(
             It.IsAny<string>(),
@@ -179,12 +177,10 @@ public class DatasetServiceTests
             .Returns(false);
 
         // Act
-        var resultActual = _datasetService
-            .ExecuteCommand(datasets, rowsCount, null, out var message);
+        Assert.Throws<Exception>(() => _datasetService.ExecuteCommand(datasets, rowsCount, null, _onInsertMock.Object));
 
         // Assert
-        Assert.Empty(resultActual);
-        Assert.NotEmpty(message);
+        _onInsertMock.Verify(v => v.Invoke(It.IsAny<List<(string Value, string Alias)>>()), Times.Never);
 
         _datasetHelperMock.Verify(v => v.TryParseDataset(
             It.IsAny<string>(),
@@ -234,12 +230,10 @@ public class DatasetServiceTests
             .Returns(false);
 
         // Act
-        var resultActual = _datasetService
-            .ExecuteCommand(datasets, rowsCount, null, out var message);
+        Assert.Throws<Exception>(() => _datasetService.ExecuteCommand(datasets, rowsCount, null, _onInsertMock.Object));
 
         // Assert
-        Assert.Empty(resultActual);
-        Assert.NotEmpty(message);
+        _onInsertMock.Verify(v => v.Invoke(It.IsAny<List<(string Value, string Alias)>>()), Times.Never);
 
         _datasetHelperMock.Verify(v => v.TryParseDataset(
             It.IsAny<string>(),
@@ -288,12 +282,10 @@ public class DatasetServiceTests
             .Returns(true);
 
         // Act
-        var resultActual = _datasetService
-            .ExecuteCommand(datasets, rowsCount, null, out var message);
+        Assert.Throws<Exception>(() => _datasetService.ExecuteCommand(datasets, rowsCount, null, _onInsertMock.Object));
 
         // Assert
-        Assert.Empty(resultActual);
-        Assert.NotEmpty(message);
+        _onInsertMock.Verify(v => v.Invoke(It.IsAny<List<(string Value, string Alias)>>()), Times.Never);
 
         _datasetHelperMock.Verify(v => v.TryParseDataset(
             It.IsAny<string>(),
@@ -350,12 +342,10 @@ public class DatasetServiceTests
             .Returns("abcde");
 
         // Act
-        var resultActual = _datasetService
-            .ExecuteCommand(datasets, rowsCount, null, out var message);
+        _datasetService.ExecuteCommand(datasets, rowsCount, null, _onInsertMock.Object);
 
         // Assert
-        Assert.NotEmpty(resultActual);
-        Assert.Empty(message);
+        _onInsertMock.Verify(v => v.Invoke(It.IsAny<List<(string Value, string Alias)>>()), Times.Exactly(rowsCount));
 
         _fakeDataLoremServiceMock
             .Verify(v => v.Generate(propertyName, new Dictionary<string, object>()), Times.Exactly(rowsCount));
@@ -395,11 +385,10 @@ public class DatasetServiceTests
             .Returns("abcde");
 
         // Act
-        var resultActual = _datasetService
-            .ExecuteCommand(datasets, rowsCount, null, out var message);
+        _datasetService.ExecuteCommand(datasets, rowsCount, null, _onInsertMock.Object);
 
         // Assert
-        Assert.Empty(message);
+        _onInsertMock.Verify(v => v.Invoke(It.IsAny<List<(string Value, string Alias)>>()), Times.Exactly(rowsCount));
 
         _fakeDataLoremServiceMock
             .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
@@ -439,11 +428,11 @@ public class DatasetServiceTests
             .Returns("abcde");
 
         // Act
-        var resultActual = _datasetService
-            .ExecuteCommand(datasets, rowsCount, null, out var message);
+        _datasetService.ExecuteCommand(datasets, rowsCount, null, _onInsertMock.Object);
 
         // Assert
-        Assert.Empty(message);
+        _onInsertMock.Verify(v => v.Invoke(It.IsAny<List<(string Value, string Alias)>>()), Times.Exactly(rowsCount));
+
 
         _fakeDataLoremServiceMock
             .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);

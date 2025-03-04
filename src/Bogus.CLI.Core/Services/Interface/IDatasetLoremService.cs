@@ -1,5 +1,5 @@
-﻿namespace Bogus.CLI.Core.Datasets.Interfaces;
-public interface ILoremDataset
+﻿namespace Bogus.CLI.Core.Services.Interface;
+public interface IDatasetLoremService
 {
     string Word();
     string[] Words(int num = 3);

@@ -1,11 +1,10 @@
 ﻿using Bogus.CLI.Core.Constants.Properties;
-using Bogus.CLI.Core.Datasets.Interfaces;
 using Bogus.CLI.Core.Extensions;
 using Bogus.CLI.Core.Services.Interface;
 using static Bogus.DataSets.Name;
 
 namespace Bogus.CLI.Core.Services;
-public class FakeDataNameService(INameDataset nameDataset) : IFakeDataNameService
+public class ParserDatasetNameService(IDatasetNameService nameDataset) : IParserDatasetNameService
 {
     private const string PARAM_GENDER = "gender";
     private const string PARAM_GENDER_MALE = "male";
@@ -15,7 +14,7 @@ public class FakeDataNameService(INameDataset nameDataset) : IFakeDataNameServic
     private const string PARAM_WITH_PREFIX = "withPrefix";
     private const string PARAM_WITH_SUFIX = "withSuffix";
     
-    private readonly INameDataset _nameDataset = nameDataset;
+    private readonly IDatasetNameService _nameDataset = nameDataset;
 
     public string? Generate(string property, IDictionary<string, object> parameters) => property.ToLower() switch
     {

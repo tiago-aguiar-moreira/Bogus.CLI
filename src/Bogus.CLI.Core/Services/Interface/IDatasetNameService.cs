@@ -1,7 +1,7 @@
 ﻿using static Bogus.DataSets.Name;
 
-namespace Bogus.CLI.Core.Datasets.Interfaces;
-public interface INameDataset
+namespace Bogus.CLI.Core.Services.Interface;
+public interface IDatasetNameService
 {
     public string FirstName(Gender? gender = null);
     string LastName(Gender? gender = null);

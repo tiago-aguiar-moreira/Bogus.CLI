@@ -12,14 +12,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{40A1C704-7AA7-4153-82EF-FC3301557B91}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		.github\workflows\coveralls.yml = .github\workflows\coveralls.yml
-		.github\workflows\main.yml = .github\workflows\main.yml
-		.github\workflows\publish-github.yml = .github\workflows\publish-github.yml
-		.github\workflows\publish-nuget.yml = .github\workflows\publish-nuget.yml
 		README.md = README.md
+		.github\workflows\publish-tool.yml = .github\workflows\publish-tool.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bogus.CLI.Core", "src\Bogus.CLI.Core\Bogus.CLI.Core.csproj", "{5D6F4ECD-22A8-4749-9446-4D2C9F73E23E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bogus.CLI.Core", "src\Bogus.CLI.Core\Bogus.CLI.Core.csproj", "{5D6F4ECD-22A8-4749-9446-4D2C9F73E23E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bogus.CLI.Infrastructure", "src\Bogus.CLI.Infrastructure\Bogus.CLI.Infrastructure.csproj", "{C81CB96B-ACA5-4CC9-9778-C12777B982B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +66,18 @@ Global
 		{5D6F4ECD-22A8-4749-9446-4D2C9F73E23E}.Release|x64.Build.0 = Release|Any CPU
 		{5D6F4ECD-22A8-4749-9446-4D2C9F73E23E}.Release|x86.ActiveCfg = Release|Any CPU
 		{5D6F4ECD-22A8-4749-9446-4D2C9F73E23E}.Release|x86.Build.0 = Release|Any CPU
+		{C81CB96B-ACA5-4CC9-9778-C12777B982B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C81CB96B-ACA5-4CC9-9778-C12777B982B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C81CB96B-ACA5-4CC9-9778-C12777B982B5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C81CB96B-ACA5-4CC9-9778-C12777B982B5}.Debug|x64.Build.0 = Debug|Any CPU
+		{C81CB96B-ACA5-4CC9-9778-C12777B982B5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C81CB96B-ACA5-4CC9-9778-C12777B982B5}.Debug|x86.Build.0 = Debug|Any CPU
+		{C81CB96B-ACA5-4CC9-9778-C12777B982B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C81CB96B-ACA5-4CC9-9778-C12777B982B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C81CB96B-ACA5-4CC9-9778-C12777B982B5}.Release|x64.ActiveCfg = Release|Any CPU
+		{C81CB96B-ACA5-4CC9-9778-C12777B982B5}.Release|x64.Build.0 = Release|Any CPU
+		{C81CB96B-ACA5-4CC9-9778-C12777B982B5}.Release|x86.ActiveCfg = Release|Any CPU
+		{C81CB96B-ACA5-4CC9-9778-C12777B982B5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +85,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{8A09283F-C6A3-48F9-A30F-98B4F81C5BCB} = {1ADE8C6F-DAB2-4C85-A0DB-C57D99C2805A}
 		{5D6F4ECD-22A8-4749-9446-4D2C9F73E23E} = {1ADE8C6F-DAB2-4C85-A0DB-C57D99C2805A}
+		{C81CB96B-ACA5-4CC9-9778-C12777B982B5} = {1ADE8C6F-DAB2-4C85-A0DB-C57D99C2805A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DB5FC796-8C90-4686-A95E-ADA353B1E75C}

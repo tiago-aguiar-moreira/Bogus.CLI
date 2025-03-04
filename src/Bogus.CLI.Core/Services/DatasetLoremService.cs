@@ -1,19 +1,18 @@
-﻿using Bogus.CLI.Core.Datasets.Interfaces;
-using Bogus.CLI.Core.Services.Interface;
+﻿using Bogus.CLI.Core.Services.Interface;
 using Bogus.DataSets;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Bogus.CLI.Core.Datasets;
+namespace Bogus.CLI.Core.Services;
 
 [ExcludeFromCodeCoverage]
-public class LoremDataset(IFakerService fakerService) : ILoremDataset
+public class DatasetLoremService(IFakerService fakerService) : IDatasetLoremService
 {
     private readonly IFakerService _fakerService = fakerService;
 
     private Lorem GetFaker() => _fakerService.GetFaker().Lorem;
 
     public string Word() => GetFaker().Word();
-    
+
     public string[] Words(int num = 3) => GetFaker().Words(num);
 
     public string Letter(int num = 1)
@@ -33,7 +32,7 @@ public class LoremDataset(IFakerService fakerService) : ILoremDataset
 
     public string Paragraphs(int min, int max, string separator = "\n\n")
         => GetFaker().Paragraphs(min, max, separator);
-    
+
     public string Text() => GetFaker().Text();
 
     public string Lines(int? lineCount = null, string separator = "\n")

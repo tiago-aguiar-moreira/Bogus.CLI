@@ -1,5 +1,4 @@
 ﻿using Bogus.CLI.Core.Constants.Properties;
-using Bogus.CLI.Core.Datasets.Interfaces;
 using Bogus.CLI.Core.Extensions;
 using Bogus.CLI.Core.Services;
 using Bogus.CLI.Core.Services.Interface;
@@ -9,13 +8,13 @@ namespace Bogus.CLI.Tests.Services;
 public class FakeDataPhoneServiceTests
 {
     private readonly IDictionary<string, object> _parameters;
-    private readonly Mock<IPhoneDataset> _phoneDatasetMock;
-    private readonly IFakeDataPhoneService _fakeDataPhoneService;
+    private readonly Mock<IDatasetPhoneService> _phoneDatasetMock;
+    private readonly IParserDatasetPhoneService _fakeDataPhoneService;
 
     public FakeDataPhoneServiceTests()
     {
-        _phoneDatasetMock = new Mock<IPhoneDataset>();
-        _fakeDataPhoneService = new FakeDataPhoneService(_phoneDatasetMock.Object);
+        _phoneDatasetMock = new Mock<IDatasetPhoneService>();
+        _fakeDataPhoneService = new ParserDatasetPhoneService(_phoneDatasetMock.Object);
         _parameters = new Dictionary<string, object>();
     }
 
@@ -25,7 +24,7 @@ public class FakeDataPhoneServiceTests
     public void GeneratePhoneNumber_WithFormat_ShouldBeOk(string format)
     {
         // Arrange
-        _parameters.AddParameter(FakeDataPhoneService.PARAM_FORMAT, format);
+        _parameters.AddParameter(ParserDatasetPhoneService.PARAM_FORMAT, format);
         _phoneDatasetMock
             .Setup(s => s.PhoneNumber(It.IsAny<string?>()))
             .Returns(string.Empty);
@@ -63,7 +62,7 @@ public class FakeDataPhoneServiceTests
     {
         // Arrange
         _parameters.AddParameter(
-            FakeDataPhoneService.PARAM_PHONE_FORMATS_ARRAY_INDEX,
+            ParserDatasetPhoneService.PARAM_PHONE_FORMATS_ARRAY_INDEX,
             phoneFormatsArrayIndex);
 
         _phoneDatasetMock

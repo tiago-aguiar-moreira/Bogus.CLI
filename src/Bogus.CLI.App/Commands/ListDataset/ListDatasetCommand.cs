@@ -3,7 +3,7 @@ using Cocona;
 using Cocona.Builder;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Bogus.CLI.App.Commands;
+namespace Bogus.CLI.App.Commands.ListDataset;
 
 [ExcludeFromCodeCoverage]
 public static class ListDatasetCommand
@@ -27,9 +27,9 @@ public static class ListDatasetCommand
 
                 return;
             }
-            
+
             Console.WriteLine($"Dataset {datasetName} not found. Check complete list.");
-            
+
             return;
         }
 

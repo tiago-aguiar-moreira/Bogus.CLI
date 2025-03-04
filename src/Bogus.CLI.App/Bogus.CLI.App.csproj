@@ -10,7 +10,7 @@
     <ToolCommandName>bogus</ToolCommandName>
 	<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 	<PackageId>BogusCLI</PackageId>
-	<Version>2.0.1</Version>
+	<Version>2.0.2</Version>
 	<Description>Bogus.CLI is a command-line tool built on the powerful Bogus library by Brian Chavez. It simplifies fake data generation, allowing you to create flexible and efficient data directly from your terminal.</Description>
 	<PackageTags>bogus, faker, fake, cli, data-generation</PackageTags>
 	<Authors>Tiago Aguiar Moreira</Authors>

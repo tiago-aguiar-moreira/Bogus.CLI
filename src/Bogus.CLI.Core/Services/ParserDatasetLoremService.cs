@@ -1,10 +1,9 @@
 ﻿using Bogus.CLI.Core.Constants.Properties;
-using Bogus.CLI.Core.Datasets.Interfaces;
 using Bogus.CLI.Core.Extensions;
 using Bogus.CLI.Core.Services.Interface;
 
 namespace Bogus.CLI.Core.Services;
-public class FakeDataLoremService(ILoremDataset loremDataset) : IFakeDataLoremService
+public class ParserDatasetLoremService(IDatasetLoremService loremDataset) : IParserDatasetLoremService
 {
     public const string PARAM_NUM = "num";
     public const string PARAM_SEPARATOR = "separator";
@@ -16,7 +15,7 @@ public class FakeDataLoremService(ILoremDataset loremDataset) : IFakeDataLoremSe
     public const string PARAM_COUNT = "count";
     public const string PARAM_LINECOUNT = "linecount";
     
-    private readonly ILoremDataset _loremDataset = loremDataset;
+    private readonly IDatasetLoremService _loremDataset = loremDataset;
 
     public string? Generate(string property, IDictionary<string, object> parameters) => property.ToLower() switch
     {

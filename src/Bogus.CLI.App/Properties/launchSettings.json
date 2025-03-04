@@ -3,6 +3,9 @@
     "Bogus.CLI.App": {
       "commandName": "Project",
 
+      // SEED
+      "commandLineArgs": "seed-database C:\\Temp\\sqlserver-configuration.json"
+
       // TEMPLATE
       //"commandLineArgs": "dataset name.firstName=name phone.number=phone name.jobTitle=job -t \"Name: {{name}} Phone: {{phone}} Job: {{job}}\" -l pt_BR"
       //"commandLineArgs": "dataset name.firstName phone.number name.jobTitle -t \"Phone: {{1}} Name: {{0}}  Job: {{2}}\" -l pt_BR"
@@ -41,7 +44,7 @@
       //"commandLineArgs": "dataset lorem.paragraph"
       //"commandLineArgs": "dataset lorem.paragraph(min=2)"
       //"commandLineArgs": "dataset lorem.paragraphs"
-      "commandLineArgs": "dataset lorem.paragraphs(count=2,separator=|)"
+      //"commandLineArgs": "dataset lorem.paragraphs(count=2,separator=|)"
       //"commandLineArgs": "dataset lorem.paragraphs(min=2,max=4,separator=|)"
       //"commandLineArgs": "dataset lorem.text"
       //"commandLineArgs": "dataset lorem.lines"

@@ -1,15 +1,14 @@
 ﻿using Bogus.CLI.Core.Constants.Properties;
-using Bogus.CLI.Core.Datasets.Interfaces;
 using Bogus.CLI.Core.Extensions;
 using Bogus.CLI.Core.Services.Interface;
 
 namespace Bogus.CLI.Core.Services;
-public class FakeDataPhoneService(IPhoneDataset phoneDataset) : IFakeDataPhoneService
+public class ParserDatasetPhoneService(IDatasetPhoneService phoneDataset) : IParserDatasetPhoneService
 {
     public const string PARAM_FORMAT = "format";
     public const string PARAM_PHONE_FORMATS_ARRAY_INDEX = "formatIndex";
 
-    private readonly IPhoneDataset _phoneDataset = phoneDataset;
+    private readonly IDatasetPhoneService _phoneDataset = phoneDataset;
 
     public string? Generate(string property, IDictionary<string, object> parameters) => property.ToLower() switch
     {

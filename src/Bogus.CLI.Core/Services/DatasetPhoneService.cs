@@ -1,12 +1,11 @@
-﻿using Bogus.CLI.Core.Datasets.Interfaces;
-using Bogus.CLI.Core.Services.Interface;
+﻿using Bogus.CLI.Core.Services.Interface;
 using Bogus.DataSets;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Bogus.CLI.Core.Datasets;
+namespace Bogus.CLI.Core.Services;
 
 [ExcludeFromCodeCoverage]
-public class PhoneDataset(IFakerService fakerService) : IPhoneDataset
+public class DatasetPhoneService(IFakerService fakerService) : IDatasetPhoneService
 {
     private readonly IFakerService _fakerService = fakerService;
 

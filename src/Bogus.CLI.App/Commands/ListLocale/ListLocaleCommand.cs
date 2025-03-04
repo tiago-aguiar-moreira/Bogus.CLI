@@ -3,7 +3,7 @@ using Cocona;
 using Cocona.Builder;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Bogus.CLI.App.Commands;
+namespace Bogus.CLI.App.Commands.ListLocale;
 
 [ExcludeFromCodeCoverage]
 public static class ListLocaleCommand
@@ -33,7 +33,7 @@ public static class ListLocaleCommand
 
         // Separator line
         DrawLine(codeWidth, descWidth);
-        
+
         foreach (var (code, description) in rows)
             DrawRow(code, description, codeWidth, descWidth);
 
