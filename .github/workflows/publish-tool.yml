@@ -1,4 +1,4 @@
-name: Build and Publish to GitHub Packages
+name: Build and Publish
 
 on:
   workflow_dispatch:
@@ -33,10 +33,19 @@ jobs:
       run: dotnet build --configuration Release --no-restore
 
     - name: Run tests
-      run: dotnet test --configuration Release --no-build --verbosity normal
+      run: dotnet test --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage"
+
+    - name: Send Coverage Data to Coveralls
+      uses: coverallsapp/github-action@v2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: tests/Bogus.CLI.Tests/TestResults/**/coverage.cobertura.xml
 
     - name: Pack the project
-      run: dotnet pack --configuration Release --output ./nupkgs
+      run: dotnet pack ./**/**/Bogus.CLI.App.csproj --configuration Release --output ./nupkgs
 
     - name: Publish to GitHub Packages
       run: dotnet nuget push ./nupkgs/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+
+    - name: Publish to NuGet
+      run: dotnet nuget push ./nupkgs/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
