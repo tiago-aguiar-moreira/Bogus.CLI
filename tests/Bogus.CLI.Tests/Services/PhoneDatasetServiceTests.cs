@@ -5,13 +5,13 @@ using Bogus.CLI.Core.Services.Interface;
 using Moq;
 
 namespace Bogus.CLI.Tests.Services;
-public class FakeDataPhoneServiceTests
+public class PhoneDatasetServiceTests
 {
     private readonly IDictionary<string, object> _parameters;
     private readonly Mock<IPhoneFakerAdapter> _phoneDatasetMock;
     private readonly IPhoneDatasetService _fakeDataPhoneService;
 
-    public FakeDataPhoneServiceTests()
+    public PhoneDatasetServiceTests()
     {
         _phoneDatasetMock = new Mock<IPhoneFakerAdapter>();
         _fakeDataPhoneService = new PhoneDatasetService(_phoneDatasetMock.Object);
