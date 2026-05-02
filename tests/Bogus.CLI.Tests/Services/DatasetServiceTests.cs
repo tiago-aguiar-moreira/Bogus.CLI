@@ -35,8 +35,6 @@ public class DatasetServiceTests
         _onInsertMock = new Mock<Action<List<(string Value, string Alias)>>>();
     }
 
-    #region Tests Should Be Fail
-
     [Fact]
     public void ExecuteCommand_InvalidParameters_ShouldBeFail()
     {
@@ -310,10 +308,6 @@ public class DatasetServiceTests
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
     }
 
-    #endregion
-
-    #region Tests Should Be Ok
-
     [Theory]
     [InlineData(LoremProperty.TEXT, "description")]
     [InlineData(LoremProperty.SLUG, "blog")]
@@ -443,6 +437,4 @@ public class DatasetServiceTests
         _fakeDataPhoneServiceMock
             .Verify(v => v.Generate(propertyName, new Dictionary<string, object>()), Times.Exactly(rowsCount));
     }
-
-    #endregion
 }
