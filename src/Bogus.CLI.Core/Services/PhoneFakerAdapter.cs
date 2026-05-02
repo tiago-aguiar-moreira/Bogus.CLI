@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Bogus.CLI.Core.Services;
 
 [ExcludeFromCodeCoverage]
-public class DatasetPhoneService(IFakerService fakerService) : IDatasetPhoneService
+public class PhoneFakerAdapter(IFakerService fakerService) : IPhoneFakerAdapter
 {
     private readonly IFakerService _fakerService = fakerService;
 

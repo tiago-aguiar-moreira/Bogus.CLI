@@ -6,7 +6,7 @@ using static Bogus.DataSets.Name;
 namespace Bogus.CLI.Core.Services;
 
 [ExcludeFromCodeCoverage]
-public class DatasetNameService(IFakerService fakerService) : IDatasetNameService
+public class NameFakerAdapter(IFakerService fakerService) : INameFakerAdapter
 {
     private readonly IFakerService _fakerService = fakerService;
 

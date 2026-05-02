@@ -6,15 +6,15 @@ namespace Bogus.CLI.Core.Services;
 public class DatasetService(
     IDatasetHelper datasetHelper,
     IFakerService fakerService,
-    IParserDatasetLoremService fakeDataLoremService,
-    IParserDatasetNameService fakeDataNameService,
-    IParserDatasetPhoneService fakeDataPhoneService) : IDatasetService
+    ILoremDatasetService loremDatasetService,
+    INameDatasetService nameDatasetService,
+    IPhoneDatasetService phoneDatasetService) : IDatasetService
 {
     private readonly IDatasetHelper _datasetHelper = datasetHelper;
     private readonly IFakerService _fakerService = fakerService;
-    private readonly IParserDatasetLoremService _fakeDataLoremService = fakeDataLoremService;
-    private readonly IParserDatasetNameService _fakeDataNameService = fakeDataNameService;
-    private readonly IParserDatasetPhoneService _fakeDataPhoneService = fakeDataPhoneService;
+    private readonly ILoremDatasetService _loremDatasetService = loremDatasetService;
+    private readonly INameDatasetService _nameDatasetService = nameDatasetService;
+    private readonly IPhoneDatasetService _phoneDatasetService = phoneDatasetService;
 
     public void ExecuteCommand(
         string[] datasets,
@@ -81,9 +81,9 @@ public class DatasetService(
     private string? Generate(
         string datasetName, string propertyName, IDictionary<string, object> parameters) => datasetName switch
     {
-        CONST.Datasets.LOREM => _fakeDataLoremService.Generate(propertyName, parameters),
-        CONST.Datasets.NAME => _fakeDataNameService.Generate(propertyName, parameters),
-        CONST.Datasets.PHONE => _fakeDataPhoneService.Generate(propertyName, parameters),
+        CONST.Datasets.LOREM => _loremDatasetService.Generate(propertyName, parameters),
+        CONST.Datasets.NAME => _nameDatasetService.Generate(propertyName, parameters),
+        CONST.Datasets.PHONE => _phoneDatasetService.Generate(propertyName, parameters),
         _ => null
     };
 }

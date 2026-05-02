@@ -1,7 +1,7 @@
 ﻿using static Bogus.DataSets.Name;
 
 namespace Bogus.CLI.Core.Services.Interface;
-public interface IDatasetNameService
+public interface INameFakerAdapter
 {
     public string FirstName(Gender? gender = null);
     string LastName(Gender? gender = null);

@@ -12,18 +12,18 @@ public class DatasetServiceTests
     private readonly DatasetService _datasetService;
     private readonly Mock<IDatasetHelper> _datasetHelperMock;
     private readonly Mock<IFakerService> _fakerServiceMock;
-    private readonly Mock<IParserDatasetLoremService> _fakeDataLoremServiceMock;
-    private readonly Mock<IParserDatasetNameService> _fakeDataNameServiceMock;
-    private readonly Mock<IParserDatasetPhoneService> _fakeDataPhoneServiceMock;
+    private readonly Mock<ILoremDatasetService> _fakeDataLoremServiceMock;
+    private readonly Mock<INameDatasetService> _fakeDataNameServiceMock;
+    private readonly Mock<IPhoneDatasetService> _fakeDataPhoneServiceMock;
     private readonly Mock<Action<List<(string Value, string Alias)>>> _onInsertMock;
 
     public DatasetServiceTests()
     {
         _fakerServiceMock = new Mock<IFakerService>();
         _datasetHelperMock = new Mock<IDatasetHelper>();
-        _fakeDataLoremServiceMock = new Mock<IParserDatasetLoremService>();
-        _fakeDataNameServiceMock = new Mock<IParserDatasetNameService>();
-        _fakeDataPhoneServiceMock = new Mock<IParserDatasetPhoneService>();
+        _fakeDataLoremServiceMock = new Mock<ILoremDatasetService>();
+        _fakeDataNameServiceMock = new Mock<INameDatasetService>();
+        _fakeDataPhoneServiceMock = new Mock<IPhoneDatasetService>();
 
         _datasetService = new DatasetService(
             _datasetHelperMock.Object,

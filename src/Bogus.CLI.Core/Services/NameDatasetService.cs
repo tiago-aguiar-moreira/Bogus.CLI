@@ -4,7 +4,7 @@ using Bogus.CLI.Core.Services.Interface;
 using static Bogus.DataSets.Name;
 
 namespace Bogus.CLI.Core.Services;
-public class ParserDatasetNameService(IDatasetNameService nameDataset) : IParserDatasetNameService
+public class NameDatasetService(INameFakerAdapter nameAdapter) : INameDatasetService
 {
     private const string PARAM_GENDER = "gender";
     private const string PARAM_GENDER_MALE = "male";
@@ -13,8 +13,8 @@ public class ParserDatasetNameService(IDatasetNameService nameDataset) : IParser
     private const string PARAM_LAST_NAME = "lastName";
     private const string PARAM_WITH_PREFIX = "withPrefix";
     private const string PARAM_WITH_SUFIX = "withSuffix";
-    
-    private readonly IDatasetNameService _nameDataset = nameDataset;
+
+    private readonly INameFakerAdapter _nameAdapter = nameAdapter;
 
     public string? Generate(string property, IDictionary<string, object> parameters) => property.ToLower() switch
     {
@@ -22,12 +22,12 @@ public class ParserDatasetNameService(IDatasetNameService nameDataset) : IParser
         NameProperty.LAST_NAME => GenerateLastName(parameters),
         NameProperty.FULL_NAME => GenerateFullName( parameters),
         NameProperty.PREFIX => GeneratePrefix(parameters),
-        NameProperty.SUFFIX => _nameDataset.Suffix(),
+        NameProperty.SUFFIX => _nameAdapter.Suffix(),
         NameProperty.FIND_NAME => GenerateFindName(parameters),
-        NameProperty.JOB_TITLE => _nameDataset.JobTitle(),
-        NameProperty.JOB_DESCRIPTOR => _nameDataset.JobDescriptor(),
-        NameProperty.JOB_AREA => _nameDataset.JobArea(),
-        NameProperty.JOB_TYPE => _nameDataset.JobType(),
+        NameProperty.JOB_TITLE => _nameAdapter.JobTitle(),
+        NameProperty.JOB_DESCRIPTOR => _nameAdapter.JobDescriptor(),
+        NameProperty.JOB_AREA => _nameAdapter.JobArea(),
+        NameProperty.JOB_TYPE => _nameAdapter.JobType(),
         _ => null
     };
 
@@ -35,9 +35,9 @@ public class ParserDatasetNameService(IDatasetNameService nameDataset) : IParser
     {
         return parameters.ConvertToString(PARAM_GENDER, string.Empty) switch
         {
-            PARAM_GENDER_MALE => _nameDataset.FirstName(Gender.Male),
-            PARAM_GENDER_FEMALE => _nameDataset.FirstName(Gender.Female),
-            _ => _nameDataset.FirstName(),
+            PARAM_GENDER_MALE => _nameAdapter.FirstName(Gender.Male),
+            PARAM_GENDER_FEMALE => _nameAdapter.FirstName(Gender.Female),
+            _ => _nameAdapter.FirstName(),
         };
     }
 
@@ -45,9 +45,9 @@ public class ParserDatasetNameService(IDatasetNameService nameDataset) : IParser
     {
         return parameters.ConvertToString(PARAM_GENDER, string.Empty) switch
         {
-            PARAM_GENDER_MALE => _nameDataset.LastName(Gender.Male),
-            PARAM_GENDER_FEMALE => _nameDataset.LastName(Gender.Female),
-            _ => _nameDataset.LastName(),
+            PARAM_GENDER_MALE => _nameAdapter.LastName(Gender.Male),
+            PARAM_GENDER_FEMALE => _nameAdapter.LastName(Gender.Female),
+            _ => _nameAdapter.LastName(),
         };
     }
 
@@ -55,9 +55,9 @@ public class ParserDatasetNameService(IDatasetNameService nameDataset) : IParser
     {
         return parameters.ConvertToString(PARAM_GENDER, string.Empty) switch
         {
-            PARAM_GENDER_MALE => _nameDataset.FullName(Gender.Male),
-            PARAM_GENDER_FEMALE => _nameDataset.FullName(Gender.Female),
-            _ => _nameDataset.FullName(),
+            PARAM_GENDER_MALE => _nameAdapter.FullName(Gender.Male),
+            PARAM_GENDER_FEMALE => _nameAdapter.FullName(Gender.Female),
+            _ => _nameAdapter.FullName(),
         };
     }
 
@@ -65,9 +65,9 @@ public class ParserDatasetNameService(IDatasetNameService nameDataset) : IParser
     {
         return parameters.ConvertToString(PARAM_GENDER, string.Empty) switch
         {
-            PARAM_GENDER_MALE => _nameDataset.Prefix(Gender.Male),
-            PARAM_GENDER_FEMALE => _nameDataset.Prefix(Gender.Female),
-            _ => _nameDataset.Prefix(),
+            PARAM_GENDER_MALE => _nameAdapter.Prefix(Gender.Male),
+            PARAM_GENDER_FEMALE => _nameAdapter.Prefix(Gender.Female),
+            _ => _nameAdapter.Prefix(),
         };
     }
 
@@ -80,11 +80,11 @@ public class ParserDatasetNameService(IDatasetNameService nameDataset) : IParser
 
         return parameters.ConvertToString(PARAM_GENDER, string.Empty) switch
         {
-            PARAM_GENDER_MALE => _nameDataset.FindName(
+            PARAM_GENDER_MALE => _nameAdapter.FindName(
                 firstName, lastName, withPrefix, withSuffix, Gender.Male),
-            PARAM_GENDER_FEMALE => _nameDataset.FindName(
+            PARAM_GENDER_FEMALE => _nameAdapter.FindName(
                 firstName, lastName, withPrefix, withSuffix, Gender.Female),
-            _ => _nameDataset.FindName(
+            _ => _nameAdapter.FindName(
                 firstName, lastName, withPrefix, withSuffix),
         };
     }

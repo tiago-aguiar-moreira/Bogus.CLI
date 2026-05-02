@@ -19,18 +19,18 @@ var builder = CoconaApp.CreateBuilder();
 // Configure Datasets
 builder.Services.AddKeyedScoped<IRepository, SqlServerRepository>(Databases.SQL_SERVER);
 
-// Configure Datasets
-builder.Services.AddScoped<IDatasetLoremService, DatasetLoremService>();
-builder.Services.AddScoped<IDatasetNameService, DatasetNameService>();
-builder.Services.AddScoped<IDatasetPhoneService, DatasetPhoneService>();
+// Configure Faker Adapters
+builder.Services.AddScoped<ILoremFakerAdapter, LoremFakerAdapter>();
+builder.Services.AddScoped<INameFakerAdapter, NameFakerAdapter>();
+builder.Services.AddScoped<IPhoneFakerAdapter, PhoneFakerAdapter>();
 
 // Configure Helpers
 builder.Services.AddScoped<IDatasetHelper, DatasetHelper>();
 
-// Configure FakeData Services
-builder.Services.AddScoped<IParserDatasetLoremService, ParserDatasetLoremService>();
-builder.Services.AddScoped<IParserDatasetNameService, ParserDatasetNameService>();
-builder.Services.AddScoped<IParserDatasetPhoneService, ParserDatasetPhoneService>();
+// Configure Dataset Services
+builder.Services.AddScoped<ILoremDatasetService, LoremDatasetService>();
+builder.Services.AddScoped<INameDatasetService, NameDatasetService>();
+builder.Services.AddScoped<IPhoneDatasetService, PhoneDatasetService>();
 
 // Configure Services
 builder.Services.AddScoped<IDatasetService, DatasetService>();

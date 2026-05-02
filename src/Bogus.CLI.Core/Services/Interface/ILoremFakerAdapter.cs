@@ -1,5 +1,5 @@
 ﻿namespace Bogus.CLI.Core.Services.Interface;
-public interface IDatasetLoremService
+public interface ILoremFakerAdapter
 {
     string Word();
     string[] Words(int num = 3);
