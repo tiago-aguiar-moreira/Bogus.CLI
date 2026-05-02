@@ -1,4 +1,4 @@
-﻿using Bogus.CLI.App.Commands.DatasetFile.CommandModels;
+﻿using Bogus.CLI.Core.Models;
 using Bogus.CLI.Core.Constants;
 using Bogus.CLI.Core.Services.Interface;
 using Bogus.CLI.Infrastructure.Repository.Interface;

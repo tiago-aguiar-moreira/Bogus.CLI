@@ -1,4 +1,4 @@
-﻿namespace Bogus.CLI.App.Commands.DatasetFile.CommandModels;
+﻿namespace Bogus.CLI.Core.Models;
 public class Field
 {
     public string FieldName { get; set; } = string.Empty;

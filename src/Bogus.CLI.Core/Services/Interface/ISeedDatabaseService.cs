@@ -1,4 +1,4 @@
-﻿using Bogus.CLI.App.Commands.DatasetFile.CommandModels;
+﻿using Bogus.CLI.Core.Models;
 
 namespace Bogus.CLI.Core.Services.Interface;
 public interface ISeedDatabaseService

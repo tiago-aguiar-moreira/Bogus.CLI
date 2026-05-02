@@ -1,4 +1,4 @@
-﻿namespace Bogus.CLI.App.Commands.DatasetFile.CommandModels;
+﻿namespace Bogus.CLI.Core.Models;
 public class SeedFileModel
 {
     public string? Locale { get; set; }

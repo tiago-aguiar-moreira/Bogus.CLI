@@ -1,4 +1,4 @@
-﻿using Bogus.CLI.App.Commands.DatasetFile.CommandModels;
+﻿using Bogus.CLI.Core.Models;
 using Bogus.CLI.Core.Services.Interface;
 using Cocona;
 using Cocona.Builder;

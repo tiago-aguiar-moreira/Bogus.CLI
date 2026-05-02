@@ -1,6 +1,6 @@
 ﻿using Bogus.CLI.Core.Constants;
 
-namespace Bogus.CLI.App.Commands.DatasetFile.CommandModels;
+namespace Bogus.CLI.Core.Models;
 public class DatabaseModel
 {
     public string Type { get; set; } = string.Empty;
