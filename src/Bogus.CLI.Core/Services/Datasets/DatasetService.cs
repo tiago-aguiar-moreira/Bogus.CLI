@@ -2,7 +2,7 @@
 using Bogus.CLI.Core.Helpers.Interface;
 using Bogus.CLI.Core.Services.Interface;
 
-namespace Bogus.CLI.Core.Services;
+namespace Bogus.CLI.Core.Services.Datasets;
 public class DatasetService(
     IDatasetHelper datasetHelper,
     IFakerService fakerService,

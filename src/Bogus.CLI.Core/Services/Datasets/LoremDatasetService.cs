@@ -2,7 +2,7 @@
 using Bogus.CLI.Core.Extensions;
 using Bogus.CLI.Core.Services.Interface;
 
-namespace Bogus.CLI.Core.Services;
+namespace Bogus.CLI.Core.Services.Datasets;
 public class LoremDatasetService(ILoremFakerAdapter loremAdapter) : ILoremDatasetService
 {
     public const string PARAM_NUM = "num";

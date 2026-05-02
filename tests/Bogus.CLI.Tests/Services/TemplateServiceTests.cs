@@ -1,4 +1,4 @@
-﻿using Bogus.CLI.Core.Services;
+﻿using Bogus.CLI.Core.Services.Commands;
 
 namespace Bogus.CLI.Tests.Services;
 public class TemplateServiceTests

@@ -2,7 +2,7 @@
 using Bogus.CLI.Core.Services.Interface;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Bogus.CLI.Core.Services;
+namespace Bogus.CLI.Core.Services.Commands;
 
 [ExcludeFromCodeCoverage]
 public class ListLocaleService : IListLocaleService

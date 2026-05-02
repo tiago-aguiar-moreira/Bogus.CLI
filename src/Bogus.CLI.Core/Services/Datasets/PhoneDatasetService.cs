@@ -2,7 +2,7 @@
 using Bogus.CLI.Core.Extensions;
 using Bogus.CLI.Core.Services.Interface;
 
-namespace Bogus.CLI.Core.Services;
+namespace Bogus.CLI.Core.Services.Datasets;
 public class PhoneDatasetService(IPhoneFakerAdapter phoneAdapter) : IPhoneDatasetService
 {
     public const string PARAM_FORMAT = "format";

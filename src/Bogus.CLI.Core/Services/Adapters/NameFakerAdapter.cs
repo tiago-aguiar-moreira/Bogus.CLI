@@ -3,7 +3,7 @@ using Bogus.DataSets;
 using System.Diagnostics.CodeAnalysis;
 using static Bogus.DataSets.Name;
 
-namespace Bogus.CLI.Core.Services;
+namespace Bogus.CLI.Core.Services.Adapters;
 
 [ExcludeFromCodeCoverage]
 public class NameFakerAdapter(IFakerService fakerService) : INameFakerAdapter

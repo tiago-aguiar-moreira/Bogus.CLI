@@ -1,7 +1,7 @@
 ﻿using Bogus.CLI.Core.Services.Interface;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Bogus.CLI.Core.Services;
+namespace Bogus.CLI.Core.Services.Adapters;
 
 [ExcludeFromCodeCoverage]
 public class FakerService : IFakerService

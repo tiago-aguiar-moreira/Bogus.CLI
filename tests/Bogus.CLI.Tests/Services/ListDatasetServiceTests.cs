@@ -1,7 +1,7 @@
 ﻿using Bogus.CLI.Core.Constants;
 using Bogus.CLI.Core.Constants.Properties;
 using Bogus.CLI.Core.Helpers.Interface;
-using Bogus.CLI.Core.Services;
+using Bogus.CLI.Core.Services.Commands;
 using Bogus.CLI.Core.Services.Interface;
 using Moq;
 

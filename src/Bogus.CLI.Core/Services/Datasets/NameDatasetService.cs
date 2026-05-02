@@ -3,7 +3,7 @@ using Bogus.CLI.Core.Extensions;
 using Bogus.CLI.Core.Services.Interface;
 using static Bogus.DataSets.Name;
 
-namespace Bogus.CLI.Core.Services;
+namespace Bogus.CLI.Core.Services.Datasets;
 public class NameDatasetService(INameFakerAdapter nameAdapter) : INameDatasetService
 {
     private const string PARAM_GENDER = "gender";

@@ -1,6 +1,6 @@
 ﻿using Bogus.CLI.Core.Services.Interface;
 
-namespace Bogus.CLI.Core.Services;
+namespace Bogus.CLI.Core.Services.Commands;
 public class TemplateService : ITemplateService
 {
     private string _template = string.Empty;

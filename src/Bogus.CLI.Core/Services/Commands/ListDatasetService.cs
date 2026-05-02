@@ -1,7 +1,7 @@
 ﻿using Bogus.CLI.Core.Helpers.Interface;
 using Bogus.CLI.Core.Services.Interface;
 
-namespace Bogus.CLI.Core.Services;
+namespace Bogus.CLI.Core.Services.Commands;
 public class ListDatasetService(IDatasetHelper datasetHelper) : IListDatasetService
 {
     private readonly IDatasetHelper _datasetHelper = datasetHelper;

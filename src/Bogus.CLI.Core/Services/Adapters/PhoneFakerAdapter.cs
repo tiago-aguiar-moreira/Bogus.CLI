@@ -2,7 +2,7 @@
 using Bogus.DataSets;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Bogus.CLI.Core.Services;
+namespace Bogus.CLI.Core.Services.Adapters;
 
 [ExcludeFromCodeCoverage]
 public class PhoneFakerAdapter(IFakerService fakerService) : IPhoneFakerAdapter

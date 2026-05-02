@@ -1,6 +1,6 @@
 ﻿using Bogus.CLI.Core.Constants.Properties;
 using Bogus.CLI.Core.Extensions;
-using Bogus.CLI.Core.Services;
+using Bogus.CLI.Core.Services.Datasets;
 using Bogus.CLI.Core.Services.Interface;
 using Moq;
 

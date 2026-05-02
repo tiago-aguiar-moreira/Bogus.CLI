@@ -4,7 +4,7 @@ using Bogus.CLI.Core.Services.Interface;
 using Bogus.CLI.Infrastructure.Repository.Interface;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Bogus.CLI.Core.Services;
+namespace Bogus.CLI.Core.Services.Commands;
 public class SeedDatabaseService(
     IDatasetService datasetService,
     [FromKeyedServices(Databases.SQL_SERVER)] IRepository repository) : ISeedDatabaseService
