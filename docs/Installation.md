@@ -44,5 +44,5 @@ Now that you have Bogus.CLI installed, check out the other sections of the docum
 
 ---
 
-**Previous:** [Index](Index.md) | **Next:** [Quick Start](QuickStart.md)
+**Previous:** [Index](index.md) | **Next:** [Quick Start](quickstart.md)
 

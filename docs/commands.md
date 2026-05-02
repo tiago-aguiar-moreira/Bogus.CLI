@@ -68,4 +68,4 @@ Explore each command in depth by clicking the links above, and start generating 
 
 ---
 
-**Previous:** [Quick Start](QuickStart.md) | **Next:** [Name Dataset](name-dataset.md)
+**Previous:** [Quick Start](quickstart.md) | **Next:** [Name Dataset](name-dataset.md)

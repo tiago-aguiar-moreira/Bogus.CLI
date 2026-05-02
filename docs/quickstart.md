@@ -52,4 +52,4 @@ Explore more advanced options and customization in the upcoming sections of the 
 
 ---
 
-**Previous:** [Installation](Installation.md) | **Next:** [Commands](Commands.md)
+**Previous:** [Installation](Installation.md) | **Next:** [Commands](commands.md)
