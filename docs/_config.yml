@@ -1,3 +1,12 @@
 title: Bogus CLI
 description: A command-line tool for generating realistic fake data directly from the terminal.
 theme: minima
+
+header_pages:
+  - Installation.md
+  - quickstart.md
+  - commands.md
+  - name-dataset.md
+  - lorem-dataset.md
+  - architecture.md
+  - architecture-flow.md

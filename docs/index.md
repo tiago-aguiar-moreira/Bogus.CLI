@@ -1,3 +1,7 @@
+---
+title: Home
+---
+
 ## Welcome to Bogus.CLI 🚀
 
 **Bogus.CLI** is a command-line tool based on the NuGet package [Bogus](https://github.com/bchavez/Bogus), designed to quickly and easily generate realistic fake data directly from the terminal.

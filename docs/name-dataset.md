@@ -1,3 +1,7 @@
+---
+title: Name Dataset
+---
+
 The `name` dataset provides a variety of commands for generating random names, job titles, and related data. Below is a detailed explanation of all available properties and their parameters.
 
 ## Available Properties

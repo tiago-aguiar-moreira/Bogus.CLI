@@ -1,3 +1,7 @@
+---
+title: Commands
+---
+
 Here’s a quick overview of the main commands you can use with Bogus.CLI:
 
 ## list-locales

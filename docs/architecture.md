@@ -1,3 +1,7 @@
+---
+title: Architecture
+---
+
 ## Overview
 
 Bogus.CLI is organized into **3 projects** following a layered architecture with clear separation of responsibilities. Each layer depends only on the layer below it, and all dependencies are injected via interfaces.

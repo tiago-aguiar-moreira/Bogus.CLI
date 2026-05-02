@@ -1,3 +1,7 @@
+---
+title: Quick Start
+---
+
 ## Getting Started
 
 After installing Bogus.CLI, you can start generating fake data instantly. Let’s walk through some basic commands to get you up and running quickly.

@@ -1,3 +1,7 @@
+---
+title: Lorem Dataset
+---
+
 The `lorem` dataset provides a variety of commands for generating random text data. Below is a detailed explanation of all available properties and their parameters.
 
 ## Available Properties

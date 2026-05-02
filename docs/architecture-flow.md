@@ -1,3 +1,7 @@
+---
+title: Execution Flow
+---
+
 ## Overview
 
 This page describes the execution flow for each command, tracing the path from the terminal input down to the final output.

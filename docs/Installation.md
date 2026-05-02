@@ -1,3 +1,7 @@
+---
+title: Installation
+---
+
 ## Requirements
 
 To use Bogus.CLI, you need to have the following installed:
