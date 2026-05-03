@@ -14,6 +14,7 @@ public class DatasetServiceTests
     private readonly Mock<IDatasetHelper> _datasetHelperMock;
     private readonly Mock<IFakerService> _fakerServiceMock;
     private readonly Mock<IAddressDatasetService> _fakeDataAddressServiceMock;
+    private readonly Mock<ICommerceDatasetService> _fakeDataCommerceServiceMock;
     private readonly Mock<IFinanceDatasetService> _fakeDataFinanceServiceMock;
     private readonly Mock<IInternetDatasetService> _fakeDataInternetServiceMock;
     private readonly Mock<ILoremDatasetService> _fakeDataLoremServiceMock;
@@ -26,6 +27,7 @@ public class DatasetServiceTests
         _fakerServiceMock = new Mock<IFakerService>();
         _datasetHelperMock = new Mock<IDatasetHelper>();
         _fakeDataAddressServiceMock = new Mock<IAddressDatasetService>();
+        _fakeDataCommerceServiceMock = new Mock<ICommerceDatasetService>();
         _fakeDataFinanceServiceMock = new Mock<IFinanceDatasetService>();
         _fakeDataInternetServiceMock = new Mock<IInternetDatasetService>();
         _fakeDataLoremServiceMock = new Mock<ILoremDatasetService>();
@@ -36,6 +38,7 @@ public class DatasetServiceTests
             _datasetHelperMock.Object,
             _fakerServiceMock.Object,
             _fakeDataAddressServiceMock.Object,
+            _fakeDataCommerceServiceMock.Object,
             _fakeDataFinanceServiceMock.Object,
             _fakeDataInternetServiceMock.Object,
             _fakeDataLoremServiceMock.Object,
@@ -316,6 +319,49 @@ public class DatasetServiceTests
 
         _fakeDataPhoneServiceMock.Verify(v => v.Generate(
             It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
+    }
+
+    [Theory]
+    [InlineData(CommerceProperty.PRODUCT_NAME, "product")]
+    [InlineData(CommerceProperty.COLOR, "color")]
+    public void ExecuteCommand_CommerceDataset_ShouldBeOk(string propertyName, string alias)
+    {
+        // Arrange
+        var datasetName = COMMERCE;
+        var datasets = new string[] { $"{datasetName}.{propertyName}={alias}" };
+        var rowsCount = 10;
+        IDictionary<string, object> parameters = new Dictionary<string, object>();
+
+        _datasetHelperMock
+            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias, out parameters))
+            .Returns(true);
+
+        _datasetHelperMock
+            .Setup(s => s.DatasetExists(It.IsAny<string>()))
+            .Returns(true);
+
+        _datasetHelperMock
+            .Setup(s => s.PropertyExists(It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
+
+        _fakeDataCommerceServiceMock
+            .Setup(s => s.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
+            .Returns("abcde");
+
+        // Act
+        _datasetService.ExecuteCommand(datasets, rowsCount, null, _onInsertMock.Object);
+
+        // Assert
+        _onInsertMock.Verify(v => v.Invoke(It.IsAny<List<(string Value, string Alias)>>()), Times.Exactly(rowsCount));
+
+        _fakeDataCommerceServiceMock
+            .Verify(v => v.Generate(propertyName, new Dictionary<string, object>()), Times.Exactly(rowsCount));
+
+        _fakeDataLoremServiceMock
+            .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
+
+        _fakeDataPhoneServiceMock
+            .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
     }
 
     [Theory]
