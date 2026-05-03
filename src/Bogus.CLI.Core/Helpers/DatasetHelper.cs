@@ -33,6 +33,22 @@ public class DatasetHelper : IDatasetHelper
             }
         },
         {
+            CONST.Datasets.COMMERCE, new List<string>
+            {
+                CommerceProperty.DEPARTMENT,
+                CommerceProperty.PRICE,
+                CommerceProperty.CATEGORIES,
+                CommerceProperty.PRODUCT_NAME,
+                CommerceProperty.COLOR,
+                CommerceProperty.PRODUCT,
+                CommerceProperty.PRODUCT_ADJECTIVE,
+                CommerceProperty.PRODUCT_MATERIAL,
+                CommerceProperty.PRODUCT_DESCRIPTION,
+                CommerceProperty.EAN8,
+                CommerceProperty.EAN13
+            }
+        },
+        {
             CONST.Datasets.FINANCE, new List<string>
             {
                 FinanceProperty.ACCOUNT,

@@ -2,6 +2,7 @@
 public static class Datasets
 {
     public const string ADDRESS = "address";
+    public const string COMMERCE = "commerce";
     public const string FINANCE = "finance";
     public const string INTERNET = "internet";
     public const string LOREM = "lorem";
