@@ -49,6 +49,15 @@ public class DatasetHelper : IDatasetHelper
             }
         },
         {
+            CONST.Datasets.DATABASE, new List<string>
+            {
+                DatabaseProperty.COLUMN,
+                DatabaseProperty.TYPE,
+                DatabaseProperty.COLLATION,
+                DatabaseProperty.ENGINE
+            }
+        },
+        {
             CONST.Datasets.COMPANY, new List<string>
             {
                 CompanyProperty.COMPANY_SUFFIX,

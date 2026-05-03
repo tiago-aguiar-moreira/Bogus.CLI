@@ -3,6 +3,7 @@ public static class Datasets
 {
     public const string ADDRESS = "address";
     public const string COMMERCE = "commerce";
+    public const string DATABASE = "database";
     public const string COMPANY = "company";
     public const string FINANCE = "finance";
     public const string HACKER = "hacker";
