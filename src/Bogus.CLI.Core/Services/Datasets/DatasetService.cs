@@ -13,7 +13,8 @@ public class DatasetService(
     IInternetDatasetService internetDatasetService,
     ILoremDatasetService loremDatasetService,
     INameDatasetService nameDatasetService,
-    IPhoneDatasetService phoneDatasetService) : IDatasetService
+    IPhoneDatasetService phoneDatasetService,
+    IVehicleDatasetService vehicleDatasetService) : IDatasetService
 {
     private readonly IDatasetHelper _datasetHelper = datasetHelper;
     private readonly IFakerService _fakerService = fakerService;
@@ -25,6 +26,7 @@ public class DatasetService(
     private readonly ILoremDatasetService _loremDatasetService = loremDatasetService;
     private readonly INameDatasetService _nameDatasetService = nameDatasetService;
     private readonly IPhoneDatasetService _phoneDatasetService = phoneDatasetService;
+    private readonly IVehicleDatasetService _vehicleDatasetService = vehicleDatasetService;
 
     public void ExecuteCommand(
         string[] datasets,
@@ -99,6 +101,7 @@ public class DatasetService(
         CONST.Datasets.LOREM => _loremDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.NAME => _nameDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.PHONE => _phoneDatasetService.Generate(propertyName, parameters),
+        CONST.Datasets.VEHICLE => _vehicleDatasetService.Generate(propertyName, parameters),
         _ => null
     };
 }

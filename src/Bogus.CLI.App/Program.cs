@@ -30,6 +30,7 @@ builder.Services.AddScoped<IInternetFakerAdapter, InternetFakerAdapter>();
 builder.Services.AddScoped<ILoremFakerAdapter, LoremFakerAdapter>();
 builder.Services.AddScoped<INameFakerAdapter, NameFakerAdapter>();
 builder.Services.AddScoped<IPhoneFakerAdapter, PhoneFakerAdapter>();
+builder.Services.AddScoped<IVehicleFakerAdapter, VehicleFakerAdapter>();
 
 // Configure Helpers
 builder.Services.AddScoped<IDatasetHelper, DatasetHelper>();
@@ -43,6 +44,7 @@ builder.Services.AddScoped<IInternetDatasetService, InternetDatasetService>();
 builder.Services.AddScoped<ILoremDatasetService, LoremDatasetService>();
 builder.Services.AddScoped<INameDatasetService, NameDatasetService>();
 builder.Services.AddScoped<IPhoneDatasetService, PhoneDatasetService>();
+builder.Services.AddScoped<IVehicleDatasetService, VehicleDatasetService>();
 
 // Configure Services
 builder.Services.AddScoped<IDatasetService, DatasetService>();

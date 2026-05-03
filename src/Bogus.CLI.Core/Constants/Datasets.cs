@@ -9,4 +9,5 @@ public static class Datasets
     public const string LOREM = "lorem";
     public const string NAME = "name";
     public const string PHONE = "phone";
+    public const string VEHICLE = "vehicle";
 }

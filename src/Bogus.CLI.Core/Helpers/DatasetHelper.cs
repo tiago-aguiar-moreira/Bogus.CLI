@@ -138,6 +138,16 @@ public class DatasetHelper : IDatasetHelper
                 PhoneProperty.NUMBER,
                 PhoneProperty.FORMAT
             }
+        },
+        {
+            CONST.Datasets.VEHICLE, new List<string>
+            {
+                VehicleProperty.VIN,
+                VehicleProperty.MANUFACTURER,
+                VehicleProperty.MODEL,
+                VehicleProperty.TYPE,
+                VehicleProperty.FUEL
+            }
         }
     };
 
