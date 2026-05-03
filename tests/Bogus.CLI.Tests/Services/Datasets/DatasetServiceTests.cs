@@ -22,6 +22,7 @@ public class DatasetServiceTests
     private readonly Mock<ILoremDatasetService> _fakeDataLoremServiceMock;
     private readonly Mock<INameDatasetService> _fakeDataNameServiceMock;
     private readonly Mock<IPhoneDatasetService> _fakeDataPhoneServiceMock;
+    private readonly Mock<IRantDatasetService> _fakeDataRantServiceMock;
     private readonly Mock<IVehicleDatasetService> _fakeDataVehicleServiceMock;
     private readonly Mock<Action<List<(string Value, string Alias)>>> _onInsertMock;
 
@@ -39,6 +40,7 @@ public class DatasetServiceTests
         _fakeDataLoremServiceMock = new Mock<ILoremDatasetService>();
         _fakeDataNameServiceMock = new Mock<INameDatasetService>();
         _fakeDataPhoneServiceMock = new Mock<IPhoneDatasetService>();
+        _fakeDataRantServiceMock = new Mock<IRantDatasetService>();
         _fakeDataVehicleServiceMock = new Mock<IVehicleDatasetService>();
 
         _datasetService = new DatasetService(
@@ -54,6 +56,7 @@ public class DatasetServiceTests
             _fakeDataLoremServiceMock.Object,
             _fakeDataNameServiceMock.Object,
             _fakeDataPhoneServiceMock.Object,
+            _fakeDataRantServiceMock.Object,
             _fakeDataVehicleServiceMock.Object);
 
         _onInsertMock = new Mock<Action<List<(string Value, string Alias)>>>();
@@ -581,6 +584,49 @@ public class DatasetServiceTests
         _onInsertMock.Verify(v => v.Invoke(It.IsAny<List<(string Value, string Alias)>>()), Times.Exactly(rowsCount));
 
         _fakeDataHackerServiceMock
+            .Verify(v => v.Generate(propertyName, new Dictionary<string, object>()), Times.Exactly(rowsCount));
+
+        _fakeDataLoremServiceMock
+            .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
+
+        _fakeDataPhoneServiceMock
+            .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
+    }
+
+    [Theory]
+    [InlineData(RantProperty.REVIEW, "review")]
+    [InlineData(RantProperty.REVIEWS, "reviews")]
+    public void ExecuteCommand_RantDataset_ShouldBeOk(string propertyName, string alias)
+    {
+        // Arrange
+        var datasetName = RANT;
+        var datasets = new string[] { $"{datasetName}.{propertyName}={alias}" };
+        var rowsCount = 10;
+        IDictionary<string, object> parameters = new Dictionary<string, object>();
+
+        _datasetHelperMock
+            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias, out parameters))
+            .Returns(true);
+
+        _datasetHelperMock
+            .Setup(s => s.DatasetExists(It.IsAny<string>()))
+            .Returns(true);
+
+        _datasetHelperMock
+            .Setup(s => s.PropertyExists(It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
+
+        _fakeDataRantServiceMock
+            .Setup(s => s.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
+            .Returns("abcde");
+
+        // Act
+        _datasetService.ExecuteCommand(datasets, rowsCount, null, _onInsertMock.Object);
+
+        // Assert
+        _onInsertMock.Verify(v => v.Invoke(It.IsAny<List<(string Value, string Alias)>>()), Times.Exactly(rowsCount));
+
+        _fakeDataRantServiceMock
             .Verify(v => v.Generate(propertyName, new Dictionary<string, object>()), Times.Exactly(rowsCount));
 
         _fakeDataLoremServiceMock
