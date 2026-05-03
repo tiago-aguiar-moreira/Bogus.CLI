@@ -75,6 +75,17 @@ public class DatasetHelper : IDatasetHelper
             }
         },
         {
+            CONST.Datasets.HACKER, new List<string>
+            {
+                HackerProperty.ABBREVIATION,
+                HackerProperty.ADJECTIVE,
+                HackerProperty.NOUN,
+                HackerProperty.VERB,
+                HackerProperty.ING_VERB,
+                HackerProperty.PHRASE
+            }
+        },
+        {
             CONST.Datasets.INTERNET, new List<string>
             {
                 InternetProperty.AVATAR,

@@ -5,6 +5,7 @@ public static class Datasets
     public const string COMMERCE = "commerce";
     public const string COMPANY = "company";
     public const string FINANCE = "finance";
+    public const string HACKER = "hacker";
     public const string INTERNET = "internet";
     public const string LOREM = "lorem";
     public const string NAME = "name";
