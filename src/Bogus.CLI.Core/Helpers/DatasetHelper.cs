@@ -33,6 +33,34 @@ public class DatasetHelper : IDatasetHelper
             }
         },
         {
+            CONST.Datasets.INTERNET, new List<string>
+            {
+                InternetProperty.AVATAR,
+                InternetProperty.EMAIL,
+                InternetProperty.EXAMPLE_EMAIL,
+                InternetProperty.USERNAME,
+                InternetProperty.USERNAME_UNICODE,
+                InternetProperty.DOMAIN_NAME,
+                InternetProperty.DOMAIN_WORD,
+                InternetProperty.DOMAIN_SUFFIX,
+                InternetProperty.IP,
+                InternetProperty.PORT,
+                InternetProperty.IP_ADDRESS,
+                InternetProperty.IP_ENDPOINT,
+                InternetProperty.IPV6,
+                InternetProperty.IPV6_ADDRESS,
+                InternetProperty.IPV6_ENDPOINT,
+                InternetProperty.USER_AGENT,
+                InternetProperty.MAC,
+                InternetProperty.PASSWORD,
+                InternetProperty.COLOR,
+                InternetProperty.PROTOCOL,
+                InternetProperty.URL,
+                InternetProperty.URL_WITH_PATH,
+                InternetProperty.URL_ROOTED_PATH
+            }
+        },
+        {
             CONST.Datasets.LOREM, new List<string>
             {
                 LoremProperty.WORD,

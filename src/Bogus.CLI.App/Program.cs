@@ -23,6 +23,7 @@ builder.Services.AddKeyedScoped<IRepository, SqlServerRepository>(Databases.SQL_
 
 // Configure Faker Adapters
 builder.Services.AddScoped<IAddressFakerAdapter, AddressFakerAdapter>();
+builder.Services.AddScoped<IInternetFakerAdapter, InternetFakerAdapter>();
 builder.Services.AddScoped<ILoremFakerAdapter, LoremFakerAdapter>();
 builder.Services.AddScoped<INameFakerAdapter, NameFakerAdapter>();
 builder.Services.AddScoped<IPhoneFakerAdapter, PhoneFakerAdapter>();
@@ -32,6 +33,7 @@ builder.Services.AddScoped<IDatasetHelper, DatasetHelper>();
 
 // Configure Dataset Services
 builder.Services.AddScoped<IAddressDatasetService, AddressDatasetService>();
+builder.Services.AddScoped<IInternetDatasetService, InternetDatasetService>();
 builder.Services.AddScoped<ILoremDatasetService, LoremDatasetService>();
 builder.Services.AddScoped<INameDatasetService, NameDatasetService>();
 builder.Services.AddScoped<IPhoneDatasetService, PhoneDatasetService>();
