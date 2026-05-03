@@ -1,4 +1,5 @@
 ﻿using Bogus.CLI.Core.Constants;
+using static global::Bogus.CLI.Core.Constants.Datasets;
 using Bogus.CLI.Core.Constants.Properties;
 using Bogus.CLI.Core.Helpers.Interface;
 using Bogus.CLI.Core.Services.Commands;
@@ -36,7 +37,7 @@ public class ListDatasetServiceTests
 
         // Act
         var actualList = _listDatasetService
-            .ExecuteCommand(Datasets.LOREM);
+            .ExecuteCommand(LOREM);
 
         // Assert
         Assert.Equal(expectedList.Count, actualList.Count);
@@ -52,9 +53,9 @@ public class ListDatasetServiceTests
         // Arrange
         var expectedList = new List<string>()
         {
-            Datasets.LOREM,
-            Datasets.NAME,
-            Datasets.PHONE
+            LOREM,
+            NAME,
+            PHONE
         };
 
         _datasetHelperMock

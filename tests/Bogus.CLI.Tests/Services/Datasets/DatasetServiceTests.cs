@@ -1,12 +1,13 @@
 ﻿using Bogus.CLI.Core.Constants;
+using static global::Bogus.CLI.Core.Constants.Datasets;
 using Bogus.CLI.Core.Constants.Properties;
 using Bogus.CLI.Core.Helpers.Interface;
 using Bogus.CLI.Core.Services.Datasets;
 using Bogus.CLI.Core.Services.Interface;
 using Moq;
-using System.Collections.Generic;
 
 namespace Bogus.CLI.Tests.Services.Datasets;
+
 public class DatasetServiceTests
 {
     private readonly DatasetService _datasetService;
@@ -39,7 +40,7 @@ public class DatasetServiceTests
     public void ExecuteCommand_InvalidParameters_ShouldBeFail()
     {
         // Arrange
-        var datasets = new string[] { $"{Datasets.LOREM}.{LoremProperty.WORD}" };
+        var datasets = new string[] { $"{LOREM}.{LoremProperty.WORD}" };
         var rowsCount = 10;
 
         // Act
@@ -78,7 +79,7 @@ public class DatasetServiceTests
     public void ExecuteCommand_InvalidCount_ShouldBeFail(int rowsCount)
     {
         // Arrange
-        var datasets = new string[] { $"{Datasets.LOREM}.{LoremProperty.WORD}" };
+        var datasets = new string[] { $"{LOREM}.{LoremProperty.WORD}" };
 
         // Act
         Assert.Throws<Exception>(() => _datasetService.ExecuteCommand(datasets, rowsCount, null, _onInsertMock.Object));
@@ -207,7 +208,7 @@ public class DatasetServiceTests
     public void ExecuteCommand_PropertyNotExists_ShouldBeFail()
     {
         // Arrange
-        var datasets = new string[] { $"{Datasets.LOREM}.XPTO" };
+        var datasets = new string[] { $"{LOREM}.XPTO" };
         var rowsCount = 10;
 
         var datasetName = string.Empty;
@@ -314,7 +315,7 @@ public class DatasetServiceTests
     public void ExecuteCommand_LoremDataset_ShouldBeOk(string propertyName, string alias)
     {
         // Arrange
-        var datasetName = Datasets.LOREM;
+        var datasetName = LOREM;
         var datasets = new string[] { $"{datasetName}.{propertyName}={alias}" };
         var rowsCount = 10;
         IDictionary<string, object> parameters = new Dictionary<string, object>();
@@ -357,7 +358,7 @@ public class DatasetServiceTests
     public void ExecuteCommand_NameDataset_ShouldBeOk(string propertyName, string alias)
     {
         // Arrange
-        var datasetName = Datasets.NAME;
+        var datasetName = NAME;
         var datasets = new string[] { $"{datasetName}.{propertyName}" };
         var rowsCount = 10;
         IDictionary<string, object> parameters = new Dictionary<string, object>();
@@ -400,7 +401,7 @@ public class DatasetServiceTests
     public void ExecuteCommand_DatasetName_ShouldBeOk(string propertyName, string alias)
     {
         // Arrange
-        var datasetName = Datasets.PHONE;
+        var datasetName = PHONE;
         var datasets = new string[] { $"{datasetName}.{propertyName}" };
         var rowsCount = 10;
         IDictionary<string, object> parameters = new Dictionary<string, object>();
