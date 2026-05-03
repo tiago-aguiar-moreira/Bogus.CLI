@@ -33,6 +33,23 @@ public class DatasetHelper : IDatasetHelper
             }
         },
         {
+            CONST.Datasets.FINANCE, new List<string>
+            {
+                FinanceProperty.ACCOUNT,
+                FinanceProperty.ACCOUNT_NAME,
+                FinanceProperty.AMOUNT,
+                FinanceProperty.TRANSACTION_TYPE,
+                FinanceProperty.CURRENCY,
+                FinanceProperty.CREDIT_CARD_NUMBER,
+                FinanceProperty.CREDIT_CARD_CVV,
+                FinanceProperty.BITCOIN_ADDRESS,
+                FinanceProperty.ETHEREUM_ADDRESS,
+                FinanceProperty.ROUTING_NUMBER,
+                FinanceProperty.BIC,
+                FinanceProperty.IBAN
+            }
+        },
+        {
             CONST.Datasets.INTERNET, new List<string>
             {
                 InternetProperty.AVATAR,

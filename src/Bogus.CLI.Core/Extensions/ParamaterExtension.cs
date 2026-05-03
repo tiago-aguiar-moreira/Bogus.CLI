@@ -36,6 +36,11 @@ public static class ParamaterExtension
             ? doubleValue
             : defaultValue;
 
+    public static decimal ConvertToDecimal(this IDictionary<string, object> parameters, string key, decimal defaultValue)
+        => !string.IsNullOrEmpty(key) && parameters.TryGetValue(key.ToLower(), out var value) && decimal.TryParse(value.ToString(), out var decimalValue)
+            ? decimalValue
+            : defaultValue;
+
     public static void AddParameter(this IDictionary<string, object> parameters, string key, object values)
     {
         if (!string.IsNullOrEmpty(key) && values != null)
