@@ -31,6 +31,11 @@ public static class ParamaterExtension
             ? result
             : defaultValue;
 
+    public static double ConvertToDouble(this IDictionary<string, object> parameters, string key, double defaultValue)
+        => !string.IsNullOrEmpty(key) && parameters.TryGetValue(key.ToLower(), out var value) && double.TryParse(value.ToString(), out var doubleValue)
+            ? doubleValue
+            : defaultValue;
+
     public static void AddParameter(this IDictionary<string, object> parameters, string key, object values)
     {
         if (!string.IsNullOrEmpty(key) && values != null)

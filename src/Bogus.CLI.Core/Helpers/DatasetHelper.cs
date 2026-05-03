@@ -8,6 +8,31 @@ public class DatasetHelper : IDatasetHelper
     private readonly IDictionary<string, IList<string>> _datasets = new Dictionary<string, IList<string>>()
     {
         {
+            CONST.Datasets.ADDRESS, new List<string>
+            {
+                AddressProperty.ZIPCODE,
+                AddressProperty.CITY,
+                AddressProperty.STREET_ADDRESS,
+                AddressProperty.CITY_PREFIX,
+                AddressProperty.CITY_SUFFIX,
+                AddressProperty.STREET_NAME,
+                AddressProperty.BUILDING_NUMBER,
+                AddressProperty.STREET_SUFFIX,
+                AddressProperty.SECONDARY_ADDRESS,
+                AddressProperty.COUNTY,
+                AddressProperty.COUNTRY,
+                AddressProperty.FULL_ADDRESS,
+                AddressProperty.COUNTRY_CODE,
+                AddressProperty.STATE,
+                AddressProperty.STATE_ABBR,
+                AddressProperty.LATITUDE,
+                AddressProperty.LONGITUDE,
+                AddressProperty.DIRECTION,
+                AddressProperty.CARDINAL_DIRECTION,
+                AddressProperty.ORDINAL_DIRECTION
+            }
+        },
+        {
             CONST.Datasets.LOREM, new List<string>
             {
                 LoremProperty.WORD,
