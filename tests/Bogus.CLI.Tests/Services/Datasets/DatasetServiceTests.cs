@@ -14,6 +14,7 @@ public class DatasetServiceTests
     private readonly Mock<IDatasetHelper> _datasetHelperMock;
     private readonly Mock<IFakerService> _fakerServiceMock;
     private readonly Mock<IAddressDatasetService> _fakeDataAddressServiceMock;
+    private readonly Mock<IFinanceDatasetService> _fakeDataFinanceServiceMock;
     private readonly Mock<IInternetDatasetService> _fakeDataInternetServiceMock;
     private readonly Mock<ILoremDatasetService> _fakeDataLoremServiceMock;
     private readonly Mock<INameDatasetService> _fakeDataNameServiceMock;
@@ -25,6 +26,7 @@ public class DatasetServiceTests
         _fakerServiceMock = new Mock<IFakerService>();
         _datasetHelperMock = new Mock<IDatasetHelper>();
         _fakeDataAddressServiceMock = new Mock<IAddressDatasetService>();
+        _fakeDataFinanceServiceMock = new Mock<IFinanceDatasetService>();
         _fakeDataInternetServiceMock = new Mock<IInternetDatasetService>();
         _fakeDataLoremServiceMock = new Mock<ILoremDatasetService>();
         _fakeDataNameServiceMock = new Mock<INameDatasetService>();
@@ -34,6 +36,7 @@ public class DatasetServiceTests
             _datasetHelperMock.Object,
             _fakerServiceMock.Object,
             _fakeDataAddressServiceMock.Object,
+            _fakeDataFinanceServiceMock.Object,
             _fakeDataInternetServiceMock.Object,
             _fakeDataLoremServiceMock.Object,
             _fakeDataNameServiceMock.Object,
