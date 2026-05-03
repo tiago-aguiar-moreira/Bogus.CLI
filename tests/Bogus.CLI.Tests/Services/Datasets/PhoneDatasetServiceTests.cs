@@ -4,7 +4,7 @@ using Bogus.CLI.Core.Services.Datasets;
 using Bogus.CLI.Core.Services.Interface;
 using Moq;
 
-namespace Bogus.CLI.Tests.Services;
+namespace Bogus.CLI.Tests.Services.Datasets;
 public class PhoneDatasetServiceTests
 {
     private readonly IDictionary<string, object> _parameters;

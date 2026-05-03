@@ -5,7 +5,7 @@ using Bogus.CLI.Core.Services.Commands;
 using Bogus.CLI.Core.Services.Interface;
 using Moq;
 
-namespace Bogus.CLI.Tests.Services;
+namespace Bogus.CLI.Tests.Services.Commands;
 public class ListDatasetServiceTests
 {
     private readonly IListDatasetService _listDatasetService;

@@ -5,7 +5,7 @@ using Bogus.CLI.Core.Services.Interface;
 using Moq;
 using static Bogus.DataSets.Name;
 
-namespace Bogus.CLI.Tests.Services;
+namespace Bogus.CLI.Tests.Services.Datasets;
 public class NameDatasetServiceTests
 {
     private readonly IDictionary<string, object> _parameters;

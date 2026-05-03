@@ -6,7 +6,7 @@ using Bogus.CLI.Core.Services.Interface;
 using Moq;
 using System.Collections.Generic;
 
-namespace Bogus.CLI.Tests.Services;
+namespace Bogus.CLI.Tests.Services.Datasets;
 public class DatasetServiceTests
 {
     private readonly DatasetService _datasetService;

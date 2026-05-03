@@ -1,6 +1,6 @@
 ﻿using Bogus.CLI.Core.Services.Commands;
 
-namespace Bogus.CLI.Tests.Services;
+namespace Bogus.CLI.Tests.Services.Commands;
 public class TemplateServiceTests
 {
     private readonly TemplateService _templateService;
