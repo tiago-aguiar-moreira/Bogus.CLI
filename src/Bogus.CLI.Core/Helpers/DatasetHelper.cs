@@ -49,6 +49,15 @@ public class DatasetHelper : IDatasetHelper
             }
         },
         {
+            CONST.Datasets.COMPANY, new List<string>
+            {
+                CompanyProperty.COMPANY_SUFFIX,
+                CompanyProperty.COMPANY_NAME,
+                CompanyProperty.CATCH_PHRASE,
+                CompanyProperty.BS
+            }
+        },
+        {
             CONST.Datasets.FINANCE, new List<string>
             {
                 FinanceProperty.ACCOUNT,

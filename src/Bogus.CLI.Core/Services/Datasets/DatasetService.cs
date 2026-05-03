@@ -8,6 +8,7 @@ public class DatasetService(
     IFakerService fakerService,
     IAddressDatasetService addressDatasetService,
     ICommerceDatasetService commerceDatasetService,
+    ICompanyDatasetService companyDatasetService,
     IFinanceDatasetService financeDatasetService,
     IInternetDatasetService internetDatasetService,
     ILoremDatasetService loremDatasetService,
@@ -18,6 +19,7 @@ public class DatasetService(
     private readonly IFakerService _fakerService = fakerService;
     private readonly IAddressDatasetService _addressDatasetService = addressDatasetService;
     private readonly ICommerceDatasetService _commerceDatasetService = commerceDatasetService;
+    private readonly ICompanyDatasetService _companyDatasetService = companyDatasetService;
     private readonly IFinanceDatasetService _financeDatasetService = financeDatasetService;
     private readonly IInternetDatasetService _internetDatasetService = internetDatasetService;
     private readonly ILoremDatasetService _loremDatasetService = loremDatasetService;
@@ -91,6 +93,7 @@ public class DatasetService(
     {
         CONST.Datasets.ADDRESS => _addressDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.COMMERCE => _commerceDatasetService.Generate(propertyName, parameters),
+        CONST.Datasets.COMPANY => _companyDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.FINANCE => _financeDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.INTERNET => _internetDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.LOREM => _loremDatasetService.Generate(propertyName, parameters),
