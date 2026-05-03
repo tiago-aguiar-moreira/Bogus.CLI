@@ -160,6 +160,13 @@ public class DatasetHelper : IDatasetHelper
             }
         },
         {
+            CONST.Datasets.RANT, new List<string>
+            {
+                RantProperty.REVIEW,
+                RantProperty.REVIEWS
+            }
+        },
+        {
             CONST.Datasets.VEHICLE, new List<string>
             {
                 VehicleProperty.VIN,
