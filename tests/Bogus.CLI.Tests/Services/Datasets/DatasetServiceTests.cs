@@ -13,6 +13,7 @@ public class DatasetServiceTests
     private readonly DatasetService _datasetService;
     private readonly Mock<IDatasetHelper> _datasetHelperMock;
     private readonly Mock<IFakerService> _fakerServiceMock;
+    private readonly Mock<IAddressDatasetService> _fakeDataAddressServiceMock;
     private readonly Mock<ILoremDatasetService> _fakeDataLoremServiceMock;
     private readonly Mock<INameDatasetService> _fakeDataNameServiceMock;
     private readonly Mock<IPhoneDatasetService> _fakeDataPhoneServiceMock;
@@ -22,6 +23,7 @@ public class DatasetServiceTests
     {
         _fakerServiceMock = new Mock<IFakerService>();
         _datasetHelperMock = new Mock<IDatasetHelper>();
+        _fakeDataAddressServiceMock = new Mock<IAddressDatasetService>();
         _fakeDataLoremServiceMock = new Mock<ILoremDatasetService>();
         _fakeDataNameServiceMock = new Mock<INameDatasetService>();
         _fakeDataPhoneServiceMock = new Mock<IPhoneDatasetService>();
@@ -29,6 +31,7 @@ public class DatasetServiceTests
         _datasetService = new DatasetService(
             _datasetHelperMock.Object,
             _fakerServiceMock.Object,
+            _fakeDataAddressServiceMock.Object,
             _fakeDataLoremServiceMock.Object,
             _fakeDataNameServiceMock.Object,
             _fakeDataPhoneServiceMock.Object);
