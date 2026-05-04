@@ -216,6 +216,30 @@ public class DatasetHelper : IDatasetHelper
             }
         },
         {
+            CONST.Datasets.RANDOM, new List<string>
+            {
+                RandomProperty.NUMBER,
+                RandomProperty.EVEN,
+                RandomProperty.ODD,
+                RandomProperty.INT,
+                RandomProperty.LONG,
+                RandomProperty.DOUBLE,
+                RandomProperty.DECIMAL,
+                RandomProperty.FLOAT,
+                RandomProperty.BOOL,
+                RandomProperty.CHAR,
+                RandomProperty.GUID,
+                RandomProperty.HASH,
+                RandomProperty.HEXADECIMAL,
+                RandomProperty.ALPHANUMERIC,
+                RandomProperty.REPLACE,
+                RandomProperty.REPLACE_NUMBERS,
+                RandomProperty.WORD,
+                RandomProperty.WORDS,
+                RandomProperty.RANDOM_LOCALE
+            }
+        },
+        {
             CONST.Datasets.VEHICLE, new List<string>
             {
                 VehicleProperty.VIN,

@@ -19,6 +19,7 @@ public class DatasetService(
     INameDatasetService nameDatasetService,
     IPhoneDatasetService phoneDatasetService,
     IRantDatasetService rantDatasetService,
+    IRandomDatasetService randomDatasetService,
     ISystemDatasetService systemDatasetService,
     IVehicleDatasetService vehicleDatasetService) : IDatasetService
 {
@@ -37,6 +38,7 @@ public class DatasetService(
     private readonly INameDatasetService _nameDatasetService = nameDatasetService;
     private readonly IPhoneDatasetService _phoneDatasetService = phoneDatasetService;
     private readonly IRantDatasetService _rantDatasetService = rantDatasetService;
+    private readonly IRandomDatasetService _randomDatasetService = randomDatasetService;
     private readonly ISystemDatasetService _systemDatasetService = systemDatasetService;
     private readonly IVehicleDatasetService _vehicleDatasetService = vehicleDatasetService;
 
@@ -118,6 +120,7 @@ public class DatasetService(
         CONST.Datasets.NAME => _nameDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.PHONE => _phoneDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.RANT => _rantDatasetService.Generate(propertyName, parameters),
+        CONST.Datasets.RANDOM => _randomDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.SYSTEM => _systemDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.VEHICLE => _vehicleDatasetService.Generate(propertyName, parameters),
         _ => null

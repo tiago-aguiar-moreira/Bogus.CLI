@@ -35,6 +35,7 @@ builder.Services.AddScoped<ILoremFakerAdapter, LoremFakerAdapter>();
 builder.Services.AddScoped<INameFakerAdapter, NameFakerAdapter>();
 builder.Services.AddScoped<IPhoneFakerAdapter, PhoneFakerAdapter>();
 builder.Services.AddScoped<IRantFakerAdapter, RantFakerAdapter>();
+builder.Services.AddScoped<IRandomFakerAdapter, RandomFakerAdapter>();
 builder.Services.AddScoped<ISystemFakerAdapter, SystemFakerAdapter>();
 builder.Services.AddScoped<IVehicleFakerAdapter, VehicleFakerAdapter>();
 
@@ -55,6 +56,7 @@ builder.Services.AddScoped<ILoremDatasetService, LoremDatasetService>();
 builder.Services.AddScoped<INameDatasetService, NameDatasetService>();
 builder.Services.AddScoped<IPhoneDatasetService, PhoneDatasetService>();
 builder.Services.AddScoped<IRantDatasetService, RantDatasetService>();
+builder.Services.AddScoped<IRandomDatasetService, RandomDatasetService>();
 builder.Services.AddScoped<ISystemDatasetService, SystemDatasetService>();
 builder.Services.AddScoped<IVehicleDatasetService, VehicleDatasetService>();
 

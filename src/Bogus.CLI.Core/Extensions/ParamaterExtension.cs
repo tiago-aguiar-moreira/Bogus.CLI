@@ -1,4 +1,6 @@
-﻿namespace Bogus.CLI.Core.Extensions;
+using System.Globalization;
+
+namespace Bogus.CLI.Core.Extensions;
 public static class ParamaterExtension
 {
     public static int ConvertToInt(this IDictionary<string, object> parameters, string key, int defaultValue)
@@ -32,13 +34,26 @@ public static class ParamaterExtension
             : defaultValue;
 
     public static double ConvertToDouble(this IDictionary<string, object> parameters, string key, double defaultValue)
-        => !string.IsNullOrEmpty(key) && parameters.TryGetValue(key.ToLower(), out var value) && double.TryParse(value.ToString(), out var doubleValue)
+        => !string.IsNullOrEmpty(key) && parameters.TryGetValue(key.ToLower(), out var value)
+            && double.TryParse(value.ToString(), NumberStyles.Any, CultureInfo.InvariantCulture, out var doubleValue)
             ? doubleValue
             : defaultValue;
 
     public static decimal ConvertToDecimal(this IDictionary<string, object> parameters, string key, decimal defaultValue)
-        => !string.IsNullOrEmpty(key) && parameters.TryGetValue(key.ToLower(), out var value) && decimal.TryParse(value.ToString(), out var decimalValue)
+        => !string.IsNullOrEmpty(key) && parameters.TryGetValue(key.ToLower(), out var value)
+            && decimal.TryParse(value.ToString(), NumberStyles.Any, CultureInfo.InvariantCulture, out var decimalValue)
             ? decimalValue
+            : defaultValue;
+
+    public static float ConvertToFloat(this IDictionary<string, object> parameters, string key, float defaultValue)
+        => !string.IsNullOrEmpty(key) && parameters.TryGetValue(key.ToLower(), out var value)
+            && float.TryParse(value.ToString(), NumberStyles.Any, CultureInfo.InvariantCulture, out var floatValue)
+            ? floatValue
+            : defaultValue;
+
+    public static long ConvertToLong(this IDictionary<string, object> parameters, string key, long defaultValue)
+        => !string.IsNullOrEmpty(key) && parameters.TryGetValue(key.ToLower(), out var value) && long.TryParse(value.ToString(), out var longValue)
+            ? longValue
             : defaultValue;
 
     public static void AddParameter(this IDictionary<string, object> parameters, string key, object values)
