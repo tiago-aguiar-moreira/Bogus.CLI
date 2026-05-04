@@ -25,6 +25,7 @@ public class DatasetServiceTests
     private readonly Mock<INameDatasetService> _fakeDataNameServiceMock;
     private readonly Mock<IPhoneDatasetService> _fakeDataPhoneServiceMock;
     private readonly Mock<IRantDatasetService> _fakeDataRantServiceMock;
+    private readonly Mock<ISystemDatasetService> _fakeDataSystemServiceMock;
     private readonly Mock<IVehicleDatasetService> _fakeDataVehicleServiceMock;
     private readonly Mock<Action<List<(string Value, string Alias)>>> _onInsertMock;
 
@@ -45,6 +46,7 @@ public class DatasetServiceTests
         _fakeDataNameServiceMock = new Mock<INameDatasetService>();
         _fakeDataPhoneServiceMock = new Mock<IPhoneDatasetService>();
         _fakeDataRantServiceMock = new Mock<IRantDatasetService>();
+        _fakeDataSystemServiceMock = new Mock<ISystemDatasetService>();
         _fakeDataVehicleServiceMock = new Mock<IVehicleDatasetService>();
 
         _datasetService = new DatasetService(
@@ -63,6 +65,7 @@ public class DatasetServiceTests
             _fakeDataNameServiceMock.Object,
             _fakeDataPhoneServiceMock.Object,
             _fakeDataRantServiceMock.Object,
+            _fakeDataSystemServiceMock.Object,
             _fakeDataVehicleServiceMock.Object);
 
         _onInsertMock = new Mock<Action<List<(string Value, string Alias)>>>();
@@ -676,6 +679,49 @@ public class DatasetServiceTests
         _onInsertMock.Verify(v => v.Invoke(It.IsAny<List<(string Value, string Alias)>>()), Times.Exactly(rowsCount));
 
         _fakeDataHackerServiceMock
+            .Verify(v => v.Generate(propertyName, new Dictionary<string, object>()), Times.Exactly(rowsCount));
+
+        _fakeDataLoremServiceMock
+            .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
+
+        _fakeDataPhoneServiceMock
+            .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
+    }
+
+    [Theory]
+    [InlineData(SystemProperty.FILE_NAME, "file")]
+    [InlineData(SystemProperty.SEMVER, "version")]
+    public void ExecuteCommand_SystemDataset_ShouldBeOk(string propertyName, string alias)
+    {
+        // Arrange
+        var datasetName = SYSTEM;
+        var datasets = new string[] { $"{datasetName}.{propertyName}={alias}" };
+        var rowsCount = 10;
+        IDictionary<string, object> parameters = new Dictionary<string, object>();
+
+        _datasetHelperMock
+            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias, out parameters))
+            .Returns(true);
+
+        _datasetHelperMock
+            .Setup(s => s.DatasetExists(It.IsAny<string>()))
+            .Returns(true);
+
+        _datasetHelperMock
+            .Setup(s => s.PropertyExists(It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
+
+        _fakeDataSystemServiceMock
+            .Setup(s => s.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
+            .Returns("abcde");
+
+        // Act
+        _datasetService.ExecuteCommand(datasets, rowsCount, null, _onInsertMock.Object);
+
+        // Assert
+        _onInsertMock.Verify(v => v.Invoke(It.IsAny<List<(string Value, string Alias)>>()), Times.Exactly(rowsCount));
+
+        _fakeDataSystemServiceMock
             .Verify(v => v.Generate(propertyName, new Dictionary<string, object>()), Times.Exactly(rowsCount));
 
         _fakeDataLoremServiceMock
