@@ -114,6 +114,16 @@ public class DatasetHelper : IDatasetHelper
             }
         },
         {
+            CONST.Datasets.IMAGES, new List<string>
+            {
+                ImagesProperty.DATA_URI,
+                ImagesProperty.PLACE_IMG_URL,
+                ImagesProperty.PICSUM_URL,
+                ImagesProperty.PLACEHOLDER_URL,
+                ImagesProperty.LOREM_FLICKR_URL
+            }
+        },
+        {
             CONST.Datasets.INTERNET, new List<string>
             {
                 InternetProperty.AVATAR,

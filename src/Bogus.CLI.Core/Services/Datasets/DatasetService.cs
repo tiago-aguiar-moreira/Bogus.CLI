@@ -13,6 +13,7 @@ public class DatasetService(
     IDatabaseDatasetService databaseDatasetService,
     IFinanceDatasetService financeDatasetService,
     IHackerDatasetService hackerDatasetService,
+    IImagesDatasetService imagesDatasetService,
     IInternetDatasetService internetDatasetService,
     ILoremDatasetService loremDatasetService,
     INameDatasetService nameDatasetService,
@@ -29,6 +30,7 @@ public class DatasetService(
     private readonly IDatabaseDatasetService _databaseDatasetService = databaseDatasetService;
     private readonly IFinanceDatasetService _financeDatasetService = financeDatasetService;
     private readonly IHackerDatasetService _hackerDatasetService = hackerDatasetService;
+    private readonly IImagesDatasetService _imagesDatasetService = imagesDatasetService;
     private readonly IInternetDatasetService _internetDatasetService = internetDatasetService;
     private readonly ILoremDatasetService _loremDatasetService = loremDatasetService;
     private readonly INameDatasetService _nameDatasetService = nameDatasetService;
@@ -108,6 +110,7 @@ public class DatasetService(
         CONST.Datasets.DATABASE => _databaseDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.FINANCE => _financeDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.HACKER => _hackerDatasetService.Generate(propertyName, parameters),
+        CONST.Datasets.IMAGES => _imagesDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.INTERNET => _internetDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.LOREM => _loremDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.NAME => _nameDatasetService.Generate(propertyName, parameters),
