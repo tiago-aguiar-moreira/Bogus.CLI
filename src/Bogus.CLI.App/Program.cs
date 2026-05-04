@@ -25,6 +25,7 @@ builder.Services.AddKeyedScoped<IRepository, SqlServerRepository>(Databases.SQL_
 builder.Services.AddScoped<IAddressFakerAdapter, AddressFakerAdapter>();
 builder.Services.AddScoped<ICommerceFakerAdapter, CommerceFakerAdapter>();
 builder.Services.AddScoped<IDatabaseFakerAdapter, DatabaseFakerAdapter>();
+builder.Services.AddScoped<IDateFakerAdapter, DateFakerAdapter>();
 builder.Services.AddScoped<ICompanyFakerAdapter, CompanyFakerAdapter>();
 builder.Services.AddScoped<IFinanceFakerAdapter, FinanceFakerAdapter>();
 builder.Services.AddScoped<IHackerFakerAdapter, HackerFakerAdapter>();
@@ -42,6 +43,7 @@ builder.Services.AddScoped<IDatasetHelper, DatasetHelper>();
 builder.Services.AddScoped<IAddressDatasetService, AddressDatasetService>();
 builder.Services.AddScoped<ICommerceDatasetService, CommerceDatasetService>();
 builder.Services.AddScoped<IDatabaseDatasetService, DatabaseDatasetService>();
+builder.Services.AddScoped<IDateDatasetService, DateDatasetService>();
 builder.Services.AddScoped<ICompanyDatasetService, CompanyDatasetService>();
 builder.Services.AddScoped<IFinanceDatasetService, FinanceDatasetService>();
 builder.Services.AddScoped<IHackerDatasetService, HackerDatasetService>();

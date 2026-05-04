@@ -49,6 +49,25 @@ public class DatasetHelper : IDatasetHelper
             }
         },
         {
+            CONST.Datasets.DATE, new List<string>
+            {
+                DateProperty.PAST,
+                DateProperty.PAST_OFFSET,
+                DateProperty.FUTURE,
+                DateProperty.FUTURE_OFFSET,
+                DateProperty.RECENT,
+                DateProperty.RECENT_OFFSET,
+                DateProperty.SOON,
+                DateProperty.SOON_OFFSET,
+                DateProperty.BETWEEN,
+                DateProperty.BETWEEN_OFFSET,
+                DateProperty.MONTH,
+                DateProperty.WEEKDAY,
+                DateProperty.TIMEZONE_STRING,
+                DateProperty.TIMESPAN
+            }
+        },
+        {
             CONST.Datasets.DATABASE, new List<string>
             {
                 DatabaseProperty.COLUMN,
