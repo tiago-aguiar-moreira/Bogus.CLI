@@ -14,7 +14,7 @@ public static class ListDatasetCommand
 
     private static void GetCommand(
         IListDatasetService listDatasetService,
-        [Option('d', Description = "")] string? datasetName)
+        [Argument(Description = "")] string? datasetName)
     {
         var datasets = listDatasetService.ExecuteCommand(datasetName);
 
