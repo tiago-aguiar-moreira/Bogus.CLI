@@ -43,15 +43,15 @@ bogus dataset name.fullName
 ```
 
 - **gender** (optional): Specifies the gender for the full name. Options: `male`, `female`.
-- **locale** (optional): Sets the locale for the name format. Example: `pt_BR`.
 
 ```bash
 bogus dataset name.fullName(gender=female)
 ```
 
-```bash
-bogus dataset name.fullName --locale pt_BR
-```
+> **Tip:** Use the global `--locale` flag to change the language of generated names:
+> ```bash
+> bogus dataset name.fullName --locale pt_BR
+> ```
 
 ### firstName
 Generates a random first name.
@@ -104,11 +104,10 @@ Generates a random job type.
 bogus dataset name.jobType
 ```
 
-- **locale** (optional): Sets the locale for the job type. Example: `pt_BR`.
-
-```bash
-bogus dataset name.jobType --locale pt_BR
-```
+> **Tip:** Use the global `--locale` flag to change the language:
+> ```bash
+> bogus dataset name.jobType --locale pt_BR
+> ```
 
 ### lastName
 Generates a random last name.

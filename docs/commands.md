@@ -30,10 +30,10 @@ You can also specify a dataset name to list all properties available within that
 bogus list-datasets <datasetName>
 ```
 
-For example, to list all properties of the `person` dataset:
+For example, to list all properties of the `name` dataset:
 
 ```bash
-bogus list-datasets person
+bogus list-datasets name
 ```
 
 ## dataset
@@ -49,13 +49,13 @@ Examples:
 - Generate random names:
 
 ```bash
-bogus dataset person.fullname
+bogus dataset name.fullname
 ```
 
-- Generate emails with a custom domain:
+- Generate emails with a custom provider:
 
 ```bash
-bogus dataset internet.email(domain="example.com")
+bogus dataset internet.email(provider=example.com)
 ```
 
 - Generate past dates within the last year:
