@@ -19,6 +19,7 @@ public class DatasetService(
     INameDatasetService nameDatasetService,
     IPhoneDatasetService phoneDatasetService,
     IRantDatasetService rantDatasetService,
+    ISystemDatasetService systemDatasetService,
     IVehicleDatasetService vehicleDatasetService) : IDatasetService
 {
     private readonly IDatasetHelper _datasetHelper = datasetHelper;
@@ -36,6 +37,7 @@ public class DatasetService(
     private readonly INameDatasetService _nameDatasetService = nameDatasetService;
     private readonly IPhoneDatasetService _phoneDatasetService = phoneDatasetService;
     private readonly IRantDatasetService _rantDatasetService = rantDatasetService;
+    private readonly ISystemDatasetService _systemDatasetService = systemDatasetService;
     private readonly IVehicleDatasetService _vehicleDatasetService = vehicleDatasetService;
 
     public void ExecuteCommand(
@@ -116,6 +118,7 @@ public class DatasetService(
         CONST.Datasets.NAME => _nameDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.PHONE => _phoneDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.RANT => _rantDatasetService.Generate(propertyName, parameters),
+        CONST.Datasets.SYSTEM => _systemDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.VEHICLE => _vehicleDatasetService.Generate(propertyName, parameters),
         _ => null
     };

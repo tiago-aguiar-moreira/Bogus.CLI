@@ -196,6 +196,26 @@ public class DatasetHelper : IDatasetHelper
             }
         },
         {
+            CONST.Datasets.SYSTEM, new List<string>
+            {
+                SystemProperty.FILE_NAME,
+                SystemProperty.DIRECTORY_PATH,
+                SystemProperty.FILE_PATH,
+                SystemProperty.COMMON_FILE_NAME,
+                SystemProperty.MIME_TYPE,
+                SystemProperty.COMMON_FILE_TYPE,
+                SystemProperty.COMMON_FILE_EXT,
+                SystemProperty.FILE_TYPE,
+                SystemProperty.FILE_EXT,
+                SystemProperty.SEMVER,
+                SystemProperty.VERSION,
+                SystemProperty.EXCEPTION,
+                SystemProperty.ANDROID_ID,
+                SystemProperty.APPLE_PUSH_TOKEN,
+                SystemProperty.BLACKBERRY_PIN
+            }
+        },
+        {
             CONST.Datasets.VEHICLE, new List<string>
             {
                 VehicleProperty.VIN,

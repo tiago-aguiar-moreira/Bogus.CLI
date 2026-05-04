@@ -14,5 +14,6 @@ public static class Datasets
     public const string NAME = "name";
     public const string PHONE = "phone";
     public const string RANT = "rant";
+    public const string SYSTEM = "system";
     public const string VEHICLE = "vehicle";
 }
