@@ -1,4 +1,4 @@
-[![NuGet Package: BogusCLI](https://img.shields.io/nuget/vpre/BogusCLI?label=NuGet%3A%20BogusCLI)](https://www.nuget.org/packages/BogusCLI) [![Downloads](https://img.shields.io/nuget/dt/BogusCLI.svg)](https://www.nuget.org/packages/BogusCLI/) [![Coverage Status](https://coveralls.io/repos/github/tiago-aguiar-moreira/Bogus.CLI/badge.svg)](https://coveralls.io/github/tiago-aguiar-moreira/Bogus.CLI)
+[![NuGet Package: BogusCLI](https://img.shields.io/nuget/vpre/BogusCLI?label=NuGet%3A%20BogusCLI)](https://www.nuget.org/packages/BogusCLI) [![Downloads](https://img.shields.io/nuget/dt/BogusCLI.svg)](https://www.nuget.org/packages/BogusCLI/) [![Coverage Status](https://coveralls.io/repos/github/tiago-aguiar-moreira/Bogus.CLI/badge.svg?branch=main)](https://coveralls.io/github/tiago-aguiar-moreira/Bogus.CLI?branch=main)
 
 # Bogus CLI
 
