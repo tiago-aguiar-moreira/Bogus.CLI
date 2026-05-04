@@ -25,6 +25,7 @@ public class DatasetServiceTests
     private readonly Mock<INameDatasetService> _fakeDataNameServiceMock;
     private readonly Mock<IPhoneDatasetService> _fakeDataPhoneServiceMock;
     private readonly Mock<IRantDatasetService> _fakeDataRantServiceMock;
+    private readonly Mock<IRandomDatasetService> _fakeDataRandomServiceMock;
     private readonly Mock<ISystemDatasetService> _fakeDataSystemServiceMock;
     private readonly Mock<IVehicleDatasetService> _fakeDataVehicleServiceMock;
     private readonly Mock<Action<List<(string Value, string Alias)>>> _onInsertMock;
@@ -46,6 +47,7 @@ public class DatasetServiceTests
         _fakeDataNameServiceMock = new Mock<INameDatasetService>();
         _fakeDataPhoneServiceMock = new Mock<IPhoneDatasetService>();
         _fakeDataRantServiceMock = new Mock<IRantDatasetService>();
+        _fakeDataRandomServiceMock = new Mock<IRandomDatasetService>();
         _fakeDataSystemServiceMock = new Mock<ISystemDatasetService>();
         _fakeDataVehicleServiceMock = new Mock<IVehicleDatasetService>();
 
@@ -65,6 +67,7 @@ public class DatasetServiceTests
             _fakeDataNameServiceMock.Object,
             _fakeDataPhoneServiceMock.Object,
             _fakeDataRantServiceMock.Object,
+            _fakeDataRandomServiceMock.Object,
             _fakeDataSystemServiceMock.Object,
             _fakeDataVehicleServiceMock.Object);
 
@@ -858,6 +861,46 @@ public class DatasetServiceTests
             .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
 
         _fakeDataPhoneServiceMock
+            .Verify(v => v.Generate(propertyName, new Dictionary<string, object>()), Times.Exactly(rowsCount));
+    }
+
+    [Theory]
+    [InlineData(RandomProperty.WORD, "randomWord")]
+    [InlineData(RandomProperty.GUID, "randomGuid")]
+    public void ExecuteCommand_RandomDataset_ShouldBeOk(string propertyName, string alias)
+    {
+        // Arrange
+        var datasetName = RANDOM;
+        var datasets = new string[] { $"{datasetName}.{propertyName}" };
+        var rowsCount = 10;
+        IDictionary<string, object> parameters = new Dictionary<string, object>();
+
+        _datasetHelperMock
+            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias, out parameters))
+            .Returns(true);
+
+        _datasetHelperMock
+            .Setup(s => s.DatasetExists(It.IsAny<string>()))
+            .Returns(true);
+
+        _datasetHelperMock
+            .Setup(s => s.PropertyExists(It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
+
+        _fakeDataRandomServiceMock
+            .Setup(s => s.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
+            .Returns("abcde");
+
+        // Act
+        _datasetService.ExecuteCommand(datasets, rowsCount, null, _onInsertMock.Object);
+
+        // Assert
+        _onInsertMock.Verify(v => v.Invoke(It.IsAny<List<(string Value, string Alias)>>()), Times.Exactly(rowsCount));
+
+        _fakeDataLoremServiceMock
+            .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
+
+        _fakeDataRandomServiceMock
             .Verify(v => v.Generate(propertyName, new Dictionary<string, object>()), Times.Exactly(rowsCount));
     }
 }
