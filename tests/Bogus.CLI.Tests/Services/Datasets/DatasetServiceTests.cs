@@ -15,6 +15,7 @@ public class DatasetServiceTests
     private readonly Mock<IAddressDatasetService> _fakeDataAddressServiceMock;
     private readonly Mock<ICommerceDatasetService> _fakeDataCommerceServiceMock;
     private readonly Mock<ICompanyDatasetService> _fakeDataCompanyServiceMock;
+    private readonly Mock<IDateDatasetService> _fakeDataDateServiceMock;
     private readonly Mock<IDatabaseDatasetService> _fakeDataDatabaseServiceMock;
     private readonly Mock<IFinanceDatasetService> _fakeDataFinanceServiceMock;
     private readonly Mock<IHackerDatasetService> _fakeDataHackerServiceMock;
@@ -33,6 +34,7 @@ public class DatasetServiceTests
         _fakeDataAddressServiceMock = new Mock<IAddressDatasetService>();
         _fakeDataCommerceServiceMock = new Mock<ICommerceDatasetService>();
         _fakeDataCompanyServiceMock = new Mock<ICompanyDatasetService>();
+        _fakeDataDateServiceMock = new Mock<IDateDatasetService>();
         _fakeDataDatabaseServiceMock = new Mock<IDatabaseDatasetService>();
         _fakeDataFinanceServiceMock = new Mock<IFinanceDatasetService>();
         _fakeDataHackerServiceMock = new Mock<IHackerDatasetService>();
@@ -49,6 +51,7 @@ public class DatasetServiceTests
             _fakeDataAddressServiceMock.Object,
             _fakeDataCommerceServiceMock.Object,
             _fakeDataCompanyServiceMock.Object,
+            _fakeDataDateServiceMock.Object,
             _fakeDataDatabaseServiceMock.Object,
             _fakeDataFinanceServiceMock.Object,
             _fakeDataHackerServiceMock.Object,
@@ -369,6 +372,49 @@ public class DatasetServiceTests
         _onInsertMock.Verify(v => v.Invoke(It.IsAny<List<(string Value, string Alias)>>()), Times.Exactly(rowsCount));
 
         _fakeDataCommerceServiceMock
+            .Verify(v => v.Generate(propertyName, new Dictionary<string, object>()), Times.Exactly(rowsCount));
+
+        _fakeDataLoremServiceMock
+            .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
+
+        _fakeDataPhoneServiceMock
+            .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
+    }
+
+    [Theory]
+    [InlineData(DateProperty.PAST, "pastDate")]
+    [InlineData(DateProperty.MONTH, "month")]
+    public void ExecuteCommand_DateDataset_ShouldBeOk(string propertyName, string alias)
+    {
+        // Arrange
+        var datasetName = DATE;
+        var datasets = new string[] { $"{datasetName}.{propertyName}={alias}" };
+        var rowsCount = 10;
+        IDictionary<string, object> parameters = new Dictionary<string, object>();
+
+        _datasetHelperMock
+            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias, out parameters))
+            .Returns(true);
+
+        _datasetHelperMock
+            .Setup(s => s.DatasetExists(It.IsAny<string>()))
+            .Returns(true);
+
+        _datasetHelperMock
+            .Setup(s => s.PropertyExists(It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
+
+        _fakeDataDateServiceMock
+            .Setup(s => s.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
+            .Returns("abcde");
+
+        // Act
+        _datasetService.ExecuteCommand(datasets, rowsCount, null, _onInsertMock.Object);
+
+        // Assert
+        _onInsertMock.Verify(v => v.Invoke(It.IsAny<List<(string Value, string Alias)>>()), Times.Exactly(rowsCount));
+
+        _fakeDataDateServiceMock
             .Verify(v => v.Generate(propertyName, new Dictionary<string, object>()), Times.Exactly(rowsCount));
 
         _fakeDataLoremServiceMock
