@@ -10,108 +10,52 @@ With Bogus.CLI, you can generate data with ease, flexibility, and efficiency dir
 
 If you'd like to support the project, consider buying me a coffee! ☕ You can contribute via [PIX](https://nubank.com.br/cobrar/1bbq/67b09a37-9e34-45b0-b969-7606b4836375) (for Brazilian supporters), and soon, I will also be adding the option to accept donations in USD. Every contribution helps fund ongoing development, improve documentation, and ensure the tool becomes more and more useful to the community.
 
-# Table of Contents
+## Install
 
-- [Install](#install)
-- [Documentation](#documentation)
-  - [Commands](#commands)
-  - [Arguments](#arguments)
-  - [Options](#options)
-  - [Parameters](#parameters)
-  - [Available commands](#available-commands)
-- [Contributors](#contributors)
+Requires **.NET 8.0** or higher.
 
-# Install
-[Dotnet Tool Bogus.CLI](https://www.nuget.org/packages/BogusCLI)
-
-```
+```bash
 dotnet tool install --global BogusCli
 ```
-Minimum requirements: .NET 8.0.
 
-# Documentation
+## Quick Start
 
-- [Commands](#commands)
-- [Arguments](#arguments)
-- [Options](#options)
-- [Parameters](#parameters)
-- [Available commands](#available-commands)
+```bash
+# Generate 10 full names
+bogus dataset name.fullName --count 10
 
-The structure of a CLI command generally follows this pattern:
+# Generate emails with a custom provider
+bogus dataset internet.email(provider=example.com)
 
-```
-bogus <command> [arguments] [options]
+# Combine multiple datasets in one command
+bogus dataset name.fullName internet.email phone.number --count 5
 ```
 
-The `command` specifies the action to perform, while `arguments` provide the data needed for the action, and `options` allow further customization.
+## Available Datasets
 
-## Commands
+| Dataset | Description |
+|---|---|
+| address | Street addresses, cities, countries, coordinates, and more |
+| commerce | Products, prices, categories, and barcodes |
+| company | Company names, suffixes, catch phrases, and BS |
+| database | Column names, data types, collations, and engines |
+| date | Past, future, recent, and between dates and timespans |
+| finance | Accounts, amounts, credit cards, IBAN, BTC, and more |
+| hacker | Tech jargon, abbreviations, verbs, and phrases |
+| images | Image URLs and data URIs from various providers |
+| internet | Emails, URLs, IPs, usernames, passwords, and more |
+| lorem | Words, sentences, paragraphs, and placeholder text |
+| name | First names, last names, full names, and job titles |
+| phone | Phone numbers and format patterns |
+| random | Primitive values, GUIDs, hashes, and random strings |
+| rant | Opinionated product reviews |
+| system | File names, paths, MIME types, versions, and device IDs |
+| vehicle | VINs, manufacturers, models, types, and fuel types |
 
-A `command` performs a specific action. For example:
+## Documentation
 
-```
-bogus dataset
-```
+Full documentation is available at **[tiago-aguiar-moreira.github.io/Bogus.CLI](https://tiago-aguiar-moreira.github.io/Bogus.CLI/)**.
 
-This command generates a set of fake data.
-
-## Arguments
-
-`Arguments` supply the necessary information to the command. For instance:
-
-```
-bogus dataset person.fullname
-```
-
-Here, `person.fullname` is an argument that tells the `dataset` command what type of data to generate.
-
-## Options
-
-`Options` modify the behavior of the command. They typically start with `--` and provide additional control. Example:
-
-```
-bogus dataset person.fullname --count 50
-```
-
-The option `--count 50` specifies that 50 records should be generated.
-
-## Parameters
-
-Some categories support additional `parameters` that allow you to customize how data is generated. These parameters are specified directly within the property call, following this pattern:
-
-```
-bogus dataset <category>.<property>(param1=value1, param2=value2)
-```
-
-Examples:
-
-- `dataset date.past(years=1)` — Generates a past date within the last year.
-- `dataset finance.amount(min=10, max=1000)` — Generates a random financial amount between 10 and 1000.
-- `dataset internet.email(domain="example.com")` — Generates an email address with the specified domain.
-
-If a property doesn't support additional parameters, simply omit them:
-
-```
-bogus dataset person.fullname
-```
-
-You can also combine multiple datasets in a single command, allowing you to generate various types of data at once.
-
-```
-bogus dataset person.fullname internet.email
-```
-
-This flexibility allows you to fine-tune the data generated without needing to modify the tool's source code.
-
-# Available commands
-
-The following commands are available:
-
-- list-locales
-- list-datasets
-- dataset
-
-# Contributors
+## Contributors
 
 Created by [Tiago Aguiar](https://github.com/tiago-aguiar-moreira).
-
