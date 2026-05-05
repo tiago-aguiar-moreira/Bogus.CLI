@@ -156,5 +156,5 @@ bogus dataset lorem.words(num=8,separator=;)
 
 ---
 
-**Previous:** [Name Dataset](name-dataset.md) | **Next:** [Architecture](architecture.md)
+**Previous:** [Vehicle Dataset](vehicle-dataset.md) | **Next:** [Name Dataset](name-dataset.md)
 

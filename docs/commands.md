@@ -64,7 +64,7 @@ bogus dataset internet.email(provider=example.com)
 bogus dataset date.past(years=1)
 ```
 
-For a detailed explanation of all dataset options and their parameters, visit the [Name Dataset](name-dataset.md) page.
+For a detailed explanation of all available datasets and their parameters, visit the [Datasets](datasets.md) page.
 
 ---
 
@@ -72,4 +72,4 @@ Explore each command in depth by clicking the links above, and start generating 
 
 ---
 
-**Previous:** [Quick Start](quickstart.md) | **Next:** [Name Dataset](name-dataset.md)
+**Previous:** [Quick Start](quickstart.md) | **Next:** [Datasets](datasets.md)
