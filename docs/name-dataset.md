@@ -150,4 +150,4 @@ bogus dataset name.suffix
 
 ---
 
-**Previous:** [Lorem Dataset](lorem-dataset.md) | **Next:** [Architecture](architecture.md)
+**Previous:** [Lorem Dataset](lorem-dataset.md) | **Next:** [Music Dataset](music-dataset.md)

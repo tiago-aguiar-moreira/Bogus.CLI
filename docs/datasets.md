@@ -30,7 +30,9 @@ bogus list-datasets <datasetName>
 | [images](images-dataset.md) | Image URLs and data URIs from various providers |
 | [internet](internet-dataset.md) | Emails, URLs, IPs, usernames, passwords, and more |
 | [lorem](lorem-dataset.md) | Words, sentences, paragraphs, and placeholder text |
+| [music](music-dataset.md) | Music genres |
 | [name](name-dataset.md) | First names, last names, full names, and job titles |
+| [person](person-dataset.md) | Names, contact info, and demographics for a fake person |
 | [phone](phone-dataset.md) | Phone numbers and format patterns |
 | [random](random-dataset.md) | Primitive values, GUIDs, hashes, and random strings |
 | [rant](rant-dataset.md) | Opinionated product reviews |
@@ -40,3 +42,4 @@ bogus list-datasets <datasetName>
 ---
 
 **Previous:** [Commands](commands.md) | **Next:** [Address Dataset](address-dataset.md)
+

@@ -96,4 +96,4 @@ Bogus.CLI.Infrastructure
 
 ---
 
-**Previous:** [Lorem Dataset](lorem-dataset.md) | **Next:** [Execution Flow](architecture-flow.md)
+**Previous:** [Person Dataset](person-dataset.md) | **Next:** [Execution Flow](architecture-flow.md)

@@ -17,4 +17,6 @@ public static class Datasets
     public const string SYSTEM = "system";
     public const string RANDOM = "random";
     public const string VEHICLE = "vehicle";
+    public const string MUSIC = "music";
+    public const string PERSON = "person";
 }

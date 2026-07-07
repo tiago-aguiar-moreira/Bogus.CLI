@@ -16,7 +16,9 @@ public class DatasetService(
     IImagesDatasetService imagesDatasetService,
     IInternetDatasetService internetDatasetService,
     ILoremDatasetService loremDatasetService,
+    IMusicDatasetService musicDatasetService,
     INameDatasetService nameDatasetService,
+    IPersonDatasetService personDatasetService,
     IPhoneDatasetService phoneDatasetService,
     IRantDatasetService rantDatasetService,
     IRandomDatasetService randomDatasetService,
@@ -35,7 +37,9 @@ public class DatasetService(
     private readonly IImagesDatasetService _imagesDatasetService = imagesDatasetService;
     private readonly IInternetDatasetService _internetDatasetService = internetDatasetService;
     private readonly ILoremDatasetService _loremDatasetService = loremDatasetService;
+    private readonly IMusicDatasetService _musicDatasetService = musicDatasetService;
     private readonly INameDatasetService _nameDatasetService = nameDatasetService;
+    private readonly IPersonDatasetService _personDatasetService = personDatasetService;
     private readonly IPhoneDatasetService _phoneDatasetService = phoneDatasetService;
     private readonly IRantDatasetService _rantDatasetService = rantDatasetService;
     private readonly IRandomDatasetService _randomDatasetService = randomDatasetService;
@@ -117,7 +121,9 @@ public class DatasetService(
         CONST.Datasets.IMAGES => _imagesDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.INTERNET => _internetDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.LOREM => _loremDatasetService.Generate(propertyName, parameters),
+        CONST.Datasets.MUSIC => _musicDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.NAME => _nameDatasetService.Generate(propertyName, parameters),
+        CONST.Datasets.PERSON => _personDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.PHONE => _phoneDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.RANT => _rantDatasetService.Generate(propertyName, parameters),
         CONST.Datasets.RANDOM => _randomDatasetService.Generate(propertyName, parameters),

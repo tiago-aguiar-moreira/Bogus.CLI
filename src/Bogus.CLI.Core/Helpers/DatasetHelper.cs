@@ -248,6 +248,27 @@ public class DatasetHelper : IDatasetHelper
                 VehicleProperty.TYPE,
                 VehicleProperty.FUEL
             }
+        },
+        {
+            CONST.Datasets.MUSIC, new List<string>
+            {
+                MusicProperty.GENRE
+            }
+        },
+        {
+            CONST.Datasets.PERSON, new List<string>
+            {
+                PersonProperty.FIRST_NAME,
+                PersonProperty.LAST_NAME,
+                PersonProperty.FULL_NAME,
+                PersonProperty.GENDER,
+                PersonProperty.USER_NAME,
+                PersonProperty.AVATAR,
+                PersonProperty.EMAIL,
+                PersonProperty.PHONE,
+                PersonProperty.WEBSITE,
+                PersonProperty.DATE_OF_BIRTH
+            }
         }
     };
 

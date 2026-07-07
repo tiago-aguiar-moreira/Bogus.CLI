@@ -147,7 +147,7 @@ public class ListDatasetServiceTests
         List<string> expectedDatasets =
         [
             ADDRESS, COMMERCE, COMPANY, DATABASE, DATE, FINANCE,
-            HACKER, IMAGES, INTERNET, LOREM, NAME, PHONE,
+            HACKER, IMAGES, INTERNET, LOREM, MUSIC, NAME, PERSON, PHONE,
             RANDOM, RANT, SYSTEM, VEHICLE
         ];
 

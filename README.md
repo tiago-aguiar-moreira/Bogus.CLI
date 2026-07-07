@@ -45,7 +45,9 @@ bogus dataset name.fullName internet.email phone.number --count 5
 | images | Image URLs and data URIs from various providers |
 | internet | Emails, URLs, IPs, usernames, passwords, and more |
 | lorem | Words, sentences, paragraphs, and placeholder text |
+| music | Music genres |
 | name | First names, last names, full names, and job titles |
+| person | Names, contact info, and demographics for a fake person |
 | phone | Phone numbers and format patterns |
 | random | Primitive values, GUIDs, hashes, and random strings |
 | rant | Opinionated product reviews |

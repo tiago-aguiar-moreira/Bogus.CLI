@@ -22,7 +22,9 @@ public class DatasetServiceTests
     private readonly Mock<IImagesDatasetService> _fakeDataImagesServiceMock;
     private readonly Mock<IInternetDatasetService> _fakeDataInternetServiceMock;
     private readonly Mock<ILoremDatasetService> _fakeDataLoremServiceMock;
+    private readonly Mock<IMusicDatasetService> _fakeDataMusicServiceMock;
     private readonly Mock<INameDatasetService> _fakeDataNameServiceMock;
+    private readonly Mock<IPersonDatasetService> _fakeDataPersonServiceMock;
     private readonly Mock<IPhoneDatasetService> _fakeDataPhoneServiceMock;
     private readonly Mock<IRantDatasetService> _fakeDataRantServiceMock;
     private readonly Mock<IRandomDatasetService> _fakeDataRandomServiceMock;
@@ -44,7 +46,9 @@ public class DatasetServiceTests
         _fakeDataImagesServiceMock = new Mock<IImagesDatasetService>();
         _fakeDataInternetServiceMock = new Mock<IInternetDatasetService>();
         _fakeDataLoremServiceMock = new Mock<ILoremDatasetService>();
+        _fakeDataMusicServiceMock = new Mock<IMusicDatasetService>();
         _fakeDataNameServiceMock = new Mock<INameDatasetService>();
+        _fakeDataPersonServiceMock = new Mock<IPersonDatasetService>();
         _fakeDataPhoneServiceMock = new Mock<IPhoneDatasetService>();
         _fakeDataRantServiceMock = new Mock<IRantDatasetService>();
         _fakeDataRandomServiceMock = new Mock<IRandomDatasetService>();
@@ -64,7 +68,9 @@ public class DatasetServiceTests
             _fakeDataImagesServiceMock.Object,
             _fakeDataInternetServiceMock.Object,
             _fakeDataLoremServiceMock.Object,
+            _fakeDataMusicServiceMock.Object,
             _fakeDataNameServiceMock.Object,
+            _fakeDataPersonServiceMock.Object,
             _fakeDataPhoneServiceMock.Object,
             _fakeDataRantServiceMock.Object,
             _fakeDataRandomServiceMock.Object,
@@ -817,6 +823,91 @@ public class DatasetServiceTests
             .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
 
         _fakeDataPhoneServiceMock
+            .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
+    }
+
+    [Theory]
+    [InlineData(MusicProperty.GENRE, "genre")]
+    public void ExecuteCommand_MusicDataset_ShouldBeOk(string propertyName, string alias)
+    {
+        // Arrange
+        var datasetName = MUSIC;
+        var datasets = new string[] { $"{datasetName}.{propertyName}={alias}" };
+        var rowsCount = 10;
+        IDictionary<string, object> parameters = new Dictionary<string, object>();
+
+        _datasetHelperMock
+            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias, out parameters))
+            .Returns(true);
+
+        _datasetHelperMock
+            .Setup(s => s.DatasetExists(It.IsAny<string>()))
+            .Returns(true);
+
+        _datasetHelperMock
+            .Setup(s => s.PropertyExists(It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
+
+        _fakeDataMusicServiceMock
+            .Setup(s => s.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
+            .Returns("Rock");
+
+        // Act
+        _datasetService.ExecuteCommand(datasets, rowsCount, null, _onInsertMock.Object);
+
+        // Assert
+        _onInsertMock.Verify(v => v.Invoke(It.IsAny<List<(string Value, string Alias)>>()), Times.Exactly(rowsCount));
+
+        _fakeDataMusicServiceMock
+            .Verify(v => v.Generate(propertyName, new Dictionary<string, object>()), Times.Exactly(rowsCount));
+
+        _fakeDataLoremServiceMock
+            .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
+
+        _fakeDataPersonServiceMock
+            .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
+    }
+
+    [Theory]
+    [InlineData(PersonProperty.FIRST_NAME, "firstName")]
+    [InlineData(PersonProperty.EMAIL, "email")]
+    public void ExecuteCommand_PersonDataset_ShouldBeOk(string propertyName, string alias)
+    {
+        // Arrange
+        var datasetName = PERSON;
+        var datasets = new string[] { $"{datasetName}.{propertyName}={alias}" };
+        var rowsCount = 10;
+        IDictionary<string, object> parameters = new Dictionary<string, object>();
+
+        _datasetHelperMock
+            .Setup(s => s.TryParseDataset(It.IsAny<string>(), out datasetName, out propertyName, out alias, out parameters))
+            .Returns(true);
+
+        _datasetHelperMock
+            .Setup(s => s.DatasetExists(It.IsAny<string>()))
+            .Returns(true);
+
+        _datasetHelperMock
+            .Setup(s => s.PropertyExists(It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
+
+        _fakeDataPersonServiceMock
+            .Setup(s => s.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
+            .Returns("abcde");
+
+        // Act
+        _datasetService.ExecuteCommand(datasets, rowsCount, null, _onInsertMock.Object);
+
+        // Assert
+        _onInsertMock.Verify(v => v.Invoke(It.IsAny<List<(string Value, string Alias)>>()), Times.Exactly(rowsCount));
+
+        _fakeDataPersonServiceMock
+            .Verify(v => v.Generate(propertyName, new Dictionary<string, object>()), Times.Exactly(rowsCount));
+
+        _fakeDataLoremServiceMock
+            .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
+
+        _fakeDataMusicServiceMock
             .Verify(v => v.Generate(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Never);
     }
 
