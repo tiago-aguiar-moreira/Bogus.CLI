@@ -11,7 +11,7 @@
 	  <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 	  <PackageId>BogusCLI</PackageId>
 	  <Product>Bogus CLI</Product>
-	  <Version>2.2.0</Version>
+	  <Version>2.3.0</Version>
 	  <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 	  <Description>Bogus.CLI is a command-line tool built on the powerful Bogus library by Brian Chavez. It simplifies fake data generation, allowing you to create flexible and efficient data directly from your terminal.</Description>
 	  <PackageTags>bogus, faker, fake, cli, data-generation</PackageTags>
@@ -19,7 +19,7 @@
 	  <RepositoryUrl>https://github.com/tiago-aguiar-moreira/Bogus.CLI</RepositoryUrl>
 	  <ProjectUrl></ProjectUrl>
 	  <License>MIT</License>
-	  <ReleaseNotes>Migrates target framework from .NET 8 to .NET 10 across all projects. Requires the .NET 10 runtime to run.</ReleaseNotes>
+	  <ReleaseNotes>Adds the music and person datasets.</ReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
