@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	  <IsPackable>true</IsPackable>
@@ -11,7 +11,7 @@
 	  <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 	  <PackageId>BogusCLI</PackageId>
 	  <Product>Bogus CLI</Product>
-	  <Version>2.1.3</Version>
+	  <Version>2.2.0</Version>
 	  <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 	  <Description>Bogus.CLI is a command-line tool built on the powerful Bogus library by Brian Chavez. It simplifies fake data generation, allowing you to create flexible and efficient data directly from your terminal.</Description>
 	  <PackageTags>bogus, faker, fake, cli, data-generation</PackageTags>
@@ -19,7 +19,7 @@
 	  <RepositoryUrl>https://github.com/tiago-aguiar-moreira/Bogus.CLI</RepositoryUrl>
 	  <ProjectUrl></ProjectUrl>
 	  <License>MIT</License>
-	  <ReleaseNotes>AFixes version output: bogus --version now displays "Bogus CLI 2.1.3" instead of "Bogus.CLI.App 2.1.3+commit-hash".</ReleaseNotes>
+	  <ReleaseNotes>Migrates target framework from .NET 8 to .NET 10 across all projects. Requires the .NET 10 runtime to run.</ReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
