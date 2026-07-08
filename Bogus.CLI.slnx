@@ -1,0 +1,19 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path=".github/workflows/coveralls.yml" />
+    <File Path=".github/workflows/publish-tool.yml" />
+    <File Path=".gitignore" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Bogus.CLI.App/Bogus.CLI.App.csproj" />
+    <Project Path="src/Bogus.CLI.Core/Bogus.CLI.Core.csproj" />
+    <Project Path="src/Bogus.CLI.Infrastructure/Bogus.CLI.Infrastructure.csproj" />
+  </Folder>
+  <Project Path="tests/Bogus.CLI.Tests/Bogus.CLI.Tests.csproj" />
+</Solution>
